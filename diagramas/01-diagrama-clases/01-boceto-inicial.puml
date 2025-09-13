@@ -46,6 +46,9 @@ class Comentario {
   - texto: String
   - fechaHora: DateTime
   - autor: Usuario
+  + editarTexto(): 
+  + eliminar(): 
+  + mencionar(): 
 }
 
 class Adjunto {
@@ -54,6 +57,9 @@ class Adjunto {
   - url: String
   - tipo: String
   - fechaAdjunto: DateTime
+  + generarPreview():   
+  + descargar():          
+  + eliminar(): 
 }
 
 class Notificacion {
@@ -64,9 +70,16 @@ class Notificacion {
   - fechaHora: DateTime
   - destino: Usuario
   - resultado: String
+  + marcarLeida(): void
+  + programarEnvio(): void
+  + pendiente(): boolean
 }
 
 class ServicioNotificaciones {
+  - servicioId: UUID
+  - proveedor: String
+  - limiteDiario: int
+  - tiempoUltimoEnvio: DateTime
   + enviar(): boolean
 }
 

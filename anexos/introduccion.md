@@ -79,8 +79,9 @@ Es el mismo método, pero distinto comportamiento según el objeto.
 ## Casos de uso
 
 ### CU01 – Crear/Editar Proyecto (RF01)
-- **Actor principal:** Productor / Coordinador  
-- **Objetivo:** Registrar o actualizar un proyecto con los campos mínimos.  
+- **Actor principal:** Productor / Coordinador
+- **Actores secundarios:** Servicio de Notificaciones, cliente/administrador  
+- **Objetivo:** Registrar o actualizar un proyecto con sus datos mínimos y dejarlo disponible para seguimiento.  
 - **Precondiciones:** Usuario autenticado con permiso; el nombre del proyecto no debe estar duplicado.  
 - **Flujo principal:**  
   1. El actor navega a **Proyectos** y selecciona **Nuevo** o **Editar**.  
@@ -89,69 +90,79 @@ Es el mismo método, pero distinto comportamiento según el objeto.
   4. El sistema **valida** (obligatorios, formato de fechas, duplicados de nombre).  
   5. Si hay errores, el sistema **resalta** los campos inválidos y muestra mensajes.  
   6. El actor **corrige** y reenvía.  
-  7. El sistema **persiste** el proyecto y registra auditoría (quién/cuándo).  
-  8. El sistema **confirma** y redirige al detalle del proyecto.  
-- **Flujos alternativos:** Campos obligatorios incompletos o nombre duplicado → rechazo con mensaje.  
+  7. El sistema **persiste** el proyecto y registra auditoría (quién/cuándo).
+  8. El **Servicio de Notificaciones** envía aviso de "proyecto creado/editado" al cliente y/o administrador.  
+  9. El sistema **confirma** y redirige al detalle del proyecto.  
+- **Flujos alternativos:** Campos obligatorios incompletos o nombre duplicado → rechazo con mensaje, volver a paso 3.  
 - **Postcondiciones:** Proyecto persistido y disponible en listados/tablero.
 
 ---
 
 ### CU02 – Gestionar Etapas de un Proyecto (RF02)
-- **Actor principal:** Coordinador  
+- **Actor principal:** Coordinador
+- **Actores secundarios:** Usuario responsable *(persona asignada a etapa)*, servicio de notificaciones.  
 - **Objetivo:** Agregar, editar o eliminar etapas de un proyecto.  
 - **Precondiciones:** Proyecto existente; actor con permisos.  
 - **Flujo principal:**  
-  1. El actor abre el **detalle del proyecto** y selecciona **Gestionar etapas**.  
+  1. El coordinador abre el **detalle del proyecto** y selecciona **Gestionar etapas**.  
   2. El sistema muestra la **lista de etapas** (si existen).  
-  3. El actor elige **Agregar**, **Editar** o **Eliminar**.  
+  3. El coordinador elige **Agregar**, **Editar** o **Eliminar**.  
   4. El sistema despliega formulario con **nombre, responsable, estado, fechas estimadas, observaciones**.  
-  5. El actor completa o modifica los campos y confirma.  
+  5. El coordinador completa o modifica los campos y confirma.  
   6. El sistema **valida** (responsable válido, fechas coherentes, estado permitido).  
-  7. El sistema **guarda** los cambios y registra el evento (alta/edición/baja).  
-  8. El sistema **actualiza** la lista y muestra confirmación.  
-- **Flujos alternativos:** Responsable inexistente o fechas inválidas → rechazo con mensaje.  
+  7. El sistema **guarda** los cambios y registra el evento (alta/edición/baja).
+  8. El **servicio de notificaciones** envía aviso al **usuario responsable** asignado afectado por la modificación.  
+  9. El sistema **actualiza** la lista y muestra confirmación al coordinador.  
+- **Flujos alternativos:** Responsable inexistente o fechas inválidas → rechazo con mensaje, volver a paso 4.  
 - **Postcondiciones:** Etapas actualizadas y reflejadas en el tablero.
 
 ---
 
 ### CU03 – Asignar Responsable a Etapa (RF02, RF04, RF06)
-- **Actor principal:** Coordinador  
+- **Actor principal:** Coordinador
+- **Actores secundarios:** usuario responsable, servicio de notificaciones.  
 - **Objetivo:** Asignar o cambiar el responsable de una etapa y notificarlo.  
-- **Precondiciones:** Etapa existente; usuario válido en el sistema.  
+- **Precondiciones:** Etapa existente; usuario válido en el sistema, coordinador autenticado con permisos para asignar responsables.  
 - **Flujo principal:**  
-  1. El actor abre el **detalle** del proyecto y selecciona una etapa.  
+  1. El coordinador abre el **detalle** del proyecto y selecciona una etapa.  
   2. El sistema muestra los datos actuales de la etapa.  
-  3. El actor hace clic en **Asignar/Cambiar responsable**.  
+  3. El coordinador selecciona en **Asignar/Cambiar responsable**.  
   4. El sistema despliega un **selector de usuarios**.  
-  5. El actor elige al responsable y confirma.  
+  5. El coordinador elige al responsable y confirma.  
   6. El sistema valida el usuario y actualiza la etapa.  
   7. El sistema registra el cambio en el **historial** (quién, a quién, cuándo).  
-  8. El sistema dispara una **notificación** al nuevo responsable.  
+  8. El **servicio de notificaciones** envía un aviso al **usuario responsable** indicando la asignación/cambio.
+  9. El sistema muestra confirmación al coordinador.  
 - **Flujos alternativos:** Usuario inactivo o sin permisos → rechazo.  
-- **Postcondiciones:** Responsable asignado; notificación enviada; historial actualizado.
+- **Postcondiciones:** Responsable asignado; notificación enviada a usuario responsable; historial actualizado.
 
 ---
 
 ### CU04 – Cambiar Estado de Etapa (RF02, RF04, RF06)
-- **Actor principal:** Responsable de la etapa / Coordinador  
-- **Objetivo:** Modificar el estado de una etapa respetando reglas de negocio.  
-- **Precondiciones:** Etapa existente; usuario con permisos.  
+- **Actor principal:** Responsable de la etapa / Coordinador
+- **Actores secundarios:** Servicio de notificaciones, coordinador (si el cambio lo hace el responsable de etapa).  
+- **Objetivo:** Modificar el estado de una etapa respetando reglas de negocio establecidas.  
+- **Precondiciones:** Etapa existente; usuario autenticado y con permisos.  
 - **Flujo principal:**  
   1. El actor abre el detalle de la etapa.  
   2. El sistema muestra estado actual y opciones: Pendiente, En curso, Finalizada.  
   3. El actor selecciona un nuevo estado y confirma.  
   4. El sistema valida reglas (p.ej. no finalizar si tareas incompletas).  
-  5. Si no se cumplen, muestra error.  
-  6. Si se cumplen, actualiza el estado.  
+  5. Si la validación falla, muestra error.  
+  6. Si es correcta, el sistema **actualiza el estado de la etapa**.  
   7. El sistema registra el cambio en **historial**.  
-  8. El sistema envía notificación a los interesados.  
+  8. El **servicio de notificaciones** envía notificación a los interesados.
+      - Si el cambio lo hizo el Responsable → se notifica al Coordinador.
+      - Si el cambio lo hizo el Coordinador → se notifica al Responsable.
+  9. El sistema muestra confirmación al actor principal.  
 - **Flujos alternativos:** Reglas incumplidas → no actualizar y avisar.  
 - **Postcondiciones:** Estado actualizado; historial y notificaciones registradas.
 
 ---
 
 ### CU05 – Consultar Reportes/Métricas (RF05, RNF06)
-- **Actor principal:** Productor / Coordinador  
+- **Actor principal:** Productor / Coordinador
+- **Actor secundario:** servicio de exportación    
 - **Objetivo:** Obtener métricas de proyectos y etapas con filtros.  
 - **Precondiciones:** Existencia de datos; usuario con permisos.  
 - **Flujo principal:**  
@@ -162,44 +173,49 @@ Es el mismo método, pero distinto comportamiento según el objeto.
   5. El sistema muestra visualizaciones (tabla/gráfico).  
   6. El actor aplica filtros adicionales o cambia parámetros.  
   7. El sistema actualiza resultados en ≤3 segundos.  
-  8. El actor exporta a PDF/CSV si desea.  
+  8. El actor exporta a PDF/CSV si desea.
+  9. El **servicio de exportación** genera el archivo en el formato seleccionado y lo entrega al actor.  
 - **Flujos alternativos:** Sin datos → mensaje “sin resultados”.  
-- **Postcondiciones:** Reporte visualizado/exportado.
+- **Postcondiciones:** Reporte visualizado/exportado, archivo exportado a PDF/CSV disponible para descarga.
 
 ---
 
 ### CU06 – Mostrar Tablero de Control (RF03)
-- **Actor principal:** Usuario autenticado  
+- **Actor principal:** Usuario autenticado
+- **Actor secundario:** Servicio de exportación  
 - **Objetivo:** Visualizar estado general de proyectos y etapas.  
 - **Precondiciones:** Usuario autenticado; datos registrados.  
 - **Flujo principal:**  
-  1. El actor abre **Tablero** desde menú.  
+  1. El usuario abre **Tablero** desde menú.  
   2. El sistema carga el resumen de proyectos.  
   3. El sistema muestra tarjetas con estado, avance y responsables.  
-  4. El actor aplica filtros (estado, cliente, tipo).  
+  4. El usuario aplica filtros (estado, cliente, tipo).  
   5. El sistema actualiza resultados.  
-  6. El actor expande un proyecto para ver etapas.  
+  6. El usuario expande un proyecto para ver etapas.  
   7. El sistema muestra detalles de etapas.  
-  8. El actor navega a detalle o exporta resumen.  
-- **Flujos alternativos:** Sin proyectos → mensaje “Crear proyecto”.  
-- **Postcondiciones:** Estado general visible; navegación habilitada.
+  8. El usuario selecciona exportar resumen.
+  9. El **servicio de exportación** genera el archivo y lo deja disponible para descargar.
+  10. El sistema confirma la acción. 
+- **Flujos alternativos:** Sin proyectos → mensaje "no hay proyectos" y ofrece “Crear proyecto”.  
+- **Postcondiciones:** Estado general visible; navegación habilitada, resumen exportado y disponible para descarga.
 
 ---
 
 ### CU07 – Enviar Notificaciones Automáticas (RF04, RF06)
-- **Actor principal:** Sistema de Notificaciones (mail/WhatsApp).  
-- **Objetivo:** Avisar a responsables ante eventos relevantes.  
-- **Precondiciones:** Usuario con canal definido; conexión con proveedor.  
+- **Actor principal:** Coordinador/Responsable de etapa
+- **Actores secundarios:** Servicio de notificaciones, destinatario  
+- **Objetivo:** Avisar automáticamente a los usuarios responsables ante eventos relevantes en proyectos o etapas.  
+- **Precondiciones:** Usuario con canal de notificación definido; conexión con servicio de notificaciones.  
 - **Flujo principal:**  
-  1. Ocurre evento (asignación de responsable o cambio de estado).  
-  2. El sistema identifica destinatarios.  
-  3. El sistema determina canal de notificación.  
+  1. El Coordinador o Responsable realiza una acción relevante (ej.: asignar responsable, cambiar estado).  
+  2. El sistema identifica destinatarios según el evento.  
+  3. El sistema determina canal de notificación según preferencias de cada usuario.  
   4. El sistema compone mensaje con datos del proyecto/etapa.  
-  5. El sistema envía la notificación.  
-  6. El proveedor devuelve resultado (éxito/fallo).  
-  7. El sistema registra el envío en historial.  
-  8. Si falla, reintenta o marca para revisión.  
-- **Flujos alternativos:** Usuario sin preferencia → canal por defecto; proveedor caído → reintento.  
+  5. El **servicio de notificaciones** envía la notificación al destinatario.  
+  6. El servicio de notificaciones devuelve resultado (éxito/fallo).  
+  7. El sistema registra el envío en historial de notificaciones.  
+  8. Si falla, reintenta o marca la notificación para revisión.  
+- **Flujos alternativos:** Usuario sin preferencia → canal por defecto; servicio de notificaciones caido → reintento.  
 - **Postcondiciones:** Notificación registrada; destinatarios informados.
 
 ## Boceto inicial del diseño de clases
