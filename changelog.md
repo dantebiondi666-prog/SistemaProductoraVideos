@@ -5,14 +5,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 ### Added
-- [release/actividad-obligatoria-1] Automatización de template para PR de release y organización en carpeta.
-  PR: [#25](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/25) - @dantebiondi666-prog (Coordinador de Repositorio y Documentador), Issue: [#26](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/26).
-### Fixed
-- [release/actividad-obligatoria-1] Corrección de boceto inicial de clases y archivo png en /diagramas y en introduccion.md.  
-PR: [#25](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/25) - @dantebiondi666-prog (Diseñador de clases iniciales), Issue: [#27](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/27).
-- [release/actividad-obligatoria-1] Corrección casos de uso en introduccion.md.  
-  PR: [#25](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/25) - @dantebiondi666-prog (Diseñador de clases iniciales), Issue: [#28](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/28).  
-
+### Fixed 
 
 ## [Release Actividad Obligatoria N°1] - (01-09-2025)
 
@@ -31,6 +24,12 @@ PR: [#25](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/25
 
 - [develop] Creacion y proteccion de ramas release y master para entrega final del proyecto.
   PR: [#24](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/24) - @dantebiondi666-prog (Coordinador de Repositorio y Documentador), Issue: [#23](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/23).
+
+- [release/actividad-obligatoria-1] Automatización de template para PR de release y organización en carpeta.
+  PR: [#25](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/25) - @dantebiondi666-prog (Coordinador de Repositorio y Documentador), Issue: [#26](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/26).
+
+- [backport/release-actividad-obligatoria-1] Backport a develop desde master mediante rama backport/release-actividad-obligatoria-1.
+  PR: [#30](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/30) - @dantebiondi666-prog (Coordinador de Repositorio y Documentador), Issue: [#29](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/29).
 
 
   
@@ -54,6 +53,11 @@ PR: [#25](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/25
 ### Fixed
 - [feature/analista-de-requerimientos-correciones] Corrección de requisito funcional repetido.  
   PR: [#13](https://github.com/facundohernanrodriguez/UCES-DOO-Grupo1/pull/13) - @dantebiondi666-prog (Analista de requerimientos), Issue: [#9](https://github.com/facundohernanrodriguez/UCES-DOO-Grupo1/issues/9).
+
+- [release/actividad-obligatoria-1] Corrección de boceto inicial de clases y archivo png en /diagramas y en introduccion.md.  
+PR: [#25](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/25) - @dantebiondi666-prog (Diseñador de clases iniciales), Issue: [#27](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/27).
+- [release/actividad-obligatoria-1] Corrección casos de uso en introduccion.md.  
+  PR: [#25](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/25) - @dantebiondi666-prog (Diseñador de clases iniciales), Issue: [#28](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/28).
 
 
 
