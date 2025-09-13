@@ -1,0 +1,95 @@
+@startuml Diagrama_Inicial
+title Boceto Inicial de Clases - Sistema Productora de Videos
+
+class Proyecto {
+  - projectId: UUID
+  - nombre: String
+  - cliente: String
+  - fechaInicioEstimada: Date
+  - fechaFinEstimada: Date
+  - estado: EstadoProyecto
+  - observaciones: String
+  + agregarEtapa()
+  + eliminarEtapa()
+  + obtenerDuracionPromedioEtapas(): Duration
+  + finalizarSiCorresponde(): void
+}
+
+class Etapa {
+  - stageId: UUID
+  - nombre: String
+  - estado: EstadoEtapa
+  - fechaInicioEstimada: Date
+  - fechaFinEstimada: Date
+  - fechaFinReal: Date
+  - observaciones: String
+  - responsable: Usuario
+  + asignarResponsable()
+  + cambiarEstado()
+  + agregarComentario()
+  + adjuntar()
+}
+
+class Usuario {
+  - userId: UUID
+  - nombre: String
+  - email: String
+  - rol: RolUsuario
+  - canalPreferido: CanalNotificacion
+  + puedeGestionarProyectos(): boolean
+  + puedeGestionarEtapas(): boolean
+  + notificar()
+}
+
+class Comentario {
+  - commentId: UUID
+  - texto: String
+  - fechaHora: DateTime
+  - autor: Usuario
+  + editarTexto(): 
+  + eliminar(): 
+  + mencionar(): 
+}
+
+class Adjunto {
+  - attachId: UUID
+  - titulo: String
+  - url: String
+  - tipo: String
+  - fechaAdjunto: DateTime
+  + generarPreview():   
+  + descargar():          
+  + eliminar(): 
+}
+
+class Notificacion {
+  - notificationId: UUID
+  - asunto: String
+  - mensaje: String
+  - canal: CanalNotificacion
+  - fechaHora: DateTime
+  - destino: Usuario
+  - resultado: String
+  + marcarLeida(): void
+  + programarEnvio(): void
+  + pendiente(): boolean
+}
+
+class ServicioNotificaciones {
+  - servicioId: UUID
+  - proveedor: String
+  - limiteDiario: int
+  - tiempoUltimoEnvio: DateTime
+  + enviar(): boolean
+}
+
+' ==== RELACIONES ====
+Proyecto "1" o-- "1..*" Etapa : contiene
+Etapa "0..*" o-- "0..*" Comentario : registra
+Etapa "0..*" o-- "0..*" Adjunto : adjunta
+Etapa "1" --> "1" Usuario : responsable
+Usuario --> ServicioNotificaciones : «usa»
+Notificacion --> Usuario : destino
+Notificacion --> Etapa : sobre
+
+@enduml
