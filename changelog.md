@@ -5,6 +5,19 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 ### Added
+- [feature/escenarios-de-casos-de-uso] Creación de rama, sub carpeta 03-escenarios-casos-de-uso, índice de los escenarios de casos de uso.
+PR: [#40] - @abartomioli (Especialista en Escenarios de casos de uso). (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/40) 
+Issue:
+   [#32] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/32) 
+   [#33] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/33)
+   [#34] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/34)
+   [#35] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/35)
+   [#36] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/36)
+   [#37] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/37)
+   [#38] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/38)
+   [#39] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/39)
+
+
 ### Fixed 
 
 ## [Release Actividad Obligatoria N°1] - (01-09-2025)
