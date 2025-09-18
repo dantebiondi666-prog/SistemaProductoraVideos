@@ -1,0 +1,12 @@
+@startuml
+left to right direction
+
+actor Usuario
+
+rectangle "Sistema de Gestión de Proyectos de Video" {
+  Usuario --> (Subir Video)
+  (Subir Video) .> (Validar Formato) : <<include>>
+  (Subir Video) .> (Guardar en Servidor) : <<include>>
+}
+@enduml
+

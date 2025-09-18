@@ -1,0 +1,13 @@
+@startuml
+left to right direction
+
+actor Usuario
+actor Invitado
+
+rectangle "Sistema de Gestión de Proyectos de Video" {
+  Usuario --> (Ver Videos)
+  Invitado --> (Ver Videos)
+  (Ver Videos) .> (Buscar Video) : <<include>>
+  (Ver Videos) .> (Filtrar por Categoría) : <<extend>>
+}
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+left to right direction
+
+actor Administrador
+
+rectangle "Sistema de Gestión de Proyectos de Video" {
+  Administrador --> (Generar Reporte)
+  (Generar Reporte) .> (Filtrar Datos) : <<include>>
+  (Generar Reporte) .> (Exportar PDF) : <<extend>>
+}
+@enduml
