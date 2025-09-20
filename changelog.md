@@ -5,6 +5,19 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 ### Added
+
+- [feature/modelador-diag-casos-uso] Creación de rama, creacion de carpeta 02-caso-de-uso creacion de diagramas en puml, export a png y creacion del indice.  
+  PR: [#54](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/54) - @juanmartinbritos7-cmd (Modelador de diagrama de casos de uso), 
+  Issue: 
+    [#46](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/46), 
+    [#47](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/47), 
+    [#48](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/48), 
+    [#49](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/49), 
+    [#50](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/50), 
+    [#51](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/51), 
+    [#52](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/52), 
+    [#53](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/53).
+
 - [feature/escenarios-de-casos-de-uso] Creación de rama, sub carpeta 03-escenarios-casos-de-uso, índice de los escenarios de casos de uso.
 PR: [#40] - @abartomioli (Especialista en Escenarios de casos de uso). (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/40) 
 Issue:

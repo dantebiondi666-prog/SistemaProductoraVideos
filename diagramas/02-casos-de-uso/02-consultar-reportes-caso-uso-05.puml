@@ -1,0 +1,11 @@
+@startuml
+left to right direction
+
+actor Usuario
+
+rectangle "Sistema de Gestión de Proyectos de Video" {
+  Usuario --> (Comentar Video)
+  (Comentar Video) .> (Ver Videos) : <<extend>>
+  (Comentar Video) .> (Notificar Autor) : <<include>>
+}
+@enduml

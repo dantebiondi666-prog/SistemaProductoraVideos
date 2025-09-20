@@ -1,0 +1,9 @@
+@startuml CU07_Notificaciones
+actor SistemaNotificaciones as SN
+
+rectangle "Sistema de Gestión de Proyectos" {
+  (Evento de Cambio) --> SN
+  SN --> (Enviar Notificación)
+  (Enviar Notificación) .> (Registrar Envío) : <<include>>
+}
+@enduml
