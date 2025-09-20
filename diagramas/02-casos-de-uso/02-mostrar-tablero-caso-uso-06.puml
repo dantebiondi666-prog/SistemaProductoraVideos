@@ -1,0 +1,9 @@
+@startuml CU06_MostrarTablero
+actor Usuario
+
+rectangle "Sistema de Gestión de Proyectos" {
+  Usuario --> (Mostrar Tablero)
+  (Mostrar Tablero) .> (Filtrar Información) : <<extend>>
+  (Mostrar Tablero) .> (Ver Detalle Proyecto) : <<extend>>
+}
+@enduml
