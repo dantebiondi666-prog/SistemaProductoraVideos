@@ -5,6 +5,9 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 ### Added
+- [feature/diseniador-tarjetas-crc-add-tarjeta-clase-lote-1]  
+  Creación de 5 tarjetas CRC (Proyecto, Etapa, Usuario, Notificación, Comentario) y actualización del índice `herramientas_agile.md`.  
+  Issues: #41, #42, #43, #44, #45 · Autor: @leanlex · Rol: Diseñador de Tarjetas CRC
 
 - [feature/modelador-diag-casos-uso] Creación de rama, creacion de carpeta 02-caso-de-uso creacion de diagramas en puml, export a png y creacion del indice.  
   PR: [#54](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/54) - @juanmartinbritos7-cmd (Modelador de diagrama de casos de uso), 
