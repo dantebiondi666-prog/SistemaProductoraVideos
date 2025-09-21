@@ -27,3 +27,4 @@ Este sistema (basado en el paradigma Orientado a Objetos) busca resolver problem
 
 - [Anexos](/anexos/anexos.md)
 - [Diagramas UML](/diagramas/diagramasUML.md)
+- [Herramientas Agile](/herramientas-agile/herramientas_agile.md)
