@@ -4,6 +4,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 
 ## [Unreleased]
+
+
+## [Release Actividad Obligatoria N°2] - (21-09-2025)
+
 ### Added
 
 - [feature/coord-documentador-repositorio] Creación de rama y archivo diagramasUML.md. Actualización de readme.md.  
