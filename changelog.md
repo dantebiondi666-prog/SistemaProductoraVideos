@@ -5,6 +5,13 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 ### Added
+
+- [feature/coord-documentador-repositorio] Creación de rama y archivo diagramasUML.md. Actualización de readme.md.  
+  PR: [#60](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/60) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: 
+  [#57](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/57)
+  [#58](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/58)
+
 - [feature/diseniador-tarjetas-crc-add-tarjeta-clase-lote-1] Creación de 5 tarjetas CRC (Proyecto, Etapa, Usuario, Notificación, Comentario) y actualización del índice herramientas_agile.md.  
   PR: [#55](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/55) - @leanlex (Diseñador de tarjetas CRC)
   Issues:
@@ -39,7 +46,13 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
    [#39](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/39)
 
 
-### Fixed 
+### Changed
+
+- [feature/coord-documentador-repositorio] Corrección de changelog.md y corrección de estructura indices de diagramas de caso de uso, escenarios de caso de uso y tarjetas CRC.  
+  PR: [#60](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/60) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: 
+  [#56](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/56)
+  [#59](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/59)
 
 ## [Release Actividad Obligatoria N°1] - (01-09-2025)
 
