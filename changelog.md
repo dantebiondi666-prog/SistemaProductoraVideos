@@ -5,20 +5,25 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 ### Added
-- [feature/diseniador-tarjetas-crc-add-tarjeta-clase-lote-1]  
-  Creación de 5 tarjetas CRC (Proyecto, Etapa, Usuario, Notificación, Comentario) y actualización del índice `herramientas_agile.md`.  
-  PR: [#55](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/55)
+
+- [feature/coord-documentador-repositorio] Creación de rama y archivo diagramasUML.md. Actualización de readme.md.  
+  PR: [#60](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/60) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: 
+  [#57](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/57)
+  [#58](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/58)
+
+- [feature/diseniador-tarjetas-crc-add-tarjeta-clase-lote-1] Creación de 5 tarjetas CRC (Proyecto, Etapa, Usuario, Notificación, Comentario) y actualización del índice herramientas_agile.md.  
+  PR: [#55](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/55) - @leanlex (Diseñador de tarjetas CRC)
   Issues:
-   [#41] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/41)
-   [#42] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/42)
-   [#43] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/43)
-   [#44] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/44)
-   [#45] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/45)
-   · Autor: @leanlex · Rol: Diseñador de Tarjetas CRC
+   [#41](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/41)
+   [#42](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/42)
+   [#43](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/43)
+   [#44](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/44)
+   [#45](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/45)
 
 - [feature/modelador-diag-casos-uso] Creación de rama, creacion de carpeta 02-caso-de-uso creacion de diagramas en puml, export a png y creacion del indice.  
   PR: [#54](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/54) - @juanmartinbritos7-cmd (Modelador de diagrama de casos de uso), 
-  Issue: 
+  Issues: 
     [#46](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/46), 
     [#47](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/47), 
     [#48](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/48), 
@@ -27,21 +32,27 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
     [#51](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/51), 
     [#52](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/52), 
     [#53](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/53).
-
+    
 - [feature/escenarios-de-casos-de-uso] Creación de rama, sub carpeta 03-escenarios-casos-de-uso, índice de los escenarios de casos de uso.
-PR: [#40] - @abartomioli (Especialista en Escenarios de casos de uso). (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/40) 
-Issue:
-   [#32] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/32) 
-   [#33] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/33)
-   [#34] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/34)
-   [#35] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/35)
-   [#36] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/36)
-   [#37] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/37)
-   [#38] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/38)
-   [#39] (https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/39)
+  PR: [#40](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/40) - @abartomioli (Especialista en Escenarios de casos de uso). 
+  Issues:
+   [#32](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/32) 
+   [#33](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/33)
+   [#34](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/34)
+   [#35](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/35)
+   [#36](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/36)
+   [#37](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/37)
+   [#38](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/38)
+   [#39](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/39)
 
 
-### Fixed 
+### Changed
+
+- [feature/coord-documentador-repositorio] Corrección de changelog.md y corrección de estructura indices de diagramas de caso de uso, escenarios de caso de uso y tarjetas CRC.  
+  PR: [#60](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/60) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: 
+  [#56](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/56)
+  [#59](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/59)
 
 ## [Release Actividad Obligatoria N°1] - (01-09-2025)
 
