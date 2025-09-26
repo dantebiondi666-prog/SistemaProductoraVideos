@@ -5,6 +5,11 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+### Changed
+
+- [release/actividad-obligatoria-2] Corrección de todos los diagramas de casos de uso, export de sus respectivos archivos .png y corrección de índice repetido en diagramas_casos_de_uso.md.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#62](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/62)
 
 ## [Release Actividad Obligatoria N°2] - (21-09-2025)
 
