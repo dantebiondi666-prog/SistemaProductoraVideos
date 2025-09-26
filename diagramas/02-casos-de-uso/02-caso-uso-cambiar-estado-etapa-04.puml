@@ -1,0 +1,46 @@
+@startuml Cambiar_Estado_de_Etapa
+title CU04 – Cambiar Estado de Etapa (RF02, RF04, RF06)
+left to right direction
+
+
+actor "Responsable de la etapa" as Responsable
+actor Coordinador
+actor "Servicio de Notificaciones" as Notif
+
+rectangle "Gestión de Etapas" {
+  usecase "CU04 Cambiar estado de etapa" as CU04
+  usecase "Validar reglas de negocio" as UC_Validar
+  usecase "Actualizar estado de la etapa" as UC_Actualizar
+  usecase "Registrar historial" as UC_Historial
+  usecase "Notificar interesados" as UC_Notificar
+  usecase "Confirmar al actor" as UC_Confirmar
+  usecase "Mostrar errores de validación" as UC_Errores
+  usecase "Registrar observaciones/incidencias" as UC_Obs
+  usecase "Adjuntar link a material" as UC_Link
+  usecase "Alertar retraso" as UC_Retraso
+  usecase "Notificar al Coordinador" as UC_NotifCoord
+  usecase "Notificar al Responsable" as UC_NotifResp
+}
+
+Responsable --> CU04
+Coordinador --> CU04
+
+CU04 .> UC_Validar   : <<include>>
+CU04 .> UC_Actualizar: <<include>>
+CU04 .> UC_Historial : <<include>>
+CU04 .> UC_Notificar : <<include>>
+CU04 .> UC_Confirmar : <<include>>
+
+
+UC_Validar <.. UC_Errores : <<extend>> 
+CU04 <.. UC_Obs    : <<extend>> 
+CU04 <.. UC_Link   : <<extend>>
+CU04 <.. UC_Retraso: <<extend>> 
+
+UC_Notificar --> Notif
+UC_Notificar .> UC_NotifCoord : <<extend>> 
+UC_Notificar .> UC_NotifResp  : <<extend>> 
+Coordinador  <-- UC_NotifCoord
+Responsable  <-- UC_NotifResp
+
+@enduml

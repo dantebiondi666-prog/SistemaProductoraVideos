@@ -1,0 +1,51 @@
+@startuml Crear/Editar_Proyecto
+title CU01 – Crear/Editar Proyecto (RF01)
+left to right direction
+
+
+actor Coordinador
+actor Productor
+actor "Servicio de Notificaciones" as Notif
+actor Cliente
+actor Administrador
+
+rectangle "Gestión de Proyectos" {
+  
+  usecase "CU01 Crear/Editar Proyecto" as CU01
+  usecase "Crear Proyecto" as UC_Crear
+  usecase "Editar Proyecto" as UC_Editar
+  UC_Crear -> CU01
+  UC_Editar -> CU01
+
+  
+  usecase "Validar datos del proyecto" as UC_Validar
+  usecase "Persistir proyecto" as UC_Persistir
+  usecase "Registrar auditoría" as UC_Auditoria
+  usecase "Notificar creación/edición" as UC_Notificar
+  usecase "Confirmar y redirigir al detalle" as UC_Confirmar
+  usecase "Mostrar errores de validación" as UC_Errores
+  usecase "Definir etapas de trabajo" as UC_Etapas
+  usecase "Registrar datos del cliente" as UC_DatosCliente
+  usecase "Cerrar proyecto" as UC_Cerrar
+  usecase "Clonar proyecto similar" as UC_Clonar
+}
+
+
+Productor --> CU01
+Coordinador --> CU01
+CU01 .> UC_Validar   : <<include>>
+CU01 .> UC_Persistir : <<include>>
+CU01 .> UC_Auditoria : <<include>>
+CU01 .> UC_Notificar : <<include>>
+CU01 .> UC_Confirmar : <<include>>
+UC_Crear .> UC_Etapas : <<include>>
+UC_Validar <.. UC_Errores : <<extend>> 
+UC_Editar  <.. UC_DatosCliente : <<extend>> 
+UC_Editar  <.. UC_Cerrar       : <<extend>> 
+UC_Crear   <.. UC_Clonar       : <<extend>> 
+
+UC_Notificar --> Notif
+Cliente <-- UC_Notificar
+Administrador <-- UC_Notificar
+
+@enduml

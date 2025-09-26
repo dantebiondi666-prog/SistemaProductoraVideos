@@ -1,0 +1,35 @@
+@startuml Consultar_Reportes/Métricas
+title CU05 – Consultar Reportes/Métricas (RF05, RNF06)
+left to right direction
+
+actor Productor
+actor Coordinador
+actor "Servicio de Exportación" as Export
+
+rectangle "Reportes & Métricas" {
+  usecase "CU05 Consultar reportes/métricas" as CU05
+  usecase "Configurar y aplicar filtros" as UC_Filtros
+  usecase "Consultar datos y calcular métricas" as UC_Calcular
+  usecase "Mostrar visualizaciones (tabla/gráfico)" as UC_Mostrar
+  usecase "Actualizar resultados (<=3s)" as UC_Actualizar
+  usecase "Mostrar 'sin resultados'" as UC_SinDatos
+  usecase "Calcular estadísticas detalladas" as UC_Detalle
+  usecase "Exportar reporte (PDF/CSV)" as UC_Exportar
+  usecase "Generar archivo exportado" as UC_Generar
+}
+
+
+Productor  --> CU05
+Coordinador --> CU05
+CU05 .> UC_Filtros    : <<include>>
+CU05 .> UC_Calcular   : <<include>>
+CU05 .> UC_Mostrar    : <<include>>
+CU05 .> UC_Actualizar : <<include>>
+UC_Exportar .> UC_Generar : <<include>>
+UC_Generar --> Export
+
+UC_Calcular <.. UC_SinDatos : <<extend>>
+CU05 <.. UC_Detalle  : <<extend>> 
+CU05 <.. UC_Exportar : <<extend>> 
+
+@enduml
