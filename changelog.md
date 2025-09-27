@@ -19,6 +19,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#64](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/64)
 
+- [release/actividad-obligatoria-2] Corrección del índice herramientas_agile.md y creacion de tarjetas-crc.md para correcta estructuración de carpetas.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#65](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/65)
+
 
 
 ## [Release Actividad Obligatoria N°2] - (21-09-2025)
