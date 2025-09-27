@@ -11,9 +11,15 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#62](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/62)
 
-  - [release/actividad-obligatoria-2] Corrección de todos los escenarios de casos de uso en la parte de informacion para los pasos y aspectos sobresalientes. Corrección de los indices y la nomeclatura de los archivos.  
+- [release/actividad-obligatoria-2] Corrección de todos los escenarios de casos de uso en la parte de informacion para los pasos y aspectos sobresalientes. Corrección de los indices y la nomeclatura de los archivos.  
   PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#63](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/63)
+
+- [release/actividad-obligatoria-2] Corrección de los diagramas de caso de uso, reestructurando las flechas para evitar entrecruzamientos. Export de nuevos png.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#64](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/64)
+
+
 
 ## [Release Actividad Obligatoria N°2] - (21-09-2025)
 
