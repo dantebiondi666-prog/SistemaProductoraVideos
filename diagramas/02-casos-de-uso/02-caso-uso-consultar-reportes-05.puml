@@ -16,20 +16,35 @@ rectangle "Reportes & Métricas" {
   usecase "Calcular estadísticas detalladas" as UC_Detalle
   usecase "Exportar reporte (PDF/CSV)" as UC_Exportar
   usecase "Generar archivo exportado" as UC_Generar
-}
 
+  ' --- Flechas ocultas para ordenar y evitar cruces ---
+  CU05       -[hidden]-> UC_Filtros
+  UC_Filtros -[hidden]-> UC_Calcular
+  UC_Calcular-[hidden]-> UC_Mostrar
+  UC_Mostrar -[hidden]-> UC_Actualizar
+
+  UC_SinDatos -[hidden]-> UC_Calcular
+  UC_Detalle  -[hidden]-> UC_Mostrar
+
+  UC_Exportar -[hidden]-> UC_Generar
+}
 
 Productor  --> CU05
 Coordinador --> CU05
+
 CU05 .> UC_Filtros    : <<include>>
 CU05 .> UC_Calcular   : <<include>>
 CU05 .> UC_Mostrar    : <<include>>
 CU05 .> UC_Actualizar : <<include>>
+
 UC_Exportar .> UC_Generar : <<include>>
 UC_Generar --> Export
 
 UC_Calcular <.. UC_SinDatos : <<extend>>
-CU05 <.. UC_Detalle  : <<extend>> 
-CU05 <.. UC_Exportar : <<extend>> 
+CU05 <.. UC_Detalle  : <<extend>>
+CU05 <.. UC_Exportar : <<extend>>
+
+' --- Flecha oculta extra para espaciar actor externo ---
+Export -[hidden]-> Productor
 
 @enduml
