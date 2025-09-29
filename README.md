@@ -19,9 +19,12 @@ Este sistema (basado en el paradigma Orientado a Objetos) busca resolver problem
 |-------------------------|------------|----------------------------|
 | Dante Biondi           | 156462      | @dantebiondi666-prog       |
 | Juan Martin Britos     | 155984     | @juanmartinbritos7-cmd                 |  
-|      |      |                  |
-
+|Alejandro Bartomioli      |153041      |@abartomioli                  |
+|Leandro Berro      |155667      |@leanlex                  |
+|                   |               |                       |           |
 
 ## Diagramas y Diseños
 
 - [Anexos](/anexos/anexos.md)
+- [Diagramas UML](/diagramas/diagramasUML.md)
+- [Herramientas Agile](/herramientas-agile/herramientas_agile.md)

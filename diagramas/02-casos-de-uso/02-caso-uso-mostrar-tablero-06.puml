@@ -1,0 +1,68 @@
+@startuml Mostrar_Tablero_de_Control
+title CU06 – Mostrar Tablero de Control (RF03)
+left to right direction
+
+actor Productor
+actor Coordinador
+actor "Servicio de Exportación" as Export
+
+rectangle "Tablero de Control" {
+  usecase "CU06 Mostrar tablero de control" as CU06
+  usecase "Cargar resumen de proyectos" as UC_Cargar
+  usecase "Mostrar tarjetas/indicadores" as UC_Mostrar
+
+  usecase "Filtrar información" as UC_Filtrar
+  usecase "Actualizar resultados" as UC_Actualizar
+
+  usecase "Ver detalle de proyecto" as UC_Detalle
+  usecase "Ver etapas (tabla)" as UC_Etapas
+  usecase "Ver historial de cambios" as UC_Historial
+
+  usecase "Consultar estadísticas detalladas" as UC_Estad
+  usecase "Exportar resumen (PDF/CSV)" as UC_Exportar
+  usecase "Generar archivo exportado" as UC_Generar
+
+  usecase "Mostrar 'no hay proyectos'" as UC_SinProy
+
+  ' --- Flechas ocultas para ordenar y evitar cruces ---
+  CU06       -[hidden]-> UC_Cargar
+  UC_Cargar  -[hidden]-> UC_Mostrar
+
+  UC_Filtrar -[hidden]-> UC_Actualizar
+  CU06       -[hidden]-> UC_Filtrar
+
+  CU06       -[hidden]-> UC_Detalle
+  UC_Detalle -[hidden]-> UC_Etapas
+  UC_Etapas  -[hidden]-> UC_Historial
+
+  CU06       -[hidden]-> UC_Estad
+  CU06       -[hidden]-> UC_Exportar
+  UC_Exportar-[hidden]-> UC_Generar
+
+  UC_SinProy -[hidden]-> UC_Cargar
+}
+
+Productor  --> CU06
+Coordinador --> CU06
+
+CU06 .> UC_Cargar  : <<include>>
+CU06 .> UC_Mostrar : <<include>>
+
+CU06 <.. UC_Filtrar : <<extend>>
+UC_Filtrar .> UC_Actualizar : <<include>>
+
+CU06 <.. UC_Detalle : <<extend>>
+UC_Detalle .> UC_Etapas    : <<include>>
+UC_Detalle .> UC_Historial : <<include>>
+
+CU06 <.. UC_Estad    : <<extend>>
+CU06 <.. UC_Exportar : <<extend>>
+UC_Exportar .> UC_Generar : <<include>>
+UC_Generar --> Export
+
+UC_Cargar <.. UC_SinProy : <<extend>>
+
+' --- Flecha oculta extra para espaciar actor externo ---
+Export -[hidden]-> Productor
+
+@enduml
