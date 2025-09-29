@@ -5,7 +5,17 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+### Added
+
+- [release/actividad-obligatoria-2] Creación de tarjetas CRC faltantes para clases adjunto y servicio de notificaciones.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#67](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/67)
+
 ### Changed
+
+- [release/actividad-obligatoria-2] Corrección de las tarjetas CRC 01 y 03, quitando los id's. Re-redacción de pensamiento de objeto en tarjeta CRC 1.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#68](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/68)
 
 - [release/actividad-obligatoria-2] Corrección de todos los diagramas de casos de uso, export de sus respectivos archivos .png y corrección de índice repetido en diagramas_casos_de_uso.md.  
   PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
