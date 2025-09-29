@@ -11,12 +11,12 @@
 
 | **Pasos desempeñados (ruta principal)** | **Información para los pasos** |
 |---|---|
-| 1. Navegar y seleccionar la opción. | El actor accede a la pantalla de proyectos y elige la acción de crear o editar. |
-| 2. Cargar/mostrar el formulario | El sistema presenta un formulario con campos como nombre, cliente, fechas |
-| 3. Completar los campos obligatorios. | El actor ingresa la información obligatoria y no obligatoria. |
-| 4. Validar los datos ingresados. | El sistema verifica que los campos obligatorios estén completos y que no haya duplicidad en el nombre del proyecto. |
-| 5. Guardar el proyecto. | Si la validación es exitosa, el sistema guarda la información en la base de datos y registra el evento en la auditoría. |
-| 6. Confirmar y redirigir. | El sistema muestra un mensaje de éxito y dirige al actor a la vista de detalle del proyecto. |
+| 1. Navegar y seleccionar la opción. | Navegación: Menú Proyectos → acción Nuevo o Editar (comandos/links disponibles en la vista de lista). |
+| 2. Cargar/mostrar el formulario | Formulario `ProyectoForm` con campos: nombre, cliente, fechas inicio/fin estimadas, estado, observaciones. Controles: Guardar / Cancelar. |
+| 3. Completar los campos obligatorios. | Datos ingresados en `ProyectoForm`: indicadores de obligatoriedad (asterisco), placeholders, máscaras de fecha y selector de cliente. |
+| 4. Validar los datos ingresados. | Validaciones de servidor/cliente: obligatorios completos; formato de fecha; unicidad de nombre (normalizar mayúsculas/espacios); coherencia inicio ≤ fin. |
+| 5. Guardar el proyecto. | Persistencia y auditoría: registro Proyecto{ id, nombre, cliente, fechas, estado, observaciones }; ProjectAuditLog{ userId, acción (crear/editar), timestamp }. |
+| 6. Confirmar y redirigir. | Confirmación y redirección: mensaje de éxito (toast/snackbar) y navegación a DetalleProyecto/{id}; listados/tablero quedan listos para refrescar. |
 
 | **Condiciones, suposiciones y preguntas** | |
 |---|---|
@@ -24,6 +24,6 @@
 | **Poscondiciones:** | El proyecto es guardado, accesible en listados y tableros. Se ha registrado un evento de auditoría. |
 | **Suposiciones:** | Se asume que el sistema de autenticación y permisos funciona correctamente. Se asume que el usuario sabe qué campos son obligatorios. |
 | **Reunir requerimientos:** | RF01 - El sistema debe permitir crear y editar proyectos con los campos mínimos. |
-| **Aspectos sobresalientes:** | Incluye un flujo de validación y manejo de errores. El nombre del proyecto es único. |
+| **Aspectos sobresalientes:** | ¿Estado inicial por defecto al crear? Regla exacta de unicidad de nombre: ¿ignorar mayúsculas, tildes y espacios? ¿Qué campos son obligatorios exactamente? Formato de fecha (DD/MM/AAAA) y zona horaria usada en auditoría. ¿Se requiere notificar a cliente/administrador al crear/editar? |
 | **Prioridad:** | Tiempo (Alta) |
 | **Riesgo:** | Tiempo - Costo (Medio) |

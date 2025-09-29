@@ -11,12 +11,12 @@
 
 | **Pasos desempeñados (ruta principal)** | **Información para los pasos** |
 |---|---|
-| 1. Acceder a la etapa. | El actor navega al detalle de un proyecto y selecciona una etapa específica. |
-| 2. Seleccionar la opción de asignación. | El sistema muestra la información de la etapa y el actor hace clic en la opción para asignar responsable. |
-| 3. Elegir el responsable. | El sistema despliega un selector de usuarios y el actor elige al responsable. |
-| 4. Validar y actualizar. | El sistema verifica que el usuario seleccionado sea válido y actualiza la etapa. |
-| 5. Registrar el cambio. | El sistema registra quién, a quién y cuándo se realizó el cambio en el historial. |
-| 6. Disparar notificación. | El sistema genera una notificación automática para el nuevo responsable. |
+| 1. Acceder a la etapa. | Vista `DetalleProyecto/{id}` con panel de Etapas; selección de Etapa{id, nombre, estado, responsableActual}. |
+| 2. Seleccionar la opción de asignación. | Acción “Asignar/Cambiar responsable” disponible en la fila/menú de la etapa; apertura de modal/comando de asignación. |
+| 3. Elegir el responsable. | Selector de usuarios activos (búsqueda por nombre/email; filtro por rol). Muestra lista `Usuario{ id, nombre, rol, activo }` y control Confirmar. |
+| 4. Validar y actualizar. | Validaciones: usuario existe y activo; roles permitidos; evitar reasignación al mismo usuario; permisos del coordinador. Actualización de `Etapa.responsableId`. |
+| 5. Registrar el cambio. | Auditoría: `EtapaHistorial{ etapaId, deUsuarioId, aUsuarioId, accion:"asignación", userId(actor), timestamp }`. |
+| 6. Disparar notificación. | Notificación automática al nuevo responsable: componer mensaje (proyecto, etapa, enlace, asignador); invocar Servicio de Notificaciones (mail/WhatsApp) y almacenar resultado. |
 
 | **Condiciones, suposiciones y preguntas** | |
 |---|---|
@@ -24,6 +24,6 @@
 | **Poscondiciones:** | El responsable de la etapa es asignado, se ha enviado una notificación y el historial se actualizó. |
 | **Suposiciones:** | Se asume que el sistema de notificaciones funciona y que los usuarios tienen un canal de contacto configurado. |
 | **Reunir requerimientos:** | RF02 El sistema debe permitir agregar y modificar etapas en un proyecto, indicando responsable, estado (Pendiente, En curso, Finalizada), fechas estimadas y observaciones, RF04 El sistema debe enviar notificaciones automáticas (por mail y WhatsApp) al responsable, RF06  El sistema debe registrar automáticamente qué usuario completó cada tarea y los cambios de estado de cada etapa. |
-| **Aspectos sobresalientes:** | Este caso de uso integra la gestión del proyecto con el sistema de notificaciones. |
+| **Aspectos sobresalientes:** | ¿Qué roles pueden ser responsables de etapa? ¿Se notifica también al responsable anterior cuando hay cambio? ¿Cuál es la plantilla? ¿Regla para evitar asignación redundante o forzar con justificación? ¿Qué hacer si el usuario no tiene canal configurado? ¿Restringir a usuarios activos del equipo? ¿Se permite asignar externos/cliente? Límites del selector: tamaño de búsqueda, paginación, validación de entrada. |
 | **Prioridad:** | Tiempo (Alta) |
 | **Riesgo:** | Tiempo - Costo (Bajo) |

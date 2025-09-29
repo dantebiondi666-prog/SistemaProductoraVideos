@@ -1,0 +1,56 @@
+@startuml Asignar_Responsable_a_Etapa
+title CU03 – Asignar Responsable a Etapa (RF02, RF04, RF06)
+left to right direction
+
+actor Coordinador
+actor "Usuario Responsable" as Responsable
+actor "Servicio de Notificaciones" as Notif
+
+rectangle "Gestión de Etapas" {
+  usecase "CU03 Asignar responsable a etapa" as CU03
+
+  usecase "Validar permisos y usuario" as UC_Validar
+  usecase "Actualizar etapa (asignación)" as UC_Actualizar
+  usecase "Registrar historial de cambios" as UC_Historial
+  usecase "Notificar responsable asignado" as UC_Notificar
+  usecase "Confirmar asignación" as UC_Confirmar
+
+  usecase "Mostrar errores de validación" as UC_Errores
+  usecase "Registrar observaciones/incidencias" as UC_Obs
+  usecase "Adjuntar link a material" as UC_Link
+  usecase "Alertar retraso" as UC_Retraso
+
+  ' --- Flechas ocultas para ordenar y evitar cruces ---
+  CU03 -[hidden]-> UC_Validar
+  UC_Validar   -[hidden]-> UC_Actualizar
+  UC_Actualizar-[hidden]-> UC_Historial
+  UC_Historial -[hidden]-> UC_Notificar
+  UC_Notificar -[hidden]-> UC_Confirmar
+
+  UC_Errores -[hidden]-> UC_Validar
+
+  UC_Obs  -[hidden]-> UC_Link
+  UC_Link -[hidden]-> UC_Retraso
+}
+
+Coordinador --> CU03
+
+CU03 .> UC_Validar    : <<include>>
+CU03 .> UC_Actualizar : <<include>>
+CU03 .> UC_Historial  : <<include>>
+CU03 .> UC_Notificar  : <<include>>
+CU03 .> UC_Confirmar  : <<include>>
+
+UC_Validar <.. UC_Errores : <<extend>>
+
+CU03 <.. UC_Obs     : <<extend>>
+CU03 <.. UC_Link    : <<extend>>
+CU03 <.. UC_Retraso : <<extend>>
+
+UC_Notificar --> Notif
+Responsable  <-- UC_Notificar
+
+' --- Flecha oculta extra para espaciar actores externos ---
+Notif -[hidden]-> Responsable
+
+@enduml

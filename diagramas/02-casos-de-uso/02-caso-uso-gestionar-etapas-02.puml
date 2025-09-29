@@ -1,0 +1,61 @@
+@startuml Gestionar_Etapas_de_un_Proyecto
+title CU02 – Gestionar Etapas de un Proyecto (RF02)
+left to right direction
+
+actor Coordinador
+actor "Usuario Responsable" as Responsable
+actor "Servicio de Notificaciones" as Notif
+
+rectangle "Gestión de Etapas" {
+  usecase "CU02 Gestionar etapas de un proyecto" as CU02
+
+  usecase "Agregar etapa" as UC_Agregar
+  usecase "Editar etapa"  as UC_Editar
+  usecase "Eliminar etapa" as UC_Eliminar
+  UC_Agregar -> CU02
+  UC_Editar  -> CU02
+  UC_Eliminar -> CU02
+
+  usecase "Validar datos de etapa" as UC_Validar
+  usecase "Guardar cambios de etapa" as UC_Guardar
+  usecase "Registrar evento (alta/edición/baja)" as UC_Auditar
+  usecase "Notificar responsable afectado" as UC_Notificar
+  usecase "Mostrar errores de validación" as UC_Errores
+
+  usecase "Registrar observaciones/incidencias" as UC_Obs
+  usecase "Adjuntar link a material" as UC_Link
+  usecase "Agregar comentario interno" as UC_Coment
+
+  ' --- Flechas ocultas para ordenar y evitar cruces ---
+  UC_Agregar -[hidden]-> UC_Editar
+  UC_Editar  -[hidden]-> UC_Eliminar
+
+  CU02 -[hidden]-> UC_Validar
+  UC_Validar -[hidden]-> UC_Guardar
+  UC_Guardar -[hidden]-> UC_Auditar
+  UC_Auditar -[hidden]-> UC_Notificar
+
+  UC_Errores -[hidden]-> UC_Validar
+
+  UC_Obs  -[hidden]-> UC_Link
+  UC_Link -[hidden]-> UC_Coment
+}
+
+Coordinador --> CU02
+UC_Notificar --> Notif
+Responsable <-- UC_Notificar
+
+CU02 .> UC_Validar  : <<include>>
+CU02 .> UC_Guardar  : <<include>>
+CU02 .> UC_Auditar  : <<include>>
+CU02 .> UC_Notificar: <<include>>
+
+UC_Validar <.. UC_Errores : <<extend>>
+UC_Editar  <.. UC_Obs     : <<extend>>
+UC_Editar  <.. UC_Link    : <<extend>>
+UC_Editar  <.. UC_Coment  : <<extend>>
+
+' --- Flecha oculta extra para espaciar actores externos ---
+Notif -[hidden]-> Responsable
+
+@enduml

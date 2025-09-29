@@ -4,7 +4,23 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 
 ## [Unreleased]
+
 ### Added
+
+
+
+### Changed
+
+
+
+
+## [Release Actividad Obligatoria N°2] - (21-09-2025)
+
+### Added
+
+- [release/actividad-obligatoria-2] Creación de tarjetas CRC faltantes para clases adjunto y servicio de notificaciones.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#67](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/67)
 
 - [feature/coord-documentador-repositorio] Creación de rama y archivo diagramasUML.md. Actualización de readme.md.  
   PR: [#60](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/60) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
@@ -47,6 +63,26 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 
 ### Changed
+
+- [release/actividad-obligatoria-2] Corrección de las tarjetas CRC 01 y 03, quitando los id's. Re-redacción de pensamiento de objeto en tarjeta CRC 1.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#68](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/68)
+
+- [release/actividad-obligatoria-2] Corrección de todos los diagramas de casos de uso, export de sus respectivos archivos .png y corrección de índice repetido en diagramas_casos_de_uso.md.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#62](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/62)
+
+- [release/actividad-obligatoria-2] Corrección de todos los escenarios de casos de uso en la parte de informacion para los pasos y aspectos sobresalientes. Corrección de los indices y la nomeclatura de los archivos.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#63](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/63)
+
+- [release/actividad-obligatoria-2] Corrección de los diagramas de caso de uso, reestructurando las flechas para evitar entrecruzamientos. Export de nuevos png.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#64](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/64)
+
+- [release/actividad-obligatoria-2] Corrección del índice herramientas_agile.md y creacion de tarjetas-crc.md para correcta estructuración de carpetas.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#65](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/65)
 
 - [feature/coord-documentador-repositorio] Corrección de changelog.md y corrección de estructura indices de diagramas de caso de uso, escenarios de caso de uso y tarjetas CRC.  
   PR: [#60](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/60) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 

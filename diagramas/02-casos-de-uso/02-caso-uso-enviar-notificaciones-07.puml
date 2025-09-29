@@ -1,0 +1,64 @@
+@startuml Enviar_Notificaciones_Automáticas
+title CU07 – Enviar Notificaciones Automáticas (RF04, RF06)
+left to right direction
+
+actor Coordinador
+actor "Responsable de la etapa" as Responsable
+actor "Servicio de Notificaciones" as Notif
+actor Destinatario
+
+rectangle "Notificaciones Automáticas" {
+  usecase "CU07 Enviar notificaciones automáticas" as CU07
+  usecase "Detectar evento de cambio" as UC_Detectar
+  usecase "Evento: asignación/cambio de responsable" as UC_EvResp
+  usecase "Evento: cambio de estado de etapa" as UC_EvEstado
+  usecase "Identificar destinatarios" as UC_Dest
+  usecase "Construir mensaje" as UC_Msg
+  usecase "Enviar notificación por Mail" as UC_Mail
+  usecase "Enviar notificación por WhatsApp" as UC_Wpp
+  usecase "Registrar en historial" as UC_Hist
+  usecase "Usar canal por defecto" as UC_Defecto
+  usecase "Reintentar envío" as UC_Reint
+  usecase "Marcar para revisión" as UC_Rev
+
+  ' --- Flechas ocultas para ordenar y evitar cruces ---
+  CU07        -[hidden]-> UC_Detectar
+  UC_Detectar -[hidden]-> UC_Dest
+  UC_Dest     -[hidden]-> UC_Msg
+  UC_Msg      -[hidden]-> UC_Mail
+  UC_Mail     -[hidden]-> UC_Wpp
+  UC_Wpp      -[hidden]-> UC_Hist
+
+  UC_EvResp   -[hidden]-> UC_EvEstado
+
+  UC_Defecto  -[hidden]-> UC_Reint
+  UC_Reint    -[hidden]-> UC_Rev
+}
+
+Coordinador --> CU07
+Responsable --> CU07
+
+CU07 .> UC_Detectar : <<include>>
+UC_EvResp  -> UC_Detectar
+UC_EvEstado -> UC_Detectar
+
+CU07 .> UC_Dest : <<include>>
+CU07 .> UC_Msg  : <<include>>
+CU07 .> UC_Mail : <<include>>
+CU07 .> UC_Wpp  : <<include>>
+CU07 .> UC_Hist : <<include>>
+
+UC_Mail --> Notif
+UC_Wpp  --> Notif
+Destinatario <-- UC_Mail
+Destinatario <-- UC_Wpp
+
+CU07 <.. UC_Defecto : <<extend>>
+UC_Mail <.. UC_Reint : <<extend>>
+UC_Wpp  <.. UC_Reint : <<extend>>
+CU07    <.. UC_Rev   : <<extend>>
+
+' --- Flechas ocultas extra para espaciar actores externos ---
+Notif -[hidden]-> Destinatario
+
+@enduml
