@@ -6,6 +6,17 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ## [Unreleased]
 
 ### Added
+- [feature/esp-extension-ocp-add-anexo-ocp] Creación de rama, sub carpeta principios-solid.
+  PR: [#73](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/73) - 
+  Issues:
+   [#71](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/71) 
+  @abartomioli (Especialista en Principios de Extensión OCP + LSP). 
+
+- [feature/esp-extension-lsp-add-anexo-lsp] Creación de rama, sub carpeta principios-solid.
+  PR: [#74](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/74) - 
+  @abartomioli (Especialista en Principios de Extensión OCP + LSP). 
+  Issues:
+   [#72](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/72)
 
 
 
