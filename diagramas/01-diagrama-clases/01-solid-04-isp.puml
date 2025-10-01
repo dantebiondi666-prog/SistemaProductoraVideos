@@ -1,78 +1,47 @@
-' diagramas/01-diagrama-clases/01-solid-04-isp.puml
 @startuml "ISP - Segregación de Interfaces"
 skinparam classAttributeIconSize 0
 
-' Interfaces
-interface Uploader {
-  +upload(filePath: String): UploadResult
+' Interfaces especializadas
+interface ISubirContenido {
+  +subirVideo(titulo: String)
+  +eliminarVideo(idVideo: String)
 }
-interface Encoder {
-  +encode(inputPath: String, profile: String): EncodeResult
+interface IReproducirContenido {
+  +reproducirVideo(idVideo: String)
+  +pausarVideo(idVideo: String)
 }
-interface Storer {
-  +store(localPath: String): StorageLocation
-  +delete(storageId: String): boolean
+interface IComentarContenido {
+  +agregarComentario(idVideo: String, comentario: String)
+  +eliminarComentario(idComentario: String)
 }
-interface MetadataManager {
-  +createMetadata(videoId: String, meta: Map): Metadata
-  +updateMetadata(videoId: String, meta: Map): Metadata
-  +getMetadata(videoId: String): Metadata
-}
-interface Notifier {
-  +notify(videoId: String, event: String): void
+interface IMonetizarContenido {
+  +activarMonetizacion(idVideo: String)
+  +consultarGanancias(): double
 }
 
-' Concrete classes
-class LocalFileUploader {
-  +upload(filePath: String): UploadResult
-}
-class FFmpegEncoder {
-  +encode(inputPath: String, profile: String): EncodeResult
-}
-class S3VideoStorer {
-  +store(localPath: String): StorageLocation
-  +delete(storageId: String): boolean
-}
-class VideoMetadataService {
-  +createMetadata(videoId: String, meta: Map): Metadata
-  +updateMetadata(videoId: String, meta: Map): Metadata
-  +getMetadata(videoId: String): Metadata
-}
-class EmailNotifier {
-  +notify(videoId: String, event: String): void
-}
+' Clases concretas
+class Productor
+class Espectador
+class Administrador
 
-' Relationships
-LocalFileUploader ..|> Uploader
-FFmpegEncoder ..|> Encoder
-S3VideoStorer ..|> Storer
-VideoMetadataService ..|> MetadataManager
-EmailNotifier ..|> Notifier
+' Implementaciones
+Productor ..|> ISubirContenido
+Productor ..|> IMonetizarContenido
 
-' Example consumer
-class VideoPipeline {
-  -uploader: Uploader
-  -encoder: Encoder
-  -storer: Storer
-  -metadata: MetadataManager
-  -notifier: Notifier
+Espectador ..|> IReproducirContenido
+Espectador ..|> IComentarContenido
 
-  +processAndPublish(filePath: String): PublishResult
-}
+Administrador ..|> ISubirContenido
 
-VideoPipeline --> Uploader : uses
-VideoPipeline --> Encoder : uses
-VideoPipeline --> Storer : uses
-VideoPipeline --> MetadataManager : uses
-VideoPipeline --> Notifier : uses
-
-' Note about avoided "fat interface"
-note left of Uploader
-  Evitamos interfaces gordas que incluyan
-  upload(), encode(), store(), notify(), ...
-  Cada interfaz aquí es específica y cohesiva.
+' Nota aclaratoria
+note right of ISubirContenido
+  Cada interfaz es específica y cohesiva.
+  Evitamos una interfaz "gorda" como IGestionMultimedia
+  que obligaría a todas las clases a implementar
+  métodos que no utilizan.
 end note
 
 @enduml
+
 
 
