@@ -1,0 +1,78 @@
+' diagramas/01-diagrama-clases/01-solid-04-isp.puml
+@startuml "ISP - Segregación de Interfaces"
+skinparam classAttributeIconSize 0
+
+' Interfaces
+interface Uploader {
+  +upload(filePath: String): UploadResult
+}
+interface Encoder {
+  +encode(inputPath: String, profile: String): EncodeResult
+}
+interface Storer {
+  +store(localPath: String): StorageLocation
+  +delete(storageId: String): boolean
+}
+interface MetadataManager {
+  +createMetadata(videoId: String, meta: Map): Metadata
+  +updateMetadata(videoId: String, meta: Map): Metadata
+  +getMetadata(videoId: String): Metadata
+}
+interface Notifier {
+  +notify(videoId: String, event: String): void
+}
+
+' Concrete classes
+class LocalFileUploader {
+  +upload(filePath: String): UploadResult
+}
+class FFmpegEncoder {
+  +encode(inputPath: String, profile: String): EncodeResult
+}
+class S3VideoStorer {
+  +store(localPath: String): StorageLocation
+  +delete(storageId: String): boolean
+}
+class VideoMetadataService {
+  +createMetadata(videoId: String, meta: Map): Metadata
+  +updateMetadata(videoId: String, meta: Map): Metadata
+  +getMetadata(videoId: String): Metadata
+}
+class EmailNotifier {
+  +notify(videoId: String, event: String): void
+}
+
+' Relationships
+LocalFileUploader ..|> Uploader
+FFmpegEncoder ..|> Encoder
+S3VideoStorer ..|> Storer
+VideoMetadataService ..|> MetadataManager
+EmailNotifier ..|> Notifier
+
+' Example consumer
+class VideoPipeline {
+  -uploader: Uploader
+  -encoder: Encoder
+  -storer: Storer
+  -metadata: MetadataManager
+  -notifier: Notifier
+
+  +processAndPublish(filePath: String): PublishResult
+}
+
+VideoPipeline --> Uploader : uses
+VideoPipeline --> Encoder : uses
+VideoPipeline --> Storer : uses
+VideoPipeline --> MetadataManager : uses
+VideoPipeline --> Notifier : uses
+
+' Note about avoided "fat interface"
+note left of Uploader
+  Evitamos interfaces gordas que incluyan
+  upload(), encode(), store(), notify(), ...
+  Cada interfaz aquí es específica y cohesiva.
+end note
+
+@enduml
+
+

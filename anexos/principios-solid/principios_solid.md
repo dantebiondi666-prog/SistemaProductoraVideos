@@ -6,6 +6,6 @@
 
 - [Sustitución de Liskov (LSP)](/diagramas/01-diagrama-clases/01-solid-03-lsp.png)
 
-- [Segregación de Interfaces (ISP)]()
+- [Segregación de Interfaces (ISP)](/diagramas/01-diagrama-clases/01-solid-04-isp.png)
 
 - [Inversión de Dependencias (DIP)]()
