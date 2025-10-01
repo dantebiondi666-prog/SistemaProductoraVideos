@@ -6,6 +6,12 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ## [Unreleased]
 
 ### Added
+
+- [feature/esp-dip-add-anexo-dip] Anexo `05-dip.md` y diagrama `01-solid-05-dip` (puml/png).  
+  PR: [#75](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/75) -
+  Issues: 
+  [#70](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/70)
+
 - [feature/esp-extension-ocp-add-anexo-ocp] Creación de rama, sub carpeta principios-solid.
   PR: [#73](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/73) - 
   Issues:
