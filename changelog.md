@@ -6,7 +6,9 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ## [Unreleased]
 
 ### Added
-
+- [feature/esp-isp-add-anexo-isp] Creacion de principios solid 04-isp.md, creacion de diagramas png y puml.  
+  PR: [#79](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/79) - @juanmartinbrios7-cmd (Especialista en Segregación de Interfaces (ISP)), 
+  Issue: [#78](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/78)
 - [feature/doc-coord-add-srp] Creación de anexo principios_solid.md, actualización de anexos y readme.md, aplicación de SRP a 3 clases del diagrama de clases, creación de diagrama en UML y archivo 01-srp.md y correcto export de imagen del diagrama en png.  
   PR: [#77](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/77) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
   Issue: [#76](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/76)
