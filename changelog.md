@@ -8,7 +8,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ### Added
 
 - [feature/doc-coord-add-srp] Creación de anexo principios_solid.md, actualización de anexos y readme.md, aplicación de SRP a 3 clases del diagrama de clases, creación de diagrama en UML y archivo 01-srp.md y correcto export de imagen del diagrama en png.  
-  PR: [#](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
+  PR: [#77](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/77) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
   Issue: [#76](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/76)
 
 - [feature/esp-extension-ocp-add-anexo-ocp] Creación de rama, sub carpeta principios-solid.
