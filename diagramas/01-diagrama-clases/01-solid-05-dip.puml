@@ -1,0 +1,47 @@
+@startuml
+title DIP — ServicioNotificaciones depende de ABSTRACCIONES
+
+' ===== Abstracciones (contratos) =====
+interface ICanalNotificacion {
+  +enviar(mensaje: String, destino: String)
+}
+interface IRepoNotificacion {
+  +guardar(mensaje: String)
+  +obtener(id: String): String
+}
+
+' ===== Servicio de alto nivel (depende de interfaces) =====
+class ServicioNotificaciones {
+  -canal: ICanalNotificacion
+  -repo: IRepoNotificacion
+  +ServicioNotificaciones(c: ICanalNotificacion, r: IRepoNotificacion)
+  +avisar(destino: String, msg: String)
+}
+
+' ===== Implementaciones de bajo nivel (detalles) =====
+class CanalEmail implements ICanalNotificacion {
+  +enviar(mensaje: String, destino: String)
+}
+class CanalWhatsApp implements ICanalNotificacion {
+  +enviar(mensaje: String, destino: String)
+}
+
+class RepoSQLNotificacion implements IRepoNotificacion {
+  +guardar(mensaje: String)
+  +obtener(id: String): String
+}
+class RepoMemoriaNotificacion implements IRepoNotificacion {
+  +guardar(mensaje: String)
+  +obtener(id: String): String
+}
+
+' ===== Relaciones (clave para evidenciar DIP) =====
+ServicioNotificaciones ..> ICanalNotificacion : usa (contrato)
+ServicioNotificaciones ..> IRepoNotificacion  : usa (contrato)
+
+CanalEmail ..|> ICanalNotificacion
+CanalWhatsApp ..|> ICanalNotificacion
+RepoSQLNotificacion ..|> IRepoNotificacion
+RepoMemoriaNotificacion ..|> IRepoNotificacion
+
+@enduml
