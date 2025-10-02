@@ -1,0 +1,130 @@
+@startuml
+title DIP — Etapa/Usuario y ServicioNotificaciones dependen de ABSTRACCIONES
+
+skinparam backgroundColor #ffffff
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam ArrowColor #555
+skinparam ClassBorderColor #222
+skinparam ClassBackgroundColor #f9f9f9
+skinparam noteBackgroundColor #fffdf5
+skinparam noteBorderColor #666
+
+legend left
+<b>DIP</b>: Dominios de alto nivel (<b>Etapa</b>, <b>Usuario</b>) no conocen detalles de envío ni de persistencia.
+Consumen un <b>servicio abstracto</b> (INotificadorService).
+El servicio concreto (<b>ServicioNotificaciones</b>) invierte la dependencia:
+usa <b>ICanalNotificacion</b> e <b>IRepoNotificacion</b> y puede intercambiar implementaciones.
+endlegend
+
+' ============================
+' Abstracciones (contratos)
+' ============================
+interface ICanalNotificacion {
+  +enviar(mensaje: String, destino: String)
+}
+interface IRepoNotificacion {
+  +guardar(mensaje: String)
+  +obtener(id: String): String
+}
+' Abstracción de servicio para no acoplar dominio a clase concreta
+interface INotificadorService {
+  +avisar(destino: String, msg: String)
+}
+
+' ============================
+' Servicio de alto nivel
+' ============================
+class ServicioNotificaciones implements INotificadorService {
+  -canal: ICanalNotificacion
+  -repo: IRepoNotificacion
+  +ServicioNotificaciones(c: ICanalNotificacion, r: IRepoNotificacion)
+  +avisar(destino: String, msg: String)
+}
+
+' ============================
+' Implementaciones (detalles)
+' ============================
+class CanalEmail implements ICanalNotificacion {
+  +enviar(mensaje: String, destino: String)
+}
+class CanalWhatsApp implements ICanalNotificacion {
+  +enviar(mensaje: String, destino: String)
+}
+
+class RepoSQLNotificacion implements IRepoNotificacion {
+  +guardar(mensaje: String)
+  +obtener(id: String): String
+}
+class RepoMemoriaNotificacion implements IRepoNotificacion {
+  +guardar(mensaje: String)
+  +obtener(id: String): String
+}
+
+' ============================
+' Dominio (alto nivel)
+' ============================
+class Usuario {
+  -userId: UUID
+  -nombre: String
+  -email: String
+  -rol: RolUsuario
+  -canalPreferido: CanalNotificacion
+  +puedeGestionarProyectos(): boolean
+  +puedeGestionarEtapas(): boolean
+  +notificar(asunto: String, msg: String)
+}
+
+class Etapa {
+  -stageId: UUID
+  -nombre: String
+  -estado: EstadoEtapa
+  -fechaInicioEstimada: Date
+  -fechaFinEstimada: Date
+  -fechaFinReal: Date
+  -responsable: Usuario
+  +asignarResponsable()
+  +cambiarEstado(nuevo: EstadoEtapa)
+  +agregarComentario()
+  +adjuntar()
+}
+
+' ============================
+' Relaciones (DIP en acción)
+' ============================
+' Dominio -> Abstracción de servicio (no a la clase concreta)
+Usuario ..> INotificadorService : usa (contrato)
+Etapa   ..> INotificadorService : usa (contrato)
+
+' Servicio concreto -> Contratos de bajo nivel
+ServicioNotificaciones ..> ICanalNotificacion : usa (contrato)
+ServicioNotificaciones ..> IRepoNotificacion  : usa (contrato)
+
+' Implementaciones de bajo nivel
+CanalEmail ..|> ICanalNotificacion
+CanalWhatsApp ..|> ICanalNotificacion
+RepoSQLNotificacion ..|> IRepoNotificacion
+RepoMemoriaNotificacion ..|> IRepoNotificacion
+
+' (Opcional) Composición / wiring fuera del dominio
+package "Composición (ejemplo)" #eef7ff {
+  class AppConfig {
+    +crearNotificadorService(u: Usuario): INotificadorService
+  }
+  AppConfig ..> INotificadorService
+  AppConfig ..> ICanalNotificacion : elige Email/WhatsApp por política
+  AppConfig ..> IRepoNotificacion  : elige SQL/Memoria por entorno
+}
+
+note bottom of Usuario
+  Usuario prepara asunto/mensaje y delega en INotificadorService.
+  No conoce Email/WhatsApp ni repositorios.
+end note
+
+note bottom of Etapa
+  Al cambiar de estado, compone el aviso y delega en INotificadorService.
+  Testeable con dobles de prueba del servicio.
+end note
+
+@enduml
