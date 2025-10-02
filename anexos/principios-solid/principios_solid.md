@@ -8,4 +8,4 @@
 
 - [Segregación de Interfaces (ISP)](/diagramas/01-diagrama-clases/01-solid-04-isp.png)
 
-- [Inversión de Dependencias (DIP)]()
+- [Inversión de Dependencias (DIP)](/diagramas/01-diagrama-clases/01-solid-05-dip.png)

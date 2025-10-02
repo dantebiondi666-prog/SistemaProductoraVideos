@@ -6,6 +6,12 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ## [Unreleased]
 
 ### Added
+
+- [feature/esp-dip-add-anexo-dip] Anexo `05-dip.md` y diagrama `01-solid-05-dip` (puml/png).  
+  PR: [#82](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/82) - @leanlex (Especialista en Inversión de Dependencias (DIP))
+  Issues: 
+  [#70](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/70)
+
 - [feature/new-esp-isp-add-anexo-isp-update] Creacion de principios solid 04-isp.md, creacion de diagramas png y puml.  
   PR: [#79](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/79) - @juanmartinbrios7-cmd (Especialista en Segregación de Interfaces (ISP)), 
   Issue: [#78](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/78)
