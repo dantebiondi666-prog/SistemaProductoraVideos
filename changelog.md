@@ -8,7 +8,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ### Added
 
 - [feature/esp-dip-add-anexo-dip] Anexo `05-dip.md` y diagrama `01-solid-05-dip` (puml/png).  
-  PR: [#75](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/75) - @leanlex (Especialista en Inversión de Dependencias (DIP))
+  PR: [#82](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/82) - @leanlex (Especialista en Inversión de Dependencias (DIP))
   Issues: 
   [#70](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/70)
 
