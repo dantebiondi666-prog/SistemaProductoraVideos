@@ -1,4 +1,4 @@
-@startuml
+@startuml DIP — Etapa/Usuario y ServicioNotificaciones dependen de ABSTRACCIONES
 title DIP — Etapa/Usuario y ServicioNotificaciones dependen de ABSTRACCIONES
 
 skinparam backgroundColor #ffffff
@@ -101,11 +101,6 @@ Etapa   ..> INotificadorService : usa (contrato)
 ServicioNotificaciones ..> ICanalNotificacion : usa (contrato)
 ServicioNotificaciones ..> IRepoNotificacion  : usa (contrato)
 
-' Implementaciones de bajo nivel
-CanalEmail ..|> ICanalNotificacion
-CanalWhatsApp ..|> ICanalNotificacion
-RepoSQLNotificacion ..|> IRepoNotificacion
-RepoMemoriaNotificacion ..|> IRepoNotificacion
 
 ' (Opcional) Composición / wiring fuera del dominio
 package "Composición (ejemplo)" #eef7ff {

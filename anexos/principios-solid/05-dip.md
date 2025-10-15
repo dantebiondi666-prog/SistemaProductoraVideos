@@ -12,6 +12,17 @@ Al depender de abstracciones y no de implementaciones concretas, el sistema gana
 - Testeabilidad: facilita el testing
 - Evolución: permite agregar nuevas funcionalidades
 - Mantenimiento: el código termina siendo más limpio, lo que facilita su mantenimiento futuro
+
+### Ejemplo del proyecto (problema y cómo lo resuelve DIP)
+
+Al cambiar de estado una **Etapa** o al notificar desde **Usuario**, el dominio **instanciaba clases concretas** como `CanalWhatsApp` y `RepoSQLNotificacion`.  
+Esto acoplaba la lógica de negocio a detalles de infraestructura, hacía difícil testear (no se podían usar dobles de prueba sin tocar el dominio) y encarecía cambiar de canal (Email/WhatsApp) o de persistencia (SQL/Memoria).
+
+**Aplicación de DIP:** Invertimos la dependencia: el **Dominio** depende de **abstracciones** y los detalles implementan esas abstracciones.  
+- En **Dominio**: `INotificadorService` expone `avisar(destino, msg)`. **Etapa** y **Usuario** reciben por inyección un `INotificadorService` y **no** crean canales/repos concretos.  
+- En **Infraestructura**: `ServicioNotificaciones` **implementa** `INotificadorService` y delega en `ICanalNotificacion` (`CanalEmail`, `CanalWhatsApp`) y `IRepoNotificacion` (`RepoSQLNotificacion`, `RepoMemoriaNotificacion`).
+
+**Beneficios concretos.** ↓ acoplamiento del dominio, ↑ testeabilidad (mocks/fakes de `INotificadorService`) y **flexibilidad** para agregar un canal nuevo (p. ej., otro `ICanalNotificacion`) sin modificar **Etapa** ni **Usuario**.
  
 ## Explicación de Clases Abstractas e Interfaces:
 Una clase abstracta es una clase que no se puede instanciar directamente y sirve como plantilla para otras subclases. Características principales:
