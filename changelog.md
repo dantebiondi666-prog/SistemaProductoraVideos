@@ -15,6 +15,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
   Issue: [#85](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/85)
 
+- [release/primer-parcial] Fix de link caido, explicación de relación de herencia, explicación de strategy, state y specification.  
+  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @abartomioli (Especialista en Principios de Extensión OCP + LSP), 
+  Issue: [#86](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/86)
+
 ## [Release Primer Parcial] - (01-10-2025)
 
 ### Added
