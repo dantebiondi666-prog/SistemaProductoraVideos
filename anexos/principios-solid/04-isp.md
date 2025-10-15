@@ -5,34 +5,31 @@ El Principio de Segregación de Interfaces (ISP) establece que **ninguna clase d
 En otras palabras, es preferible **tener varias interfaces pequeñas y específicas** en lugar de una única interfaz "gorda" con demasiadas responsabilidades.
 
 ## Motivación
-En el sistema *SistemaProductoraVideos*, inicialmente podríamos tener una interfaz general `IGestionMultimedia` que obligue a todas las clases a implementar métodos de subida, edición, comentarios y monetización de videos.  
-El problema es que **no todas las clases necesitan todos esos métodos** (por ejemplo, un *UsuarioEspectador* solo reproduce y comenta, pero nunca sube videos).
+En *SistemaProductoraVideos* detectamos una **interfaz gorda** en servicios que combinaban consultas y operaciones que no todos los clientes usan. Por ejemplo, un único servicio de reportes/tablero con métodos para **consultar métricas** (RF05, CU05/CU06) y también **exportar** (PDF/CSV). 
+- **Problema:** el **Tablero** (CU06) solo necesita consultar y filtrar; no debería depender de métodos de exportación.  
+- **Otro caso:** servicios de **Etapas** mezclaban lectura y escritura; **Reportes** (RF05) solo requiere **lectura**, mientras que **Gestión de Etapas** (RF02/CU02–CU04) usa **escritura** y cambios de estado.
 
-Esto genera **acoplamiento innecesario** y clases con métodos vacíos o mal implementados.
+> Esto viola ISP: *los clientes no deben depender de métodos que no utilizan*.
 
-Aplicando ISP, dividimos esa interfaz en varias más pequeñas y cohesivas:
+## Aplicación de ISP en el proyecto
+Separamos interfaces grandes en **interfaces específicas por rol de uso**:
 
-- `ISubirContenido` → para quienes suben videos.  
-- `IReproducirContenido` → para quienes consumen videos.  
-- `IComentarContenido` → para quienes dejan comentarios.  
-- `IMonetizarContenido` → para quienes monetizan sus producciones.  
+- `IReportesConsulta` → consultas/agregaciones para métricas (RF05) y tablero (CU06).  
+- `IExportarReporte` → exportación de resultados (PDF/CSV) cuando aplica (extensión de CU05/CU06).  
+- `IEtapaLectura` → obtener/listar etapas (usado por reportes/tablero).  
+- `IEtapaEscritura` → crear/actualizar/asignar (usado por gestión de etapas CU02–CU04).
 
-De esta manera, cada clase solo implementa lo que realmente necesita.
+De esta manera:
+- **Tablero** depende de `IReportesConsulta` (y opcionalmente `IEtapaLectura`), **sin** arrastrar exportación.
+- **Servicio de Reportes** puede depender de `IReportesConsulta` y, solo si corresponde, de `IExportarReporte`.
+- **Servicio de Etapas** depende de `IEtapaEscritura` (y `IEtapaLectura` si necesita validaciones previas).
 
-## Explicación de Interfaces
-En programación orientada a objetos, una **interfaz** define un contrato que una clase debe cumplir, sin imponer detalles de implementación.  
-El ISP propone que esas interfaces sean **cohesivas y específicas**, reduciendo la obligación de implementar operaciones innecesarias.
 
 ## Estructura de Clases (UML)
-
 ![Diagrama ISP](/diagramas/01-diagrama-clases/01-solid-04-isp.png)  
 [Ver diagrama en detalle](/diagramas/01-diagrama-clases/01-solid-04-isp.puml)
 
-## Justificación Técnica
-En el diagrama se observa que:
-
-- `Productor` implementa `ISubirContenido` y `IMonetizarContenido`.  
-- `Espectador` implementa `IReproducirContenido` y `IComentarContenido`.  
-- `Administrador` implementa solo `ISubirContenido` (cuando modera contenido).  
-
-De esta forma, **cada clase implementa únicamente lo que necesita**, eliminando dependencias innecesarias y mejorando la mantenibilidad del sistema.
+## Justificación técnica
+- Eliminamos **interfaces gordas**: cada cliente programa contra **lo que usa**.  
+- Disminuye el **acoplamiento** y mejora la **testabilidad** (dobles de `IReportesConsulta` o `IEtapaLectura` sin arrastrar escritura ni exportación).  
+- Mantiene trazabilidad con **RF02/RF05/RF06** y **CU02–CU06**.
