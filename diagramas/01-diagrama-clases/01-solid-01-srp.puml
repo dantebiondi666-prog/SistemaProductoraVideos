@@ -36,7 +36,6 @@ class Usuario {
   + canalPreferido: CanalNotificacion
   + puedeGestionarProyectos(): boolean
   + puedeGestionarEtapas(): boolean
-  + notificar()
 }
 
 class Comentario {
@@ -90,5 +89,4 @@ Etapa "0..*" o-- "0..*" Adjunto : adjunta
 Etapa "1" --> "1" Usuario : responsable
 Notificacion --> Usuario : destino
 Notificacion --> Etapa : sobre
-Usuario --> ServicioNotificaciones : «usa»
 @enduml
