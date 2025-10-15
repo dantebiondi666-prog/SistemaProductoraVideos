@@ -5,6 +5,14 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+## Changed
+
+- [release/primer-parcial] Correcciones de 01-solid-05-dip.puml, export de diagrama y corrección de .md en principios-solid.  
+  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
+  Issue: [#84](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/84)
+
+## [Release Primer Parcial] - (01-10-2025)
+
 ### Added
 
 - [feature/esp-dip-add-anexo-dip] Anexo `05-dip.md` y diagrama `01-solid-05-dip` (puml/png).  
