@@ -1,0 +1,65 @@
+@startuml ISP — Segregación de Interfaces alineada a RF/CU (Vizion Estudio)
+title ISP — Segregación de Interfaces alineada a RF/CU (Vizion Estudio)
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+
+' ===== Interfaces segregadas (por uso real) =====
+interface IReportesConsulta {
+  +consultarMetricas(filtros: FiltroReporte): Reporte
+  +consultarTablero(filtros: FiltroTablero): TableroDTO
+}
+
+interface IExportarReporte {
+  +exportarCSV(reporte: Reporte): Archivo
+  +exportarPDF(reporte: Reporte): Archivo
+}
+
+interface IEtapaLectura {
+  +obtenerEtapa(id: UUID): Etapa
+  +listarPorProyecto(idProyecto: UUID): List<Etapa>
+}
+
+interface IEtapaEscritura {
+  +crearEtapa(dto: NuevaEtapa): UUID
+  +actualizarEstado(id: UUID, nuevo: EstadoEtapa): void
+  +asignarResponsable(id: UUID, idUsuario: UUID): void
+}
+
+' ===== Clientes (quién usa qué) =====
+class ServicioTablero {
+  +cargarPanel(f: FiltroTablero): TableroDTO
+}
+class ServicioReportes {
+  +generar(f: FiltroReporte): Reporte
+}
+class ServicioEtapas {
+  +gestionarAlta(dto: NuevaEtapa): UUID
+  +cambiarEstado(id: UUID, nuevo: EstadoEtapa): void
+  +asignar(id: UUID, usuario: UUID): void
+}
+
+' ===== Implementaciones (ejemplo) =====
+class ReportesConsultaSQL implements IReportesConsulta
+class ExportadorReporte implements IExportarReporte
+class RepoEtapaSQL implements IEtapaLectura, IEtapaEscritura
+
+' ===== Relaciones ISP en acción =====
+' Clientes solo dependen de lo que usan
+ServicioTablero ..> IReportesConsulta : usa
+ServicioReportes ..> IReportesConsulta : usa
+ServicioReportes ..> IExportarReporte : usa (solo si exporta)
+ServicioEtapas ..> IEtapaEscritura : usa
+ServicioEtapas ..> IEtapaLectura  : usa (validaciones)
+
+
+' ===== Entidades de dominio de contexto (referencia) =====
+class Etapa {
+  +id: UUID
+  +estado: EstadoEtapa
+  +responsable: Usuario
+}
+
+@enduml
+
+
+

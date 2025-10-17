@@ -1,0 +1,92 @@
+@startuml SRP
+title SRP – Refactor sobre Etapa, Notificacion y ServicioNotificaciones (sin clases nuevas)
+
+class Proyecto {
+  + nombre: String
+  + cliente: String
+  + fechaInicioEstimada: Date
+  + fechaFinEstimada: Date
+  + estado: EstadoProyecto
+  + observaciones: String
+  + agregarEtapa()
+  + eliminarEtapa()
+  + obtenerDuracionPromedioEtapas(): Duration
+  + finalizarSiCorresponde(): void
+}
+
+class Etapa {
+  + nombre: String
+  + estado: EstadoEtapa
+  + fechaInicioEstimada: Date
+  + fechaFinEstimada: Date
+  + fechaFinReal: Date
+  + observaciones: String
+  + responsable: Usuario
+  + asignarResponsable()
+  + cambiarEstado()
+  ' ANTES: + agregarComentario()
+  ' ANTES: + adjuntar()
+  ' DESPUÉS (SRP): la vinculación documental se hace desde Comentario/Adjunto
+}
+
+class Usuario {
+  + nombre: String
+  + email: String
+  + rol: RolUsuario
+  + canalPreferido: CanalNotificacion
+  + puedeGestionarProyectos(): boolean
+  + puedeGestionarEtapas(): boolean
+}
+
+class Comentario {
+  + texto: String
+  + fechaHora: DateTime
+  + autor: Usuario
+  + editarTexto()
+  + eliminar()
+  + mencionar()
+  ' DESPUÉS (SRP):
+  + publicarEn(e: Etapa)
+}
+
+class Adjunto {
+  + titulo: String
+  + url: String
+  + tipo: String
+  + fechaAdjunto: DateTime
+  + generarPreview()
+  + descargar()
+  + eliminar()
+  ' DESPUÉS (SRP):
+  + adjuntarA(e: Etapa)
+}
+
+class Notificacion {
+  + asunto: String
+  + mensaje: String
+  + canal: CanalNotificacion
+  + fechaHora: DateTime
+  + destino: Usuario
+  + resultado: String
+  + marcarLeida(): void
+  + pendiente(): boolean
+  ' ANTES: + programarEnvio(): void
+  ' DESPUÉS (SRP): compone contenido/destino; no agenda envíos
+}
+
+class ServicioNotificaciones {
+  + proveedor: String
+  + limiteDiario: int
+  + tiempoUltimoEnvio: DateTime
+  + enviar(n: Notificacion): boolean
+  ' DESPUÉS (SRP):
+  + programarEnvio(n: Notificacion): void
+}
+
+Proyecto "1" o-- "1..*" Etapa : contiene
+Etapa "0..*" o-- "0..*" Comentario : registra
+Etapa "0..*" o-- "0..*" Adjunto : adjunta
+Etapa "1" --> "1" Usuario : responsable
+Notificacion --> Usuario : destino
+Notificacion --> Etapa : sobre
+@enduml

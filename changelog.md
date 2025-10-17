@@ -5,39 +5,72 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+  
+## [Release Primer Parcial] - (01-10-2025)
+
 ### Added
 
-- [release/actividad-obligatoria-2] Creación de tarjetas CRC faltantes para clases adjunto y servicio de notificaciones.  
-  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
-  Issue: [#67](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/67)
+- [feature/esp-dip-add-anexo-dip] Anexo `05-dip.md` y diagrama `01-solid-05-dip` (puml/png).  
+  PR: [#82](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/82) - @leanlex (Especialista en Inversión de Dependencias (DIP))
+  Issues: 
+  [#70](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/70)
+
+- [feature/new-esp-isp-add-anexo-isp-update] Creacion de principios solid 04-isp.md, creacion de diagramas png y puml.  
+  PR: [#79](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/79) - @juanmartinbrios7-cmd (Especialista en Segregación de Interfaces (ISP)), 
+  Issue: [#78](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/78)
+- [feature/doc-coord-add-srp] Creación de anexo principios_solid.md, actualización de anexos y readme.md, aplicación de SRP a 3 clases del diagrama de clases, creación de diagrama en UML y archivo 01-srp.md y correcto export de imagen del diagrama en png.  
+  PR: [#77](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/77) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
+  Issue: [#76](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/76)
+
+- [feature/esp-extension-ocp-add-anexo-ocp] Creación de rama, sub carpeta principios-solid.
+  PR: [#73](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/73) - 
+  Issues:
+   [#71](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/71) 
+  @abartomioli (Especialista en Principios de Extensión OCP + LSP). 
+
+- [feature/esp-extension-lsp-add-anexo-lsp] Creación de rama, sub carpeta principios-solid.
+  PR: [#74](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/74) - 
+  @abartomioli (Especialista en Principios de Extensión OCP + LSP). 
+  Issues:
+   [#72](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/72)
+
+
 
 ### Changed
+- [feature/new-esp-isp-add-anexo-isp-update] Correccion de rama, .puml y .png .  
+  PR: [#81](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/81) - @juanmartinbrios7-cmd (Especialista en Segregación de Interfaces (ISP)), 
+  Issue: [#80](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/80)
 
-- [release/actividad-obligatoria-2] Corrección de las tarjetas CRC 01 y 03, quitando los id's. Re-redacción de pensamiento de objeto en tarjeta CRC 1.  
-  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
-  Issue: [#68](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/68)
+  - [release/primer-parcial] Actualización de 04-isp.md agregando explicación de que es una interfaz.  
+  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
+  Issue: [#88](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/88)
 
-- [release/actividad-obligatoria-2] Corrección de todos los diagramas de casos de uso, export de sus respectivos archivos .png y corrección de índice repetido en diagramas_casos_de_uso.md.  
-  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
-  Issue: [#62](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/62)
+### Fixed
 
-- [release/actividad-obligatoria-2] Corrección de todos los escenarios de casos de uso en la parte de informacion para los pasos y aspectos sobresalientes. Corrección de los indices y la nomeclatura de los archivos.  
-  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
-  Issue: [#63](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/63)
+- [release/primer-parcial] Correcciones de 01-solid-05-dip.puml, export de diagrama y corrección de .md en principios-solid.  
+  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
+  Issue: [#84](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/84)
 
-- [release/actividad-obligatoria-2] Corrección de los diagramas de caso de uso, reestructurando las flechas para evitar entrecruzamientos. Export de nuevos png.  
-  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
-  Issue: [#64](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/64)
+- [release/primer-parcial] Correcciones de 01-solid-04-isp.puml, export de diagrama y corrección de .md en principios-solid.  
+  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
+  Issue: [#85](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/85)
 
-- [release/actividad-obligatoria-2] Corrección del índice herramientas_agile.md y creacion de tarjetas-crc.md para correcta estructuración de carpetas.  
-  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
-  Issue: [#65](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/65)
+- [release/primer-parcial] Fix de link caido, explicación de relación de herencia, explicación de strategy, state y specification.  
+  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @abartomioli (Especialista en Principios de Extensión OCP + LSP), 
+  Issue: [#86](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/86)
 
+- [release/primer-parcial] Agregado de parrafo introductorio y explicativo de principios solid y corrección de diagrama.  
+  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
+  Issue: [#87](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/87)
 
 
 ## [Release Actividad Obligatoria N°2] - (21-09-2025)
 
 ### Added
+
+- [release/actividad-obligatoria-2] Creación de tarjetas CRC faltantes para clases adjunto y servicio de notificaciones.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#67](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/67)
 
 - [feature/coord-documentador-repositorio] Creación de rama y archivo diagramasUML.md. Actualización de readme.md.  
   PR: [#60](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/60) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
@@ -80,6 +113,26 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 
 ### Changed
+
+- [release/actividad-obligatoria-2] Corrección de las tarjetas CRC 01 y 03, quitando los id's. Re-redacción de pensamiento de objeto en tarjeta CRC 1.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#68](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/68)
+
+- [release/actividad-obligatoria-2] Corrección de todos los diagramas de casos de uso, export de sus respectivos archivos .png y corrección de índice repetido en diagramas_casos_de_uso.md.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#62](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/62)
+
+- [release/actividad-obligatoria-2] Corrección de todos los escenarios de casos de uso en la parte de informacion para los pasos y aspectos sobresalientes. Corrección de los indices y la nomeclatura de los archivos.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#63](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/63)
+
+- [release/actividad-obligatoria-2] Corrección de los diagramas de caso de uso, reestructurando las flechas para evitar entrecruzamientos. Export de nuevos png.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#64](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/64)
+
+- [release/actividad-obligatoria-2] Corrección del índice herramientas_agile.md y creacion de tarjetas-crc.md para correcta estructuración de carpetas.  
+  PR: [#61](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/61) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#65](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/65)
 
 - [feature/coord-documentador-repositorio] Corrección de changelog.md y corrección de estructura indices de diagramas de caso de uso, escenarios de caso de uso y tarjetas CRC.  
   PR: [#60](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/60) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
