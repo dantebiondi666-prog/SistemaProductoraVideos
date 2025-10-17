@@ -24,6 +24,13 @@ De esta manera:
 - **Servicio de Reportes** puede depender de `IReportesConsulta` y, solo si corresponde, de `IExportarReporte`.
 - **Servicio de Etapas** depende de `IEtapaEscritura` (y `IEtapaLectura` si necesita validaciones previas).
 
+## ¿Qué es una interfaz?
+
+Una **interfaz** define un contrato: el *qué* debe poder hacer un objeto (métodos y sus firmas), sin imponer cómo lo hace (sin implementación).  
+Características clave:
+- **Sólo declara operaciones** (métodos públicos) y sus parámetros/retornos.
+- **No contiene estado ni lógica** de negocio.
+- **Permite múltiples implementaciones** intercambiables que cumplan el mismo contrato.
 
 ## Estructura de Clases (UML)
 ![Diagrama ISP](/diagramas/01-diagrama-clases/01-solid-04-isp.png)  
