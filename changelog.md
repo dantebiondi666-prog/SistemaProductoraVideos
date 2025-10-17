@@ -5,23 +5,6 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
-## Changed
-
-- [release/primer-parcial] Correcciones de 01-solid-05-dip.puml, export de diagrama y corrección de .md en principios-solid.  
-  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
-  Issue: [#84](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/84)
-
-- [release/primer-parcial] Correcciones de 01-solid-04-isp.puml, export de diagrama y corrección de .md en principios-solid.  
-  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
-  Issue: [#85](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/85)
-
-- [release/primer-parcial] Fix de link caido, explicación de relación de herencia, explicación de strategy, state y specification.  
-  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @abartomioli (Especialista en Principios de Extensión OCP + LSP), 
-  Issue: [#86](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/86)
-
-- [release/primer-parcial] Agregado de parrafo introductorio y explicativo de principios solid y corrección de diagrama.  
-  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
-  Issue: [#87](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/87)
   
 ## [Release Primer Parcial] - (01-10-2025)
 
@@ -58,6 +41,23 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   PR: [#81](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/81) - @juanmartinbrios7-cmd (Especialista en Segregación de Interfaces (ISP)), 
   Issue: [#80](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/80)
 
+### Fixed
+
+- [release/primer-parcial] Correcciones de 01-solid-05-dip.puml, export de diagrama y corrección de .md en principios-solid.  
+  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
+  Issue: [#84](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/84)
+
+- [release/primer-parcial] Correcciones de 01-solid-04-isp.puml, export de diagrama y corrección de .md en principios-solid.  
+  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
+  Issue: [#85](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/85)
+
+- [release/primer-parcial] Fix de link caido, explicación de relación de herencia, explicación de strategy, state y specification.  
+  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @abartomioli (Especialista en Principios de Extensión OCP + LSP), 
+  Issue: [#86](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/86)
+
+- [release/primer-parcial] Agregado de parrafo introductorio y explicativo de principios solid y corrección de diagrama.  
+  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
+  Issue: [#87](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/87)
 
 
 ## [Release Actividad Obligatoria N°2] - (21-09-2025)
