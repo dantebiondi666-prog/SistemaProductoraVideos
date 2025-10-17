@@ -41,6 +41,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   PR: [#81](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/81) - @juanmartinbrios7-cmd (Especialista en Segregación de Interfaces (ISP)), 
   Issue: [#80](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/80)
 
+  - [release/primer-parcial] Actualización de 04-isp.md agregando explicación de que es una interfaz.  
+  PR: [#83](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/83) - @dantebiondi666-prog (Documentador y coordinador de repositorio + SRP), 
+  Issue: [#88](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/88)
+
 ### Fixed
 
 - [release/primer-parcial] Correcciones de 01-solid-05-dip.puml, export de diagrama y corrección de .md en principios-solid.  
