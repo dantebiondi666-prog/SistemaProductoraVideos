@@ -1,0 +1,87 @@
+@startuml 04-actividad-asignar-responsable-etapa-03
+title CU03 – Asignar Responsable a Etapa
+
+skinparam activity {
+  ArrowThickness 1.2
+  BorderColor #555
+  BackgroundColor #eef5ff
+}
+skinparam Shadowing false
+
+|Coordinador|
+start
+:Abre detalle del proyecto y selecciona una etapa;
+
+|Sistema|
+:Verificar autenticación y permisos del coordinador;
+if (¿Autenticado y con permisos?) then (No)
+  :Mostrar error "Permisos insuficientes";
+elseif (¿Etapa existente?) then (No)
+  :Mostrar error "Etapa no encontrada";
+else (Sí)
+  :Mostrar datos actuales de la etapa;
+  note right
+    Se visualiza: responsable, estado, fechas
+    (detalle informativo)
+  end note
+
+  |Coordinador|
+  :Selecciona "Asignar/Cambiar responsable";
+
+  |Sistema|
+  :Desplegar selector de usuarios;
+  note right
+    • Búsqueda
+    • Filtros
+  end note
+
+  |Coordinador|
+  :Elegir usuario responsable y confirmar;
+
+  |Sistema|
+  :Validar usuario candidato;
+  note right
+    Ejemplos (no acciones):
+    • Usuario activo
+    • Rol permitido
+  end note
+
+  if (¿Usuario válido?) then (Sí)
+    :Actualizar responsable de la etapa;
+    :Registrar cambio en historial;
+    note right
+      Registrar: quién asigna, a quién, cuándo
+    end note
+
+    |Servicio de Notificaciones|
+    :Enviar aviso de asignación/cambio al nuevo responsable;
+
+    |Usuario Responsable|
+    :Recibir notificación;
+    note right
+      • email
+      • whatsapp
+      • push
+    end note
+
+    |Sistema|
+    :Preparar mensaje de confirmación;
+  else (No)
+    |Sistema|
+    :Preparar mensaje de error;
+    note right
+      Usuario inexistente/inactivo o rol no permitido
+    end note
+  endif
+endif
+
+|Sistema|
+:Mostrar resultado al Coordinador;
+note right
+  **Postcondiciones (si éxito):**
+  • Responsable asignado
+  • Historial actualizado
+  • Notificación enviada
+end note
+stop
+@enduml

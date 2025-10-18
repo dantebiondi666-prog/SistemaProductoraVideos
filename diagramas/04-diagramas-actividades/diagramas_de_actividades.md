@@ -4,12 +4,12 @@
 
 - [Diagrama de Actividad - Gestionar Etapas de un Proyecto]()
 
-- [Diagrama de Actividad - Asignar Responsable a Etapa]()
+- [Diagrama de Actividad - Asignar Responsable a Etapa](/diagramas/04-diagramas-actividades/04-actividad-asignar-responsable-etapa-03.png)
 
-- [Diagrama de Actividad - Cambiar Estado de Etapa]()
+- [Diagrama de Actividad - Cambiar Estado de Etapa](/diagramas/04-diagramas-actividades/04-actividad-cambiar-estado-etapa-04.png)
 
-- [Diagrama de Actividad - Consultar Reportes/Métricas]()
+- [Diagrama de Actividad - Consultar Reportes/Métricas](/diagramas/04-diagramas-actividades/04-actividad-consultar-reportes-metricas-05.png)
 
-- [Diagrama de Actividad - Mostrar Tablero de Control]()
+- [Diagrama de Actividad - Mostrar Tablero de Control](/diagramas/04-diagramas-actividades/04-actividad-mostrar-tablero-control-06.png)
 
 - [Diagrama de Actividad - Enviar Notificaciones Automáticas]()

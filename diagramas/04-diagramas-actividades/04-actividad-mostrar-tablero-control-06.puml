@@ -1,0 +1,77 @@
+@startuml 04-actividad-mostrar-tablero-control-06
+title CU06 – Mostrar Tablero de Control
+
+skinparam activity {
+  ArrowThickness 1.2
+  BorderColor #555
+  BackgroundColor #f6f9ff
+}
+skinparam Shadowing false
+
+|Usuario autenticado|
+start
+:Abre "Tablero" desde el menú;
+
+|Sistema (Tablero)|
+:Verificar autenticación;
+if (¿Usuario autenticado?) then (Sí)
+  :Cargar resumen de proyectos;
+
+  if (¿Existen proyectos?) then (Sí)
+    :Mostrar tarjetas con estado, avance y responsables;
+
+    |Usuario autenticado|
+    :Configurar filtros y aplicar;
+    note right
+      Filtros típicos:
+      • Estado
+      • Cliente
+      • Tipo
+    end note
+
+    repeat
+      |Sistema (Tablero)|
+      :Actualizar resultados según filtros;
+
+      |Usuario autenticado|
+      :Revisar resultados;
+      :¿Ajustar filtros?;
+    repeat while (Sí)
+
+    if (¿Expandir un proyecto?) then (Sí)
+      :Seleccionar proyecto;
+      |Sistema (Tablero)|
+      :Mostrar detalles de etapas;
+    endif
+
+    |Usuario autenticado|
+    if (¿Exportar resumen?) then (Sí)
+      |Sistema (Tablero)|
+      if (¿Resultados visibles?) then (Sí)
+        :Solicitar exportación (PDF/CSV);
+
+        |Servicio de Exportación|
+        :Generar archivo de resumen;
+        :Entregar archivo al sistema;
+
+        |Sistema (Tablero)|
+        :Proveer enlace/descarga al usuario;
+        :Confirmar acción de exportación;
+      else (No)
+        :Mostrar aviso "No hay datos para exportar";
+      endif
+    endif
+
+  else (No)
+    :Mostrar mensaje "No hay proyectos";
+    :Ofrecer acción "Crear proyecto";
+  endif
+
+else (No)
+  :Mostrar error "Sesión expirada / no autenticado";
+endif
+
+|Usuario autenticado|
+:Continuar navegación en el tablero;
+stop
+@enduml
