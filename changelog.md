@@ -5,6 +5,8 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+### Added
+
 - [feature/coord-doc-update-files] Creación de carpetas para diagramas de secuencia y de actividades, creación de sus respectivos índices. Actualización de índice general de diagramas con los índices de los nuevos diagramas.  
   PR: [#91](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/91) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#90](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/90)
