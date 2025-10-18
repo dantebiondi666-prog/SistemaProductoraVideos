@@ -5,6 +5,8 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+### Added
+
 - [feature/sp-actividades-3-4-5-6-add-diagrama-actividad-3] Creacion de diagramas de actividades para casos de uso 3,4,5,6 y actualización de índice de diagrama de de actividades.
   PR: [#97](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/97) - 
   @abartomioli (Especialista en Diagramas de Actividades - Casos de Uso 3, 4, 5 y 6). 
@@ -14,9 +16,6 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
    [#94](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/94)
    [#95](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/95)
    [#96](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/96)
-
-
-### Added
 
 - [feature/coord-doc-update-files] Creación de carpetas para diagramas de secuencia y de actividades, creación de sus respectivos índices. Actualización de índice general de diagramas con los índices de los nuevos diagramas.  
   PR: [#91](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/91) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
