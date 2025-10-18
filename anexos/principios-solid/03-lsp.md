@@ -15,7 +15,7 @@ Con LSP, todas las subclases **cumplen el mismo contrato** y pueden usarse indis
 Aplicación en el sistema:
 - `Usuario` es **abstracta**; `Admin`, `Coordinador`, `Colaborador` respetan el mismo contrato (`puedeGestionarProyectos`, `puedeGestionarEtapas`, `notificar`).
 - **Canales**: la interfaz `CanalNotificacion` unifica el contrato; `CanalEmail`, `CanalWhatsApp`, `CanalPush` y el legado `ServicioNotificaciones` lo implementan. Los clientes dependen de la **abstracción**.
-- **Estados de etapa**: `EstadoEtapa` define el contrato; subclases (`Pendiente`, `EnCurso`, `Finalizada`) aplican reglas sin romper la API de `Etapa`.
+- **Estados de etapa**: `EstadoEtapa` define el contrato; subclases (`Pendiente`, `EnCurso`, `Finalizada`) aplican reglas sin romper la API o Interfaz pública de `Etapa`.
 
 ## Estructura de Clases
 Diagrama de clases LSP (versión final):
@@ -30,5 +30,7 @@ Diagrama de clases LSP (versión final):
 ## Justificación Técnica
 - **Sustituibilidad de Usuario**: cualquier instancia (`Admin`, `Coordinador`, `Colaborador`) funciona donde se espera `Usuario` porque conserva el contrato público → **cumple LSP**.
 - **Sustituibilidad de Canales**: todas las implementaciones comparten la firma `enviar(n: Notificacion): ResultadoEnvio`; se pueden reemplazar sin cambios en los clientes → **cumple LSP**.
-- **Sustituibilidad de Estados**: cada subclase de `EstadoEtapa` respeta los mismos métodos y pre/postcondiciones. `Finalizada` restringe acciones de forma controlada sin romper la API → **cumple LSP**.
+- **Sustituibilidad de Estados**: cada subclase de `EstadoEtapa` respeta los mismos métodos y pre/postcondiciones. `Finalizada` restringe acciones de forma controlada sin romper la API o interfaz pública de EstadoEtapa → **cumple LSP**.
 - **Resultado**: jerarquías coherentes, sin `instanceof`/`switch` por tipo y con pruebas de contrato reutilizables para cada subclase.
+**Aclaración:**
+**instanceof/switch**, son estructuras para ramificar por tipo/valor. Se suele usar para reemplazar varios IF anidados, aunque no siempre principalmente cuando hay condiciones compuestas y usarlo de esta forma, a veces puede romper el principio OCP/LSP.

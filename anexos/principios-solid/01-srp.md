@@ -29,7 +29,7 @@ El diagrama refleja SRP sin introducir clases ajenas al modelo: Proyecto mantien
 - Etapa: se ocupa de su estado y fechas y colabora con Comentario y Adjunto para registrar información contextual y material, sin absorber la lógica interna de esos objetos. Un cambio en adjuntos o comentarios no afecta la lógica de transición de estado.
 - Notificacion: concentra la composición del mensaje (asunto/cuerpo) y el direccionamiento al destinatario. Si cambian plantillas o variables, se modifica aquí y no en ServicioNotificaciones ni en Proyecto/Etapa.
 - ServicioNotificaciones: única responsabilidad de transportar el mensaje por el canal disponible. Si se cambia el proveedor o la política de reintentos, se modifica aquí sin afectar cómo se construye el contenido.
-- - Usuario: mantiene datos de contacto, rol y canal preferido; puede disparar una notificación, pero no compone ni la transporta: la composición queda en Notificacion y el envío en ServicioNotificaciones.
+- Usuario: mantiene datos de contacto, rol, permisos y canal preferido. No envía notificaciones ni conoce proveedores; la comunicación queda completamente fuera del objeto Usuario. La composición del mensaje reside en **Notificación** y el transporte/planificación en **ServicioNotificaciones**.
 
 Con esta distribución, cada clase tiene una razón de cambio clara:
 - Proyecto/Etapa cambian si cambian sus reglas del dominio.
