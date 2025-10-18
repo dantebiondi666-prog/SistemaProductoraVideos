@@ -1,0 +1,70 @@
+@startuml 04-actividad-cambiar-estado-etapa-04
+title CU04 – Cambiar Estado de Etapa
+
+skinparam activity {
+  ArrowThickness 1.2
+  BorderColor #555
+  BackgroundColor #eefaf1
+}
+skinparam Shadowing false
+
+|Actor Principal (Resp./Coord.)|
+start
+:Abre detalle de la etapa;
+
+|Sistema|
+:Verificar autenticación y permisos;
+if (¿Usuario autenticado y con permisos?) then (No)
+  :Mostrar error "Permisos insuficientes";
+elseif (¿Etapa existente?) then (No)
+  :Mostrar error "Etapa no encontrada";
+else (Sí)
+  :Mostrar estado actual y opciones;
+  note right
+    Ejemplos:
+    - Pendiente
+    - En Curso
+    - Finalizada
+  end note
+
+  |Actor Principal (Resp./Coord.)|
+  :Selecciona nuevo estado y confirma;
+
+  |Sistema|
+  :Validar reglas de negocio;
+  note right
+    Ejemplos (no son acciones):
+    - No finalizar con tareas pendientes
+    - Reglas de permisos según rol
+  end note
+
+  if (¿Validación OK?) then (Sí)
+    :Actualizar estado de la etapa;
+    :Registrar cambio en historial;
+
+    |Servicio de Notificaciones|
+    :Determinar interesados;
+    if (¿Quién hizo el cambio?) then (Responsable)
+      :Notificar al Coordinador;
+    else (Coordinador)
+      :Notificar al Responsable de la etapa;
+    endif
+  else (No)
+    |Sistema|
+    :Mostrar error y mantener estado anterior;
+    note right
+      En error no se envían notificaciones
+    end note
+  endif
+endif
+
+|Sistema|
+:Mostrar resultado al actor;
+note right
+  **Postcondiciones (si éxito):**
+  - Estado actualizado
+  - Historial registrado
+  - Notificaciones enviadas
+end note
+stop
+@enduml
