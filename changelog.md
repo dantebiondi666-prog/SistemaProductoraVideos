@@ -7,6 +7,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Added
 
+- [feature/esp-diag-act-add-diag-07] Creación de diagrama de actividad para caso de uso número 7 "enviar notificaciones automáticas". Actualización de índice diagramas de actividad.  
+  PR: [#99](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/99) - @dantebiondi666-prog (Documentador y coordinador de repositorio - Especialista en diagramas de Actividades - Caso de uso 07), 
+  Issue: [#98](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/98)
+
 - [feature/sp-actividades-3-4-5-6-add-diagrama-actividad-3] Creacion de diagramas de actividades para casos de uso 3,4,5,6 y actualización de índice de diagrama de de actividades.
   PR: [#97](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/97) - 
   @abartomioli (Especialista en Diagramas de Actividades - Casos de Uso 3, 4, 5 y 6). 
