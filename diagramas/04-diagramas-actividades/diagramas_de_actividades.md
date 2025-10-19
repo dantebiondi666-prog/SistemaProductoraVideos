@@ -12,4 +12,4 @@
 
 - [Diagrama de Actividad - Mostrar Tablero de Control](/diagramas/04-diagramas-actividades/04-actividad-mostrar-tablero-control-06.png)
 
-- [Diagrama de Actividad - Enviar Notificaciones Automáticas]()
+- [Diagrama de Actividad - Enviar Notificaciones Automáticas](/diagramas/04-diagramas-actividades/04-actividad-enviar-notificaciones-automaticas-07.png)
