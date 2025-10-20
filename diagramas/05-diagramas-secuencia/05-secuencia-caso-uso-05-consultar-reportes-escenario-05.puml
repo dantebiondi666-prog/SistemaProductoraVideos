@@ -1,0 +1,60 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor "Usuario (Prod/Coord)" as user
+participant "PantallaReportes:ui" as ui
+participant "ServicioReportes:ctrl" as ctrl
+participant "ValidadorFiltros:val" as val
+participant "MotorReportes:svc" as svc
+participant "ServicioExportacion:export" as export
+
+' --- Disparo y filtros (simple) ---
+user -> ui: abrirReportes()
+activate ui
+user -> ui: configurarFiltros(rangoFechas, proyecto, estado)
+
+ui -> ctrl: consultarReportes(filtros)
+activate ctrl
+
+' --- Validación de filtros (objeto temporal) ---
+ctrl -> val: normalizarFiltros(filtros)
+activate val
+val --> ctrl: filtrosNormalizados
+
+ctrl -> val: validarFiltros(filtrosNormalizados)
+val --> ctrl: filtrosOK
+destroy val
+
+' --- Consulta y métricas (lineal) ---
+ctrl -> svc: prepararConsulta(filtrosNormalizados)
+activate svc
+svc --> ctrl: consultaPreparada
+
+ctrl -> svc: ejecutarConsulta()
+svc --> ctrl: dataset
+
+ctrl -> svc: calcularMetricas(dataset)
+svc --> ctrl: metricas
+deactivate svc
+
+' --- Mostrar resultados y actualizar (≤3s) ---
+ctrl --> ui: mostrarVisualizaciones(metricas)
+ui -> user: mostrarResumen(metricas)
+ctrl --> ui: actualizarResultados(metricas)
+
+' --- Exportación (paso directo, sin ramas) ---
+ui -> ctrl: exportarReporte(formato, metricas)
+ctrl -> export: generarArchivo(formato, metricas)
+activate export
+export --> ctrl: archivoGenerado(urlDescarga)
+deactivate export
+ctrl --> ui: disponibleParaDescarga(urlDescarga)
+ui -> user: ofrecerDescarga(urlDescarga)
+
+' --- Cierre ---
+deactivate ctrl
+deactivate ui
+@enduml
