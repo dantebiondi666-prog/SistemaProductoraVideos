@@ -1,15 +1,29 @@
-# Diagramas de Secuencia
+# 05 – Diagramas de Secuencia
 
-- [Diagrama de Secuencia - Crear/Editar Proyecto - Creación Edición Proyecto Exitoso]()
+### CU01 – Editar Proyecto
+  - [PUML](./05-secuencia-caso-uso-01-editar-proyecto-escenario-01.puml)  
+  - [PNG](./05-secuencia-caso-uso-01-editar-proyecto-escenario-01.png)
 
-- [Diagrama de Secuencia - Gestionar Etapas de un Proyecto - Agregación, Edición o Eliminación Etapa Exitosa]()
+### CU02 – Gestionar Etapas
+  - [PUML](./05-secuencia-caso-uso-02-gestionar-etapas-escenario-02.puml)  
+  - [PNG](./05-secuencia-caso-uso-02-gestionar-etapas-escenario-02.png)
 
-- [Diagrama de Secuencia - Asignar Responsable a Etapa - Asignacion Exitosa Responsable Etapa]()
+### CU03 – Asignar Responsable a Etapa
+  - [PUML](./05-secuencia-caso-uso-03-asignar-responsable-etapa-escenario-03.puml)  
+  - [PNG](./05-secuencia-caso-uso-03-asignar-responsable-etapa-escenario-03.png)
 
-- [Diagrama de Secuencia - Cambiar Estado de Etapa - Cambiar Estado Etapa Exitoso]()
+### CU04 – Cambiar Estado de Etapa
+  - [PUML](./05-secuencia-caso-uso-04-cambiar-estado-etapa-escenario-04.puml)  
+  - [PNG](./05-secuencia-caso-uso-04-cambiar-estado-etapa-escenario-04.png)
 
-- [Diagrama de Secuencia - Consultar Reportes/Métricas - Generacion Reporte Exitoso]()
+### CU05 – Consultar Reportes / Métricas
+  - [PUML](./05-secuencia-caso-uso-05-consultar-reportes-escenario-05.puml)  
+  - [PNG](./05-secuencia-caso-uso-05-consultar-reportes-escenario-05.png)
 
-- [Diagrama de Secuencia - Mostrar Tablero de Control - Visualizacion Exitosa Tablero Control]()
+### CU06 – Mostrar Tablero
+  - [PUML](./05-secuencia-caso-uso-06-mostrar-tablero-escenario-06.puml)  
+  - [PNG](./05-secuencia-caso-uso-06-mostrar-tablero-escenario-06.png)
 
-- [Diagrama de Secuencia - Enviar Notificaciones Automáticas - Envio Notificacion Automatica Exitosa]()
+### CU07 – Enviar Notificaciones Automáticas
+  - [PUML](./05-secuencia-caso-uso-07-enviar-notificaciones-escenario-07.puml)  
+  - [PNG](./05-secuencia-caso-uso-07-enviar-notificaciones-escenario-07.png)
