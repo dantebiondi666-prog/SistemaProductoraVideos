@@ -8,7 +8,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ### Added
 - [feature/esp-actividades-1-2-add-diagramas] Creación de diagramas de actividad para los Casos de Uso 01 (Crear/Editar Proyecto) y 02 (Gestionar Etapas de un Proyecto). Se actualiza índice `diagramas_de_actividades.md` e incorporación de archivos .puml y .png.
 
-   PR: [#XX](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/) - @juanmartinbritos7-cmd (Especialista en Diagramas de Actividades - Casos de Uso 1 y 2)  
+   PR: [#109](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/) - @juanmartinbritos7-cmd (Especialista en Diagramas de Actividades - Casos de Uso 1 y 2)  
    Issues: [#107](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/107) 
               [#108](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/108)
 
