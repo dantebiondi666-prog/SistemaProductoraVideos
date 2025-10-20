@@ -5,6 +5,8 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+## [Release Actividad Obligatoria N°3] - (20-10-2025)
+
 ### Added
 
 - [feature/esp-secuencia-add-diagrama-secuencia-1] Creación de diagramas de secuencia para los Casos de Uso 01–07 y actualización del índice `diagramas_de_secuencias.md` (PUML + PNG).
