@@ -1,0 +1,25 @@
+@startuml 04-actividad-crear-editar-proyecto
+title CU01 – Crear/Editar Proyecto (RF01)
+
+|Cliente|
+start
+:Solicita creación o edición de proyecto;
+|Sistema|
+:Validar datos del proyecto;
+if (Datos válidos?) then (Sí)
+  :Persistir proyecto;
+  :Registrar auditoría;
+  |Coordinador|
+  :Asignar equipo técnico;
+  |Sistema|
+  :Registrar datos del cliente;
+  :Definir etapas de trabajo;
+  :Notificar creación/edición;
+  |Cliente|
+  :Recibe confirmación y detalle del proyecto;
+else (No)
+  :Mostrar errores de validación;
+endif
+stop
+
+@enduml

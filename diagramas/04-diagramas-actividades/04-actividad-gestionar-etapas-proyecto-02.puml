@@ -1,0 +1,25 @@
+@startuml 04-actividad-gestionar-etapas-proyecto
+title CU02 – Gestionar Etapas de un Proyecto (RF02)
+
+|Coordinador|
+start
+:Seleccionar proyecto;
+:Elegir opción "Gestionar etapas";
+|Sistema|
+:Mostrar etapas actuales del proyecto;
+:Validar datos de etapa seleccionada;
+if (Etapa válida?) then (Sí)
+  |Coordinador|
+  :Editar o agregar etapa;
+  |Sistema|
+  :Guardar cambios de etapa;
+  :Registrar evento (alta/edición/baja);
+  :Notificar responsable afectado;
+  |Usuario Responsable|
+  :Recibe notificación con detalles;
+else (No)
+  :Mostrar errores de validación;
+endif
+stop
+
+@enduml
