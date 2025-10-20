@@ -6,6 +6,19 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ## [Unreleased]
 
 ### Added
+
+- [feature/esp-secuencia-add-diagrama-secuencia-1] Creación de diagramas de secuencia para los Casos de Uso 01–07 y actualización del índice `diagramas_de_secuencias.md` (PUML + PNG).
+  PR: [#110](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/110) - @leanlex (Especialista en Diagramas de Secuencia – Casos de Uso 1 a 7)
+  Issues:
+   [#100](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/100)
+   [#101](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/101)
+   [#102](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/102)
+   [#103](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/103)
+   [#104](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/104)
+   [#105](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/105)
+   [#106](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/106)
+
+
 - [feature/esp-actividades-1-2-add-diagramas] Creación de diagramas de actividad para los Casos de Uso 01 (Crear/Editar Proyecto) y 02 (Gestionar Etapas de un Proyecto). Se actualiza índice `diagramas_de_actividades.md` e incorporación de archivos .puml y .png.
 
    PR: [#109](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/109) - @juanmartinbritos7-cmd (Especialista en Diagramas de Actividades - Casos de Uso 1 y 2)  
