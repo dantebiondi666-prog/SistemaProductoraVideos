@@ -1,0 +1,89 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Coordinador as coord
+participant "PantallaEtapas:ui" as ui
+participant "ServicioEtapas:ctrl" as ctrl
+participant "Validador:val" as val
+participant "Etapa:etapa" as etapa
+participant "INotificador:notif" as notif
+actor "Usuario Responsable" as resp
+
+' ==== Disparo ====
+coord -> ui: abrirAsignacion(idProyecto, idEtapa)
+activate ui
+ui -> ctrl: asignarResponsable(idEtapa, idUsuario)
+activate ctrl
+
+' ==== Validar permisos y usuario (objeto temporal) ====
+ctrl -> val: normalizar(idEtapa, idUsuario)
+activate val
+val --> ctrl: datosNormalizados
+
+ctrl -> val: validarPermisosYUsuario(coord, datosNormalizados)
+val --> ctrl: resultado(ok, errores)
+destroy val
+
+' ==== Rama principal OK / errores ====
+alt [ok == true]
+  ' ===== Actualizar etapa (asignación) =====
+  ctrl -> etapa: cargar(idEtapa)
+  activate etapa
+  etapa --> ctrl: etapaActual
+
+  ctrl -> etapa: asignarResponsable(idUsuario)
+  etapa --> ctrl: asignado
+
+  ctrl -> etapa: guardar()
+  etapa --> ctrl: ok
+  deactivate etapa
+
+  ' ===== Historial (alta de evento) =====
+  ctrl -> ctrl: registrarHistorial("ASIGNACION_RESP", idEtapa, idUsuario)
+
+  ' ===== Notificar responsable =====
+  ctrl -> notif: notificarAsignacion(idEtapa, idUsuario)
+  activate notif
+  notif --> ctrl: recibido
+
+  ' (extra para 3+ interacciones)
+  ctrl -> notif: programarRecordatorioInicio(idEtapa, fechaRecordatorio)
+  notif --> ctrl: recordatorioProgramado
+
+  ' Entrega al Responsable (visualización opcional)
+  notif -> resp: entregarNotificacionAsignacion(idEtapa)
+  resp --> notif: acuseRecibo
+  deactivate notif
+
+  ' ===== Confirmación UI =====
+  ctrl --> ui: okAsignacion(idEtapa, idUsuario)
+  deactivate ctrl
+
+  ui -> coord: mostrarConfirmacion(idEtapa, idUsuario)
+  coord -> ui: verDetalleEtapa(idEtapa)
+  ui -> ctrl: obtenerDetalleEtapa(idEtapa)
+  activate ctrl
+  ctrl -> etapa: obtenerDetalle()
+  activate etapa
+  etapa --> ctrl: detalle
+  deactivate etapa
+  ctrl --> ui: detalleCargado(detalle)
+  deactivate ctrl
+  ui --> coord: mostrarDetalle(detalle)
+  deactivate ui
+else [ok == false]
+  ctrl --> ui: errorValidacion(errores)
+  deactivate ctrl
+  ui -> coord: mostrarErrores(errores)
+  coord -> ui: corregirSeleccion(idUsuarioNuevo)
+  ui -> ctrl: asignarResponsable(idEtapa, idUsuarioNuevo)
+  activate ctrl
+  ' (el flujo retoma desde validación, omitido por brevedad)
+  ctrl --> ui: pendienteRevalidacion()
+  deactivate ctrl
+  deactivate ui
+end
+@enduml
