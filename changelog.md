@@ -5,6 +5,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+- [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 01. Agregado Servicio de Notificaciones como swimlane, nota aclaratoria en los datos validados, agregado de loop y corrección sobre actividades persistir y registrar. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#112](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/112)
+
 ## [Release Actividad Obligatoria N°3] - (20-10-2025)
 
 ### Added
