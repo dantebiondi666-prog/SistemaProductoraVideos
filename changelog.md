@@ -5,6 +5,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+- [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 05. Corrección de condicional y loop de actividad de ajuste de filtros. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#116](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/116)
+
 - [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 04. Decisiones separadas, loop de validación de reglas, fork Actualizar estado + Registrar historial. 
   PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#115](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/115)
