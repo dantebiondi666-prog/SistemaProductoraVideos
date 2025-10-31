@@ -1,5 +1,5 @@
 @startuml 04-actividad-cambiar-estado-etapa-04
-title CU04 – Cambiar Estado de Etapa
+title CU04 – Cambiar Estado de Etapa (RF02, RF04, RF06)
 
 skinparam activity {
   ArrowThickness 1.2
@@ -16,55 +16,65 @@ start
 :Verificar autenticación y permisos;
 if (¿Usuario autenticado y con permisos?) then (No)
   :Mostrar error "Permisos insuficientes";
-elseif (¿Etapa existente?) then (No)
-  :Mostrar error "Etapa no encontrada";
-else (Sí)
-  :Mostrar estado actual y opciones;
-  note right
-    Ejemplos:
-    - Pendiente
-    - En Curso
-    - Finalizada
-  end note
-
   |Actor Principal (Resp./Coord.)|
-  :Selecciona nuevo estado y confirma;
-
-  |Sistema|
-  :Validar reglas de negocio;
-  note right
-    Ejemplos (no son acciones):
-    - No finalizar con tareas pendientes
-    - Reglas de permisos según rol
-  end note
-
-  if (¿Validación OK?) then (Sí)
-    :Actualizar estado de la etapa;
-    :Registrar cambio en historial;
-
-    |Servicio de Notificaciones|
-    :Determinar interesados;
-    if (¿Quién hizo el cambio?) then (Responsable)
-      :Notificar al Coordinador;
-    else (Coordinador)
-      :Notificar al Responsable de la etapa;
-    endif
-  else (No)
-    |Sistema|
-    :Mostrar error y mantener estado anterior;
-    note right
-      En error no se envían notificaciones
-    end note
-  endif
+  :Visualiza mensaje de error;
+  end
 endif
 
 |Sistema|
-:Mostrar resultado al actor;
+:Verificar existencia de la etapa;
+if (¿Etapa existente?) then (No)
+  :Mostrar error "Etapa no encontrada";
+  |Actor Principal (Resp./Coord.)|
+  :Visualiza mensaje de error;
+  end
+endif
+
+|Sistema|
+:Mostrar estado actual y opciones;
 note right
-  **Postcondiciones (si éxito):**
-  - Estado actualizado
-  - Historial registrado
-  - Notificaciones enviadas
+  Opciones:
+  • Pendiente
+  • En curso
+  • Finalizada
 end note
+
+|Actor Principal (Resp./Coord.)|
+:Selecciona nuevo estado y confirma;
+
+|Sistema|
+:Validar reglas de negocio;
+note right
+  Reglas (no acciones):
+  • No finalizar si hay tareas pendientes
+  • Permisos según rol
+end note
+
+while (¿Validación OK?) is (No)
+  :Mostrar error y mantener estado anterior;
+  |Actor Principal (Resp./Coord.)|
+  :Ajusta selección y confirma nuevamente;
+  |Sistema|
+  :Validar reglas de negocio;
+endwhile
+
+|Sistema|
+fork
+  :Actualizar estado de la etapa;
+fork again
+  :Registrar cambio en historial\n(desde/hacia, quién, cuándo);
+end fork
+
+|Servicio de Notificaciones|
+:Determinar interesados;
+if (¿Quién hizo el cambio?) then (Responsable)
+  :Notificar al Coordinador (email/WhatsApp);
+else (Coordinador)
+  :Notificar al Responsable (email/WhatsApp);
+endif
+
+|Actor Principal (Resp./Coord.)|
+:Visualiza confirmación;
+
 stop
 @enduml

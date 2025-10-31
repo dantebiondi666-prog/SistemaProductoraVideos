@@ -5,6 +5,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+- [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 04. Decisiones separadas, loop de validación de reglas, fork Actualizar estado + Registrar historial. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#115](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/115)
+
 - [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 03. Actividad relacionada con Coordinador corregida en correcto swimlane, corrección de quien recibe los mensajes de error, agregado de loop y corrección sobre actividades actualizar y registrar. 
   PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#114](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/114)
