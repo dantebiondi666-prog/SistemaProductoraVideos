@@ -5,6 +5,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+- [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 07. Corrección de notas reemplazando aclaraciones dentro de actividad. Corrección de loop. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#118](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/118)
+
 - [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 06. Corrección de loop, se agregan actividades tras merges. 
   PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#117](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/117)

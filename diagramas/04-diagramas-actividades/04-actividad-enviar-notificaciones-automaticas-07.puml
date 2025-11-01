@@ -10,7 +10,10 @@ skinparam Shadowing false
 
 |Coordinador/Responsable|
 start
-:Realiza acción relevante\n(p. ej., asignar responsable / cambiar estado);
+:Realiza acción relevante;
+note right
+p. ej., asignar responsable / cambiar estado
+end note
 
 |Sistema|
 :Detectar evento del dominio;
@@ -18,12 +21,21 @@ start
 :Obtener preferencia de canal por usuario;
 
 if (¿Usuario tiene preferencia?) then (Sí)
-  :Seleccionar canal preferido\n(email / WhatsApp);
+  :Seleccionar canal preferido;
+  note left
+  email / WhatsApp
+  end note
 else (No)
-  :Seleccionar canal por defecto\n(email);
+  :Seleccionar canal por defecto;
+  note right
+  email
+  end note
 endif
 
-:Componer mensaje con datos\n(proyecto/etapa/estado);
+:Componer mensaje con datos;
+note right
+incluye: proyecto/etapa/estado
+end note
 
 |Servicio de Notificaciones|
 :Intentar envío al destinatario;
@@ -32,33 +44,35 @@ if (¿Servicio disponible?) then (No)
   |Sistema|
   :Registrar indisponibilidad del servicio;
   :Marcar notificación para revisión;
-  stop
+  end
 endif
 
+|Servicio de Notificaciones|
 :Procesar envío;
-if (¿Envío exitoso?) then (Sí)
-  |Sistema|
-  :Registrar envío OK en historial;
-  |Destinatario|
-  :Recibir notificación (email/WhatsApp);
-  |Sistema|
-  :Finalizar procesamiento del evento;
-  stop
-else (No)
+if (¿Envío exitoso?) then (No)
   |Sistema|
   :Registrar intento fallido en historial;
-  :Reintentar hasta N veces;
-  if (¿Se recupera?) then (Sí)
-    :Registrar envío OK tras reintento;
-    |Destinatario|
-    :Recibir notificación (email/WhatsApp);
+  while (¿se recupera tras reintentos?) is (No)
+  |Servicio de Notificaciones|
+    :Reintentar envío;
     |Sistema|
-    :Finalizar procesamiento del evento;
-    stop
-  else (No)
+    :Registrar intento fallido en historial;
+  endwhile
+  if (¿Se recupera tras reintentos?) then (No)
     :Marcar notificación para revisión;
-    stop
+    end
   endif
 endif
+
+|Sistema|
+:Registrar envío OK en historial;
+|Destinatario|
+:Recibir notificación;
+note right
+email/WhatsApp
+end note
+|Sistema|
+:Finalizar procesamiento del evento;
+stop
 
 @enduml
