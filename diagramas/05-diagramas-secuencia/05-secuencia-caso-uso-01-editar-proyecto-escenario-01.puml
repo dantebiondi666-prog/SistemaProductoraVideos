@@ -1,4 +1,4 @@
-@startuml
+@startuml diagsecuencia01
 skinparam sequenceArrowThickness 2
 skinparam roundcorner 20
 skinparam maxmessagesize 60
@@ -10,19 +10,19 @@ participant "ServicioProyectos:ctrl" as ctrl
 participant "Validador:val" as val
 participant "Proyecto:proy" as proy
 
-user -> ui: abrirEdicion(idProyecto)
+user -> ui: abrirEdicion
 activate ui
-ui -> ctrl: editarProyecto(idProyecto, cambios)
+ui -> ctrl: editarProyecto
 activate ctrl
 
 ctrl -> val: normalizar(cambios)
 activate val
 val --> ctrl: datosNormalizados
 ctrl -> val: validarDatos(datosNormalizados)
-val --> ctrl: resultado(ok, errores)
+val --> ctrl: resultado
 destroy val
 
-ctrl -> proy: cargar(idProyecto)
+ctrl -> proy: cargar
 activate proy
 proy --> ctrl: proyectoActual
 ctrl -> proy: aplicarCambios(cambios)
@@ -31,10 +31,10 @@ ctrl -> proy: guardar()
 proy --> ctrl: ok
 deactivate proy
 
-ctrl --> ui: okEdicion(idProyecto)
+ctrl --> ui: okEdicion
 deactivate ctrl
-ui -> user: mostrarConfirmacion(idProyecto)
-user -> ui: confirmarDetalle(idProyecto)
-ui --> user: mostrarDetalle(idProyecto)
+ui -> user: mostrarConfirmacion
+user -> ui: confirmarDetalle
+ui --> user: mostrarDetalle
 deactivate ui
 @enduml

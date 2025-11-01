@@ -1,4 +1,4 @@
-@startuml
+@startuml diagsecuencia03
 skinparam sequenceArrowThickness 2
 skinparam roundcorner 20
 skinparam maxmessagesize 60
@@ -13,13 +13,13 @@ participant "INotificador:notif" as notif
 actor "Usuario Responsable" as resp
 
 ' ==== Disparo ====
-coord -> ui: abrirAsignacion(idProyecto, idEtapa)
+coord -> ui: abrirAsignacion
 activate ui
-ui -> ctrl: asignarResponsable(idEtapa, idUsuario)
+ui -> ctrl: asignarResponsable
 activate ctrl
 
 ' ==== Validar permisos y usuario (objeto temporal) ====
-ctrl -> val: normalizar(idEtapa, idUsuario)
+ctrl -> val: normalizar
 activate val
 val --> ctrl: datosNormalizados
 
@@ -30,11 +30,11 @@ destroy val
 ' ==== Rama principal OK / errores ====
 alt [ok == true]
   ' ===== Actualizar etapa (asignación) =====
-  ctrl -> etapa: cargar(idEtapa)
+  ctrl -> etapa: cargar
   activate etapa
   etapa --> ctrl: etapaActual
 
-  ctrl -> etapa: asignarResponsable(idUsuario)
+  ctrl -> etapa: asignarResponsable
   etapa --> ctrl: asignado
 
   ctrl -> etapa: guardar()
@@ -42,29 +42,29 @@ alt [ok == true]
   deactivate etapa
 
   ' ===== Historial (alta de evento) =====
-  ctrl -> ctrl: registrarHistorial("ASIGNACION_RESP", idEtapa, idUsuario)
+  ctrl -> ctrl: registrarHistorial("ASIGNACION_RESP")
 
   ' ===== Notificar responsable =====
-  ctrl -> notif: notificarAsignacion(idEtapa, idUsuario)
+  ctrl -> notif: notificarAsignacion()
   activate notif
   notif --> ctrl: recibido
 
   ' (extra para 3+ interacciones)
-  ctrl -> notif: programarRecordatorioInicio(idEtapa, fechaRecordatorio)
+  ctrl -> notif: programarRecordatorioInicio(fechaRecordatorio)
   notif --> ctrl: recordatorioProgramado
 
   ' Entrega al Responsable (visualización opcional)
-  notif -> resp: entregarNotificacionAsignacion(idEtapa)
+  notif -> resp: entregarNotificacionAsignacion
   resp --> notif: acuseRecibo
   deactivate notif
 
   ' ===== Confirmación UI =====
-  ctrl --> ui: okAsignacion(idEtapa, idUsuario)
+  ctrl --> ui: okAsignacion
   deactivate ctrl
 
-  ui -> coord: mostrarConfirmacion(idEtapa, idUsuario)
-  coord -> ui: verDetalleEtapa(idEtapa)
-  ui -> ctrl: obtenerDetalleEtapa(idEtapa)
+  ui -> coord: mostrarConfirmacion
+  coord -> ui: verDetalleEtapa
+  ui -> ctrl: obtenerDetalleEtapa
   activate ctrl
   ctrl -> etapa: obtenerDetalle()
   activate etapa
@@ -78,8 +78,8 @@ else [ok == false]
   ctrl --> ui: errorValidacion(errores)
   deactivate ctrl
   ui -> coord: mostrarErrores(errores)
-  coord -> ui: corregirSeleccion(idUsuarioNuevo)
-  ui -> ctrl: asignarResponsable(idEtapa, idUsuarioNuevo)
+  coord -> ui: corregirSeleccion
+  ui -> ctrl: asignarResponsable
   activate ctrl
   ' (el flujo retoma desde validación, omitido por brevedad)
   ctrl --> ui: pendienteRevalidacion()

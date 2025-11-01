@@ -1,4 +1,4 @@
-@startuml
+@startuml diagsecuencia04
 skinparam sequenceArrowThickness 2
 skinparam roundcorner 20
 skinparam maxmessagesize 60
@@ -12,13 +12,13 @@ participant "Etapa:etapa" as etapa
 participant "INotificador:notif" as notif
 
 ' ==== Disparo ====
-user -> ui: solicitarCambioEstado(idProyecto, idEtapa, nuevoEstado, comentario)
+user -> ui: solicitarCambioEstado(nuevoEstado, comentario)
 activate ui
-ui -> ctrl: cambiarEstado(idEtapa, nuevoEstado, comentario)
+ui -> ctrl: cambiarEstado(nuevoEstado, comentario)
 activate ctrl
 
 ' ==== Validación de reglas de negocio (objeto temporal) ====
-ctrl -> val: validarReglas(idEtapa, nuevoEstado, comentario, user)
+ctrl -> val: validarReglas(nuevoEstado, comentario, user)
 activate val
 val --> ctrl: resultado(ok, errores, requiereAprobacion)
 destroy val
@@ -38,37 +38,37 @@ alt [ok == true and requiereAprobacion == false]
   deactivate etapa
 
   ' ===== Historial =====
-  ctrl -> ctrl: registrarHistorial("CAMBIO_ESTADO", idEtapa, nuevoEstado, user)
+  ctrl -> ctrl: registrarHistorial("CAMBIO_ESTADO", nuevoEstado, user)
 
   ' ===== Notificaciones (interesados) =====
-  ctrl -> notif: notificarInteresados(idEtapa, nuevoEstado)
+  ctrl -> notif: notificarInteresados(nuevoEstado)
   activate notif
   notif --> ctrl: recibido
 
   ' opcional: recordatorio si pasa a "EN_CURSO"
   opt [nuevoEstado == "EN_CURSO"]
-    ctrl -> notif: programarRecordatorioInicio(idEtapa, fechaRecordatorio)
+    ctrl -> notif: programarRecordatorioInicio(fechaRecordatorio)
     notif --> ctrl: recordatorioProgramado
   end
   deactivate notif
 
   ' ===== Confirmación UI =====
-  ctrl --> ui: okCambioEstado(idEtapa, nuevoEstado)
+  ctrl --> ui: okCambioEstado(nuevoEstado)
   deactivate ctrl
-  ui -> user: mostrarConfirmacion(idEtapa, nuevoEstado)
+  ui -> user: mostrarConfirmacion(nuevoEstado)
   deactivate ui
 
 else [ok == true and requiereAprobacion == true]
   ' ===== Flujo con aprobación (simple) =====
-  ctrl -> ctrl: registrarPendienteAprobacion(idEtapa, nuevoEstado, user)
-  ctrl -> notif: notificarCoordinadorAprobacion(idEtapa, nuevoEstado)
+  ctrl -> ctrl: registrarPendienteAprobacion(nuevoEstado, user)
+  ctrl -> notif: notificarCoordinadorAprobacion(nuevoEstado)
   activate notif
   notif --> ctrl: enviado
   deactivate notif
 
-  ctrl --> ui: cambioEstadoPendienteAprobacion(idEtapa, nuevoEstado)
+  ctrl --> ui: cambioEstadoPendienteAprobacion(nuevoEstado)
   deactivate ctrl
-  ui -> user: mostrarPendienteAprobacion(idEtapa)
+  ui -> user: mostrarPendienteAprobacion
   deactivate ui
 
 else [ok == false]
@@ -78,9 +78,9 @@ else [ok == false]
   ui -> user: mostrarErrores(errores)
 
   ' Reintento mínimo
-  user -> ui: reenviarSolicitud(idEtapa, nuevoEstadoCorregido, comentario)
+  user -> ui: reenviarSolicitud(nuevoEstadoCorregido, comentario)
   activate ui
-  ui -> ctrl: cambiarEstado(idEtapa, nuevoEstadoCorregido, comentario)
+  ui -> ctrl: cambiarEstado(nuevoEstadoCorregido, comentario)
   deactivate ui
 end
 @enduml

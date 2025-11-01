@@ -1,4 +1,4 @@
-@startuml
+@startuml diagsecuencia07
 skinparam sequenceArrowThickness 2
 skinparam roundcorner 20
 skinparam maxmessagesize 60
@@ -13,12 +13,12 @@ participant "PasarelaNotificaciones:notif" as notif
 participant "HistorialNotificaciones:audit" as audit
 
 ' --- Disparo del evento automático ---
-sys -> ctrl: detectarEventoCambio(entidad, idEntidad, tipoEvento)
+sys -> ctrl: detectarEventoCambio(entidad, tipoEvento)
 activate ctrl
-ctrl --> sys: ackEventoRecibido(idEvento)
+ctrl --> sys: ackEventoRecibido
 
 ' --- Identificar destinatarios ---
-ctrl -> sel: identificarDestinatarios(tipoEvento, idEntidad)
+ctrl -> sel: identificarDestinatarios(tipoEvento)
 activate sel
 sel --> ctrl: destinatarios
 ctrl -> sel: aplicarPreferencias(destinatarios)
@@ -26,7 +26,7 @@ sel --> ctrl: destinatariosFiltrados
 deactivate sel
 
 ' --- Construir mensaje (objeto temporal) ---
-ctrl -> builder: construirMensaje(tipoEvento, idEntidad, destinatariosFiltrados)
+ctrl -> builder: construirMensaje(tipoEvento, destinatariosFiltrados)
 activate builder
 builder --> ctrl: mensaje
 ctrl -> builder: adjuntarMetadatos(mensaje, contexto)
@@ -47,7 +47,7 @@ notif --> ctrl: recepcionConfirmada
 deactivate notif
 
 ' --- Registrar historial ---
-ctrl -> audit: registrar(idEvento, tipoEvento, destinatariosFiltrados, canalSeleccionado)
+ctrl -> audit: registrar(tipoEvento, destinatariosFiltrados, canalSeleccionado)
 activate audit
 audit --> ctrl: ok
 ctrl -> audit: registrarResultado(resumenOK, resumenError)

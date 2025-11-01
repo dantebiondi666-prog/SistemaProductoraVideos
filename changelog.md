@@ -5,6 +5,18 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+## **Todos los cambios los voy a agregar en released en fixed luego de aprobación**
+
+- [release/actividad-obligatoria-3] Correcciones de todos los diagramas de secuencia, quitando id's y corrección de índice de diagramas de secuencia. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#119](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/119)
+  Issue: [#120](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/120)
+  Issue: [#121](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/121)
+  Issue: [#122](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/122)
+  Issue: [#123](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/123)
+  Issue: [#124](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/124)
+  Issue: [#125](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/125)
+
 - [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 07. Corrección de notas reemplazando aclaraciones dentro de actividad. Corrección de loop. 
   PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#118](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/118)
