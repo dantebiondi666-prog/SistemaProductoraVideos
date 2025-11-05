@@ -1,0 +1,40 @@
+@startuml diagsecuencia01
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor "Usuario (Productor/Coordinador)" as user
+participant "PantallaProyectos:ui" as ui
+participant "ServicioProyectos:ctrl" as ctrl
+participant "Validador:val" as val
+participant "Proyecto:proy" as proy
+
+user -> ui: abrirEdicion
+activate ui
+ui -> ctrl: editarProyecto
+activate ctrl
+
+ctrl -> val: normalizar(cambios)
+activate val
+val --> ctrl: datosNormalizados
+ctrl -> val: validarDatos(datosNormalizados)
+val --> ctrl: resultado
+destroy val
+
+ctrl -> proy: cargar
+activate proy
+proy --> ctrl: proyectoActual
+ctrl -> proy: aplicarCambios(cambios)
+proy --> ctrl: aplicado
+ctrl -> proy: guardar()
+proy --> ctrl: ok
+deactivate proy
+
+ctrl --> ui: okEdicion
+deactivate ctrl
+ui -> user: mostrarConfirmacion
+user -> ui: confirmarDetalle
+ui --> user: mostrarDetalle
+deactivate ui
+@enduml

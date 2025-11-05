@@ -1,0 +1,60 @@
+@startuml diagsecuencia07
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+' Actor que dispara el proceso automático (scheduler / evento de dominio)
+actor "Sistema (Evento)" as sys
+participant "MotorNotificaciones:ctrl" as ctrl
+participant "SelectorDestinatarios:sel" as sel
+participant "ConstructorMensaje:builder" as builder
+participant "PasarelaNotificaciones:notif" as notif
+participant "HistorialNotificaciones:audit" as audit
+
+' --- Disparo del evento automático ---
+sys -> ctrl: detectarEventoCambio(entidad, tipoEvento)
+activate ctrl
+ctrl --> sys: ackEventoRecibido
+
+' --- Identificar destinatarios ---
+ctrl -> sel: identificarDestinatarios(tipoEvento)
+activate sel
+sel --> ctrl: destinatarios
+ctrl -> sel: aplicarPreferencias(destinatarios)
+sel --> ctrl: destinatariosFiltrados
+deactivate sel
+
+' --- Construir mensaje (objeto temporal) ---
+ctrl -> builder: construirMensaje(tipoEvento, destinatariosFiltrados)
+activate builder
+builder --> ctrl: mensaje
+ctrl -> builder: adjuntarMetadatos(mensaje, contexto)
+builder --> ctrl: mensajeFinal
+destroy builder
+
+' --- Envío por pasarela (lineal) ---
+ctrl -> notif: seleccionarCanal(tipoEvento)
+activate notif
+notif --> ctrl: canalSeleccionado
+
+ctrl -> notif: enviar(canalSeleccionado, destinatariosFiltrados, mensajeFinal)
+notif --> ctrl: resultadoEnvio(resumenOK, resumenError)
+
+' (tercera interacción para notif, cumpliendo la regla 3+)
+ctrl -> notif: confirmarRecepcion(resumenOK)
+notif --> ctrl: recepcionConfirmada
+deactivate notif
+
+' --- Registrar historial ---
+ctrl -> audit: registrar(tipoEvento, destinatariosFiltrados, canalSeleccionado)
+activate audit
+audit --> ctrl: ok
+ctrl -> audit: registrarResultado(resumenOK, resumenError)
+audit --> ctrl: ok
+deactivate audit
+
+' --- Cierre del proceso ---
+ctrl --> sys: notificacionesProcesadas(conteoOK, conteoError)
+deactivate ctrl
+@enduml

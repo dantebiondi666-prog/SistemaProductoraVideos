@@ -1,0 +1,86 @@
+@startuml diagsecuencia04
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor "Usuario (Resp/Coord)" as user
+participant "PantallaEtapas:ui" as ui
+participant "ServicioEtapas:ctrl" as ctrl
+participant "Validador:val" as val
+participant "Etapa:etapa" as etapa
+participant "INotificador:notif" as notif
+
+' ==== Disparo ====
+user -> ui: solicitarCambioEstado(nuevoEstado, comentario)
+activate ui
+ui -> ctrl: cambiarEstado(nuevoEstado, comentario)
+activate ctrl
+
+' ==== Validación de reglas de negocio (objeto temporal) ====
+ctrl -> val: validarReglas(nuevoEstado, comentario, user)
+activate val
+val --> ctrl: resultado(ok, errores, requiereAprobacion)
+destroy val
+
+' ==== Ramas principales ====
+alt [ok == true and requiereAprobacion == false]
+  ' ===== Actualización directa =====
+  ctrl -> etapa: cargar(idEtapa)
+  activate etapa
+  etapa --> ctrl: etapaActual
+
+  ctrl -> etapa: aplicarCambioEstado(nuevoEstado, comentario)
+  etapa --> ctrl: aplicado
+
+  ctrl -> etapa: guardar()
+  etapa --> ctrl: ok
+  deactivate etapa
+
+  ' ===== Historial =====
+  ctrl -> ctrl: registrarHistorial("CAMBIO_ESTADO", nuevoEstado, user)
+
+  ' ===== Notificaciones (interesados) =====
+  ctrl -> notif: notificarInteresados(nuevoEstado)
+  activate notif
+  notif --> ctrl: recibido
+
+  ' opcional: recordatorio si pasa a "EN_CURSO"
+  opt [nuevoEstado == "EN_CURSO"]
+    ctrl -> notif: programarRecordatorioInicio(fechaRecordatorio)
+    notif --> ctrl: recordatorioProgramado
+  end
+  deactivate notif
+
+  ' ===== Confirmación UI =====
+  ctrl --> ui: okCambioEstado(nuevoEstado)
+  deactivate ctrl
+  ui -> user: mostrarConfirmacion(nuevoEstado)
+  deactivate ui
+
+else [ok == true and requiereAprobacion == true]
+  ' ===== Flujo con aprobación (simple) =====
+  ctrl -> ctrl: registrarPendienteAprobacion(nuevoEstado, user)
+  ctrl -> notif: notificarCoordinadorAprobacion(nuevoEstado)
+  activate notif
+  notif --> ctrl: enviado
+  deactivate notif
+
+  ctrl --> ui: cambioEstadoPendienteAprobacion(nuevoEstado)
+  deactivate ctrl
+  ui -> user: mostrarPendienteAprobacion
+  deactivate ui
+
+else [ok == false]
+  ' ===== Errores de validación =====
+  ctrl --> ui: errorValidacion(errores)
+  deactivate ctrl
+  ui -> user: mostrarErrores(errores)
+
+  ' Reintento mínimo
+  user -> ui: reenviarSolicitud(nuevoEstadoCorregido, comentario)
+  activate ui
+  ui -> ctrl: cambiarEstado(nuevoEstadoCorregido, comentario)
+  deactivate ui
+end
+@enduml

@@ -1,0 +1,78 @@
+@startuml 04-actividad-enviar-notificaciones-automaticas-07
+title CU07 – Enviar Notificaciones Automáticas
+
+skinparam activity {
+  ArrowThickness 1.2
+  BorderColor #555
+  BackgroundColor #eef5ff
+}
+skinparam Shadowing false
+
+|Coordinador/Responsable|
+start
+:Realiza acción relevante;
+note right
+p. ej., asignar responsable / cambiar estado
+end note
+
+|Sistema|
+:Detectar evento del dominio;
+:Identificar destinatarios según el evento;
+:Obtener preferencia de canal por usuario;
+
+if (¿Usuario tiene preferencia?) then (Sí)
+  :Seleccionar canal preferido;
+  note left
+  email / WhatsApp
+  end note
+else (No)
+  :Seleccionar canal por defecto;
+  note right
+  email
+  end note
+endif
+
+:Componer mensaje con datos;
+note right
+incluye: proyecto/etapa/estado
+end note
+
+|Servicio de Notificaciones|
+:Intentar envío al destinatario;
+
+if (¿Servicio disponible?) then (No)
+  |Sistema|
+  :Registrar indisponibilidad del servicio;
+  :Marcar notificación para revisión;
+  end
+endif
+
+|Servicio de Notificaciones|
+:Procesar envío;
+if (¿Envío exitoso?) then (No)
+  |Sistema|
+  :Registrar intento fallido en historial;
+  while (¿se recupera tras reintentos?) is (No)
+  |Servicio de Notificaciones|
+    :Reintentar envío;
+    |Sistema|
+    :Registrar intento fallido en historial;
+  endwhile
+  if (¿Se recupera tras reintentos?) then (No)
+    :Marcar notificación para revisión;
+    end
+  endif
+endif
+
+|Sistema|
+:Registrar envío OK en historial;
+|Destinatario|
+:Recibir notificación;
+note right
+email/WhatsApp
+end note
+|Sistema|
+:Finalizar procesamiento del evento;
+stop
+
+@enduml

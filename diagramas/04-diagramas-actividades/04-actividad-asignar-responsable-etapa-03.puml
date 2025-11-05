@@ -1,0 +1,83 @@
+@startuml 04-actividad-asignar-responsable-etapa-03
+title CU03 – Asignar Responsable a Etapa (RF02, RF04, RF06)
+
+skinparam activity {
+  ArrowThickness 1.2
+  BorderColor #555
+  BackgroundColor #eef5ff
+}
+skinparam Shadowing false
+
+|Coordinador|
+start
+:Abre detalle del proyecto;
+:Selecciona una etapa;
+
+|Sistema|
+:Verificar autenticación y permisos del coordinador;
+if (¿Autenticado y con permisos?) then (No)
+  :Mostrar error "Permisos insuficientes";
+  |Coordinador|
+  :Visualiza mensaje de error;
+  end
+endif
+
+|Sistema|
+:Verificar existencia de la etapa;
+if (¿Etapa existente?) then (No)
+  :Mostrar error "Etapa no encontrada";
+  |Coordinador|
+  :Visualiza mensaje de error;
+  end
+endif
+
+|Sistema|
+:Mostrar datos actuales de la etapa;
+note right
+  Se visualiza: responsable, estado y fechas
+end note
+
+repeat
+  |Coordinador|
+  :Selecciona "Asignar/Cambiar responsable";
+
+  |Sistema|
+  :Desplegar selector de usuarios;
+  note right
+    • Búsqueda
+    • Filtros
+  end note
+
+  |Coordinador|
+  :Elegir usuario candidato y confirmar;
+
+  |Sistema|
+  :Validar usuario candidato;
+  note right
+    Se valida:
+    • usuario activo
+    • rol permitido
+    • no bloqueado
+  end note
+repeat while (¿Usuario válido?) is (No)
+
+|Sistema|
+fork
+  :Actualizar responsable de la etapa;
+fork again
+  :Registrar cambio en historial\n(quién asigna, a quién, cuándo);
+end fork
+
+|Servicio de Notificaciones|
+:Enviar aviso de asignación/cambio\nal nuevo responsable (email/WhatsApp);
+
+|Usuario Responsable|
+:Recibir notificación;
+
+|Sistema|
+:Mostrar confirmación al Coordinador;
+
+|Coordinador|
+:Visualiza confirmación;
+stop
+@enduml

@@ -1,0 +1,68 @@
+@startuml diagsecuencia06
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor "Usuario (Prod/Coord)" as user
+participant "PantallaTablero:ui" as ui
+participant "ServicioTablero:ctrl" as ctrl
+participant "CacheTablero:cache" as cache
+participant "MotorTablero:svc" as svc
+participant "ConstructorWidgets:builder" as builder
+
+' --- Disparo (abrir tablero) ---
+user -> ui: abrirTablero()
+activate ui
+ui -> ctrl: cargarTablero(filtrosPorDefecto)
+activate ctrl
+
+' --- Cache (hit o miss, modelado lineal) ---
+ctrl -> cache: obtenerTablero(filtrosPorDefecto)
+activate cache
+cache --> ctrl: cacheMiss
+deactivate cache
+
+' --- Datos y armado de widgets (lineal) ---
+ctrl -> svc: prepararConsulta(filtrosPorDefecto)
+activate svc
+svc --> ctrl: consultaPreparada
+
+ctrl -> svc: ejecutarConsulta()
+svc --> ctrl: dataset
+
+ctrl -> svc: calcularMetricas(dataset)
+svc --> ctrl: metricas
+deactivate svc
+
+' --- Construcción de widgets (objeto temporal) ---
+ctrl -> builder: iniciarConstruccion(metricas)
+activate builder
+builder --> ctrl: widgetsParciales
+ctrl -> builder: componerWidgetSet(widgetsParciales)
+builder --> ctrl: widgetsFinales
+destroy builder
+
+' --- Guardar en cache y mostrar ---
+ctrl -> cache: guardarTablero(filtrosPorDefecto, widgetsFinales)
+activate cache
+cache --> ctrl: ok
+deactivate cache
+
+ctrl --> ui: mostrarTablero(widgetsFinales)
+ui -> user: renderizarTarjetasYGraficos(widgetsFinales)
+
+' --- Interacción mínima posterior (ej. seleccionar widget) ---
+user -> ui: seleccionarWidget
+ui -> ctrl: cargarDetalleWidget
+activate ctrl
+ctrl -> svc: obtenerDetalle
+activate svc
+svc --> ctrl: detalleWidget
+deactivate svc
+ctrl --> ui: mostrarDetalleWidget(detalleWidget)
+deactivate ctrl
+
+' --- Cierre ---
+deactivate ui
+@enduml

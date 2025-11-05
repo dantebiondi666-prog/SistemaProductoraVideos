@@ -1,0 +1,85 @@
+@startuml 04-actividad-mostrar-tablero-control-06
+title CU06 – Mostrar Tablero de Control (RF03)
+
+skinparam activity {
+  ArrowThickness 1.2
+  BorderColor #555
+  BackgroundColor #f6f9ff
+}
+skinparam Shadowing false
+
+|Usuario autenticado|
+start
+:Abre "Tablero" desde el menú;
+
+|Sistema (Tablero)|
+:Verificar autenticación;
+if (¿Usuario autenticado?) then (No)
+  :Mostrar error "Sesión expirada / no autenticado";
+  |Usuario autenticado|
+  :Visualiza mensaje de error;
+  end
+endif
+
+|Sistema (Tablero)|
+:Cargar resumen de proyectos;
+
+if (¿Existen proyectos?) then (No)
+  :Mostrar mensaje "No hay proyectos";
+  :Ofrecer acción "Crear proyecto";
+  |Usuario autenticado|
+  :Continuar navegación;
+  end
+endif
+
+|Sistema (Tablero)|
+:Mostrar tarjetas con estado, avance y responsables;
+
+|Usuario autenticado|
+:Configurar filtros y aplicar;
+note right
+  Filtros típicos:
+  • Estado
+  • Cliente
+  • Tipo
+end note
+
+' ====== iteraciones con while (más claro) ======
+while (¿Desea ajustar filtros?) is (Sí)
+  :Modificar filtros;
+  |Sistema (Tablero)|
+  :Actualizar resultados según filtros;
+  |Usuario autenticado|
+  :Revisar resultados;
+endwhile
+' ==============================================
+
+if (¿Expandir un proyecto?) then (Sí)
+  |Usuario autenticado|
+  :Seleccionar proyecto;
+  |Sistema (Tablero)|
+  :Mostrar detalles de etapas;
+endif
+
+|Usuario autenticado|
+if (¿Exportar resumen?) then (Sí)
+  |Sistema (Tablero)|
+  if (¿Resultados visibles?) then (Sí)
+    :Solicitar exportación (PDF/CSV);
+
+    |Servicio de Exportación|
+    :Generar archivo de resumen;
+    :Entregar archivo al sistema;
+
+    |Sistema (Tablero)|
+    :Proveer enlace/descarga al usuario;
+    :Confirmar acción de exportación;
+  else (No)
+    :Mostrar aviso "No hay datos para exportar";
+  endif
+endif
+
+|Usuario autenticado|
+:Continuar navegación en el tablero;
+stop
+@enduml

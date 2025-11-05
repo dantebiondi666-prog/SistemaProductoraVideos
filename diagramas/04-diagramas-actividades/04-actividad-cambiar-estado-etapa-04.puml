@@ -1,0 +1,80 @@
+@startuml 04-actividad-cambiar-estado-etapa-04
+title CU04 – Cambiar Estado de Etapa (RF02, RF04, RF06)
+
+skinparam activity {
+  ArrowThickness 1.2
+  BorderColor #555
+  BackgroundColor #eefaf1
+}
+skinparam Shadowing false
+
+|Actor Principal (Resp./Coord.)|
+start
+:Abre detalle de la etapa;
+
+|Sistema|
+:Verificar autenticación y permisos;
+if (¿Usuario autenticado y con permisos?) then (No)
+  :Mostrar error "Permisos insuficientes";
+  |Actor Principal (Resp./Coord.)|
+  :Visualiza mensaje de error;
+  end
+endif
+
+|Sistema|
+:Verificar existencia de la etapa;
+if (¿Etapa existente?) then (No)
+  :Mostrar error "Etapa no encontrada";
+  |Actor Principal (Resp./Coord.)|
+  :Visualiza mensaje de error;
+  end
+endif
+
+|Sistema|
+:Mostrar estado actual y opciones;
+note right
+  Opciones:
+  • Pendiente
+  • En curso
+  • Finalizada
+end note
+
+|Actor Principal (Resp./Coord.)|
+:Selecciona nuevo estado y confirma;
+
+|Sistema|
+:Validar reglas de negocio;
+note right
+  Reglas (no acciones):
+  • No finalizar si hay tareas pendientes
+  • Permisos según rol
+end note
+
+while (¿Validación OK?) is (No)
+  :Mostrar error y mantener estado anterior;
+  |Actor Principal (Resp./Coord.)|
+  :Ajusta selección y confirma nuevamente;
+  |Sistema|
+  :Validar reglas de negocio;
+endwhile
+
+|Sistema|
+fork
+  :Actualizar estado de la etapa;
+fork again
+  :Registrar cambio en historial\n(desde/hacia, quién, cuándo);
+end fork
+
+|Servicio de Notificaciones|
+:Determinar interesados;
+if (¿Quién hizo el cambio?) then (Responsable)
+  :Notificar al Coordinador (email/WhatsApp);
+else (Coordinador)
+  :Notificar al Responsable (email/WhatsApp);
+endif
+
+|Actor Principal (Resp./Coord.)|
+:Visualiza confirmación;
+
+stop
+@enduml

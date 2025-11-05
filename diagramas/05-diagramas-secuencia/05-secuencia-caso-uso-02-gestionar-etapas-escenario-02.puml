@@ -1,0 +1,66 @@
+@startuml diagsecuencia02
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Coordinador as coord
+participant "PantallaEtapas:ui" as ui
+participant "ServicioEtapas:ctrl" as ctrl
+participant "Validador:val" as val
+participant "Etapa:etapa" as etapa
+participant "INotificador:notif" as notif
+
+' ==== Disparo ====
+coord -> ui: iniciarGestionEtapas
+activate ui
+ui -> ctrl: agregarEtapa(datosEtapa)
+activate ctrl
+
+' ==== Validación (objeto temporal) ====
+ctrl -> val: normalizar(datosEtapa)
+activate val
+val --> ctrl: datosNormalizados
+ctrl -> val: validarDatos(datosNormalizados)
+val --> ctrl: resultado(ok, errores)
+destroy val
+
+' ==== Rama principal: Validación OK / Error ====
+alt [ok == true]
+  ' ===== Dominio (crear y guardar) =====
+  ctrl -> etapa: inicializar(datosNormalizados)
+  activate etapa
+  etapa --> ctrl: inicializada
+
+  ctrl -> etapa: guardar()
+
+  ' ===== Auditoría (implícita en ctrl o servicio aparte) =====
+  ctrl -> ctrl: registrarEvento("ALTA_ETAPA")
+
+  ' ===== Notificación al responsable =====
+  ctrl -> notif: notificarAltaEtapa(responsable)
+  activate notif
+  notif --> ctrl: recibido
+
+  ' (extra para 3+ interacciones)
+  ctrl -> notif: programarRecordatorio(fechaRecordatorio)
+  notif --> ctrl: recordatorioProgramado
+  deactivate notif
+
+  ' ===== Confirmación UI =====
+  ctrl --> ui: okAltaEtapa
+  deactivate etapa
+else [ok == false]
+  ctrl --> ui: errorValidacion(errores)
+  ui -> coord: mostrarErrores(errores)
+  coord -> ui: reenviarDatos(datosCorregidos)
+  ui -> ctrl: agregarEtapa(datosCorregidos)
+end
+
+' ==== Cierre / navegación (simple) ====
+deactivate ctrl
+ui -> coord: mostrarConfirmacion
+coord -> ui: verDetalleEtapa
+ui --> coord: detalleEtapaCargado
+deactivate ui
+@enduml

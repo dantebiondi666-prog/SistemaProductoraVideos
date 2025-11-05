@@ -1,0 +1,89 @@
+@startuml diagsecuencia03
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Coordinador as coord
+participant "PantallaEtapas:ui" as ui
+participant "ServicioEtapas:ctrl" as ctrl
+participant "Validador:val" as val
+participant "Etapa:etapa" as etapa
+participant "INotificador:notif" as notif
+actor "Usuario Responsable" as resp
+
+' ==== Disparo ====
+coord -> ui: abrirAsignacion
+activate ui
+ui -> ctrl: asignarResponsable
+activate ctrl
+
+' ==== Validar permisos y usuario (objeto temporal) ====
+ctrl -> val: normalizar
+activate val
+val --> ctrl: datosNormalizados
+
+ctrl -> val: validarPermisosYUsuario(coord, datosNormalizados)
+val --> ctrl: resultado(ok, errores)
+destroy val
+
+' ==== Rama principal OK / errores ====
+alt [ok == true]
+  ' ===== Actualizar etapa (asignación) =====
+  ctrl -> etapa: cargar
+  activate etapa
+  etapa --> ctrl: etapaActual
+
+  ctrl -> etapa: asignarResponsable
+  etapa --> ctrl: asignado
+
+  ctrl -> etapa: guardar()
+  etapa --> ctrl: ok
+  deactivate etapa
+
+  ' ===== Historial (alta de evento) =====
+  ctrl -> ctrl: registrarHistorial("ASIGNACION_RESP")
+
+  ' ===== Notificar responsable =====
+  ctrl -> notif: notificarAsignacion()
+  activate notif
+  notif --> ctrl: recibido
+
+  ' (extra para 3+ interacciones)
+  ctrl -> notif: programarRecordatorioInicio(fechaRecordatorio)
+  notif --> ctrl: recordatorioProgramado
+
+  ' Entrega al Responsable (visualización opcional)
+  notif -> resp: entregarNotificacionAsignacion
+  resp --> notif: acuseRecibo
+  deactivate notif
+
+  ' ===== Confirmación UI =====
+  ctrl --> ui: okAsignacion
+  deactivate ctrl
+
+  ui -> coord: mostrarConfirmacion
+  coord -> ui: verDetalleEtapa
+  ui -> ctrl: obtenerDetalleEtapa
+  activate ctrl
+  ctrl -> etapa: obtenerDetalle()
+  activate etapa
+  etapa --> ctrl: detalle
+  deactivate etapa
+  ctrl --> ui: detalleCargado(detalle)
+  deactivate ctrl
+  ui --> coord: mostrarDetalle(detalle)
+  deactivate ui
+else [ok == false]
+  ctrl --> ui: errorValidacion(errores)
+  deactivate ctrl
+  ui -> coord: mostrarErrores(errores)
+  coord -> ui: corregirSeleccion
+  ui -> ctrl: asignarResponsable
+  activate ctrl
+  ' (el flujo retoma desde validación, omitido por brevedad)
+  ctrl --> ui: pendienteRevalidacion()
+  deactivate ctrl
+  deactivate ui
+end
+@enduml
