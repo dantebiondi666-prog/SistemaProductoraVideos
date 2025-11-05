@@ -5,6 +5,48 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+## **Todos los cambios los voy a agregar en released en fixed luego de aprobación**
+
+- [release/actividad-obligatoria-3] Correcciones de todos los diagramas de secuencia, quitando id's y corrección de índice de diagramas de secuencia. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#119](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/119)
+  Issue: [#120](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/120)
+  Issue: [#121](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/121)
+  Issue: [#122](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/122)
+  Issue: [#123](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/123)
+  Issue: [#124](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/124)
+  Issue: [#125](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/125)
+
+- [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 07. Corrección de notas reemplazando aclaraciones dentro de actividad. Corrección de loop. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#118](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/118)
+
+- [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 06. Corrección de loop, se agregan actividades tras merges. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#117](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/117)
+
+- [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 05. Corrección de condicional y loop de actividad de ajuste de filtros. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#116](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/116)
+
+- [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 04. Decisiones separadas, loop de validación de reglas, fork Actualizar estado + Registrar historial. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#115](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/115)
+
+- [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 03. Actividad relacionada con Coordinador corregida en correcto swimlane, corrección de quien recibe los mensajes de error, agregado de loop y corrección sobre actividades actualizar y registrar. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#114](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/114)
+
+- [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 02. Agregado Servicio de Notificaciones como swimlane, nota aclaratoria en los datos validados, agregado de loop y corrección sobre actividades persistir y registrar. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#113](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/113)
+
+- [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 01. Agregado Servicio de Notificaciones como swimlane, nota aclaratoria en los datos validados, agregado de loop y corrección sobre actividades persistir y registrar. 
+  PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#112](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/112)
+
+## [Release Actividad Obligatoria N°3] - (20-10-2025)
+
 ### Added
 
 - [feature/esp-secuencia-add-diagrama-secuencia-1] Creación de diagramas de secuencia para los Casos de Uso 01–07 y actualización del índice `diagramas_de_secuencias.md` (PUML + PNG).

@@ -1,5 +1,5 @@
 @startuml 04-actividad-asignar-responsable-etapa-03
-title CU03 – Asignar Responsable a Etapa
+title CU03 – Asignar Responsable a Etapa (RF02, RF04, RF06)
 
 skinparam activity {
   ArrowThickness 1.2
@@ -10,21 +10,34 @@ skinparam Shadowing false
 
 |Coordinador|
 start
-:Abre detalle del proyecto y selecciona una etapa;
+:Abre detalle del proyecto;
+:Selecciona una etapa;
 
 |Sistema|
 :Verificar autenticación y permisos del coordinador;
 if (¿Autenticado y con permisos?) then (No)
   :Mostrar error "Permisos insuficientes";
-elseif (¿Etapa existente?) then (No)
-  :Mostrar error "Etapa no encontrada";
-else (Sí)
-  :Mostrar datos actuales de la etapa;
-  note right
-    Se visualiza: responsable, estado, fechas
-    (detalle informativo)
-  end note
+  |Coordinador|
+  :Visualiza mensaje de error;
+  end
+endif
 
+|Sistema|
+:Verificar existencia de la etapa;
+if (¿Etapa existente?) then (No)
+  :Mostrar error "Etapa no encontrada";
+  |Coordinador|
+  :Visualiza mensaje de error;
+  end
+endif
+
+|Sistema|
+:Mostrar datos actuales de la etapa;
+note right
+  Se visualiza: responsable, estado y fechas
+end note
+
+repeat
   |Coordinador|
   :Selecciona "Asignar/Cambiar responsable";
 
@@ -36,52 +49,35 @@ else (Sí)
   end note
 
   |Coordinador|
-  :Elegir usuario responsable y confirmar;
+  :Elegir usuario candidato y confirmar;
 
   |Sistema|
   :Validar usuario candidato;
   note right
-    Ejemplos (no acciones):
-    • Usuario activo
-    • Rol permitido
+    Se valida:
+    • usuario activo
+    • rol permitido
+    • no bloqueado
   end note
-
-  if (¿Usuario válido?) then (Sí)
-    :Actualizar responsable de la etapa;
-    :Registrar cambio en historial;
-    note right
-      Registrar: quién asigna, a quién, cuándo
-    end note
-
-    |Servicio de Notificaciones|
-    :Enviar aviso de asignación/cambio al nuevo responsable;
-
-    |Usuario Responsable|
-    :Recibir notificación;
-    note right
-      • email
-      • whatsapp
-      • push
-    end note
-
-    |Sistema|
-    :Preparar mensaje de confirmación;
-  else (No)
-    |Sistema|
-    :Preparar mensaje de error;
-    note right
-      Usuario inexistente/inactivo o rol no permitido
-    end note
-  endif
-endif
+repeat while (¿Usuario válido?) is (No)
 
 |Sistema|
-:Mostrar resultado al Coordinador;
-note right
-  **Postcondiciones (si éxito):**
-  • Responsable asignado
-  • Historial actualizado
-  • Notificación enviada
-end note
+fork
+  :Actualizar responsable de la etapa;
+fork again
+  :Registrar cambio en historial\n(quién asigna, a quién, cuándo);
+end fork
+
+|Servicio de Notificaciones|
+:Enviar aviso de asignación/cambio\nal nuevo responsable (email/WhatsApp);
+
+|Usuario Responsable|
+:Recibir notificación;
+
+|Sistema|
+:Mostrar confirmación al Coordinador;
+
+|Coordinador|
+:Visualiza confirmación;
 stop
 @enduml

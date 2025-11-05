@@ -1,5 +1,5 @@
 @startuml 04-actividad-consultar-reportes-metricas-05
-title CU05 – Consultar Reportes/Métricas
+title CU05 – Consultar Reportes/Métricas (RF05)
 
 skinparam activity {
   ArrowThickness 1.2
@@ -14,74 +14,75 @@ start
 
 |Sistema de Reportes|
 :Verificar autenticación y permisos;
-if (¿Usuario con permisos?) then (Sí)
-  :Permisos validados;
-
-  :Mostrar filtros disponibles;
-  note right
-    • cliente
-    • tipo
-    • fechas
-  end note
-
-  |Actor (Productor/Coordinador)|
-  :Configurar y aplicar filtros;
-
-
-  repeat
-    |Sistema de Reportes|
-    :Consultar datos según filtros;
-    :Calcular métricas;
-    note right
-      Ejemplos (referenciales):
-      • Proyectos finalizados por mes
-      • Duración promedio de etapas
-      • Tipo de proyecto más frecuente
-    end note
-
-    if (¿Hay datos?) then (Sí)
-      :Renderizar visualizaciones (tabla/gráfico);
-    else (No)
-      :Mostrar mensaje "Sin resultados";
-      note right
-        Exportación deshabilitada sin datos
-      end note
-    endif
-
-    |Actor (Productor/Coordinador)|
-    :Revisar resultados;
-    :¿Ajustar filtros?;
-  repeat while (Sí)
-
-
-  |Actor (Productor/Coordinador)|
-  if (¿Exportar resumen?) then (Sí)
-    |Sistema de Reportes|
-    if (¿Resultados disponibles?) then (Sí)
-      :Solicitar exportación (PDF/CSV);
-
-      |Servicio de Exportación|
-      :Generar archivo (PDF/CSV);
-      :Entregar archivo al sistema;
-
-      |Sistema de Reportes|
-      :Proveer enlace/descarga al actor;
-
-      |Actor (Productor/Coordinador)|
-      :Descargar/guardar el archivo;
-    else (No)
-      :Mostrar aviso "No hay datos para exportar";
-    endif
-  endif
-
-else (No)
+if (¿Usuario con permisos?) then (No)
   :Mostrar error "Permisos insuficientes";
+  |Actor (Productor/Coordinador)|
+  :Visualiza mensaje de error;
+  end
 endif
 
 |Sistema de Reportes|
-:Finalizar interacción y mantener navegación en Reportes;
+:Mostrar filtros disponibles;
 note right
-  **Postcondiciones:**
+  • cliente
+  • tipo
+  • fechas
+end note
+
+|Actor (Productor/Coordinador)|
+:Configurar y aplicar filtros;
+
+while (¿Desea ajustar filtros?) is (Sí)
+  :Modificar filtros;
+
+  |Sistema de Reportes|
+  :Consultar datos según filtros;
+  :Calcular métricas;
+  note right
+    Ejemplos:
+    • Proyectos finalizados por mes
+    • Duración promedio de etapas
+    • Tipo de proyecto más frecuente
+  end note
+
+  if (¿Hay datos?) then (Sí)
+    :Renderizar visualizaciones (tabla/gráfico);
+  else (No)
+    :Mostrar "Sin resultados";
+    note right
+      Exportación deshabilitada sin datos
+    end note
+  endif
+
+  |Actor (Productor/Coordinador)|
+  :Revisar resultados;
+endwhile
+
+|Sistema de Reportes|
+if (¿Hay datos?) then (Sí)
+  |Actor (Productor/Coordinador)|
+  if (¿Exportar resumen?) then (Sí)
+    |Sistema de Reportes|
+    :Solicitar exportación (PDF/CSV);
+
+    |Servicio de Exportación|
+    :Generar archivo (PDF/CSV);
+    :Entregar archivo al sistema;
+
+    |Sistema de Reportes|
+    :Proveer enlace/descarga al actor;
+
+    |Actor (Productor/Coordinador)|
+    :Descargar/guardar el archivo;
+  endif
+else (No)
+  :Mantener navegación sin exportación;
+endif
+
+|Sistema de Reportes|
+:Finalizar interacción en Reportes;
+note right
+  Postcondiciones:
   • Reporte visualizado (si hay datos)
   • Exportación disponible (si se solicitó)
 end note

@@ -1,4 +1,4 @@
-@startuml
+@startuml diagsecuencia06
 skinparam sequenceArrowThickness 2
 skinparam roundcorner 20
 skinparam maxmessagesize 60
@@ -53,10 +53,10 @@ ctrl --> ui: mostrarTablero(widgetsFinales)
 ui -> user: renderizarTarjetasYGraficos(widgetsFinales)
 
 ' --- Interacción mínima posterior (ej. seleccionar widget) ---
-user -> ui: seleccionarWidget(widgetId)
-ui -> ctrl: cargarDetalleWidget(widgetId)
+user -> ui: seleccionarWidget
+ui -> ctrl: cargarDetalleWidget
 activate ctrl
-ctrl -> svc: obtenerDetalle(widgetId)
+ctrl -> svc: obtenerDetalle
 activate svc
 svc --> ctrl: detalleWidget
 deactivate svc
