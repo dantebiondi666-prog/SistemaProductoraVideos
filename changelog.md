@@ -45,6 +45,18 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#112](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/112)
 
+- [feature/esp-matriz-clae-1-2-3-add-matrices] Creación de las matriz clae para los casos de uso 1,2 y 3. Creación de carpeta herramientas-agiles/matrices-clae
+  PR: [#](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/) - 
+  @abartomioli (Especialista en Matrices CLAE - Casos de Uso 1, 2 y 3). 
+  Issues:
+   [#127](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/127)
+   [#128](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/128)
+   [#129](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/129)
+   [#130](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/130)
+   
+
+
+
 ## [Release Actividad Obligatoria N°3] - (20-10-2025)
 
 ### Added
