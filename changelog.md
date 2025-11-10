@@ -61,6 +61,14 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Added
 
+- [feature/esp-diagrama-clases-add-diagrama-refinado] Refinamiento completo del diagrama de clases final en PlantUML.  
+  Se incorporaron atributos, métodos CRUD, relaciones y herencias.  
+  Se verificó coherencia con tarjetas CRC, matrices CLAE y análisis JAD.  
+  Exportación de archivos `01-diagrama-clases-final.puml` y `.png`.  
+
+PR: [#133](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/133) - @juanmartinbritos7-cmd (Especialista en Refinamiento del Diagrama de Clases)  
+Issues: [#132](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/132)
+
 - [feature/esp-secuencia-add-diagrama-secuencia-1] Creación de diagramas de secuencia para los Casos de Uso 01–07 y actualización del índice `diagramas_de_secuencias.md` (PUML + PNG).
   PR: [#110](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/110) - @leanlex (Especialista en Diagramas de Secuencia – Casos de Uso 1 a 7)
   Issues:
