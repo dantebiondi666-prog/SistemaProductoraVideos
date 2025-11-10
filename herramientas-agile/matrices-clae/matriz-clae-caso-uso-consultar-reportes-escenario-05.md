@@ -1,7 +1,7 @@
-# Matriz CLAE (CRUD) – [Cambiar Estado Etapa #04]
+# Matriz CLAE (CRUD) – [Consultar Reportes Escenario #05]
 
 **Proyecto:** Sistema de Gestión de Proyectos Audiovisuales  
-**Caso de Uso:** [CU4 - Cambiar Estado Etapa]  
+**Caso de Uso:** [CU5 - Consultar Reportes Escenario ]  
 
 ---
 
