@@ -2,7 +2,7 @@
 
 - [Diagramas de Clase - Boceto Inicial](/diagramas/01-diagrama-clases/01-boceto-inicial.png)
 
-- ### Diagramas de Clase - Principios SOLID
+- [Diagramas de Clase - Principios SOLID](/anexos/principios-solid/principios_solid.md)
     * [SRP](/diagramas/01-diagrama-clases/01-solid-01-srp.png)
     * [OCP](/diagramas/01-diagrama-clases/01-solid-02-ocp.png)
     * [LSP](/diagramas/01-diagrama-clases/01-solid-03-lsp.png)
