@@ -5,6 +5,8 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+## [Release Actividad Obligatoria N°4] - (11-11-2025)
+
 - [feature/feature/esp-jad-add-analisis] - Análisis JAD: matriz de registro (10+) + adjunto PDF.  
   PR: [#147](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/147) - @leanlex (Especialista en Matrices CLAE - Casos de Uso 4 y 5 + Análisis JAD), 
   Issue: [#135](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/135)
