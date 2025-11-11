@@ -4,4 +4,4 @@
 
 - [Matrices CLAE](/herramientas-agile/matrices-clae/matrices_clae.md)
 
-- [Analisis Sesión JAD](/)
+- [Analisis Sesión JAD](/herramientas-agile/analisis-jad/analisis-jad.md)
