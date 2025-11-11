@@ -5,6 +5,13 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+- [feature/feature/esp-jad-add-analisis] - Análisis JAD: matriz de registro (10+) + adjunto PDF.  
+  PR: [#147](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/147) - @leanlex (Especialista en Matrices CLAE - Casos de Uso 4 y 5 + Análisis JAD), 
+  Issue: [#135](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/135)
+  [#136](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/136)
+  [#137](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/137)
+
+
 - [feature/esp-matriz-clae-4-5-add-matrices] Creación de las matriz clae para los casos de uso 4 y 5. Creación de carpeta herramientas-agiles/matrices-clae, actualización de indice. 
   PR: [#146](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/146) - @leanlex (Especialista en Matrices CLAE - Casos de Uso 4 y 5 + Análisis JAD), 
   Issue: [#134](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/134)
