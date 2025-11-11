@@ -5,6 +5,14 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+- [feature/esp-matriz-clae-4-5-add-matrices] Creación de las matriz clae para los casos de uso 4 y 5. Creación de carpeta herramientas-agiles/matrices-clae, actualización de indice. 
+  PR: [#146](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/146) - @leanlex (Especialista en Matrices CLAE - Casos de Uso 4 y 5 + Análisis JAD), 
+  Issue: [#134](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/134)
+  [#135](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/135)
+  [#136](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/136)
+
+
+
 - [feature/doc-coord-repo-update-docs] Creación de estructura de carpetas e indices, corrección de requested changes, corrección de archivos (herramientas agile y changelog). 
   PR: [#142](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/142) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#141](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/141)
