@@ -5,6 +5,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+- [feature/doc-coord-repo-update-docs] Creación de estructura de carpetas e indices, corrección de requested changes, corrección de archivos (herramientas agile y changelog). 
+  PR: [#142](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/142) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#141](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/141)
+
 - [feature/esp-diagrama-clases-add-diagrama-refinado] Refinamiento completo del diagrama de clases final en PlantUML.  
   Se incorporaron atributos, métodos CRUD, relaciones y herencias.  
   Se verificó coherencia con tarjetas CRC, matrices CLAE y análisis JAD.  
