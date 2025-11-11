@@ -7,3 +7,5 @@
 - [Diagramas Actividades](/diagramas/04-diagramas-actividades/diagramas_de_actividades.md)
 
 - [Diagramas de Secuencia](/diagramas/05-diagramas-secuencia/diagramas_de_secuencias.md)
+
+- [Diagramas de Clases](/diagramas/01-diagrama-clases/diagramas_clases.md)
