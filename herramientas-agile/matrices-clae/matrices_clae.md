@@ -9,3 +9,8 @@
   - [Matriz CLAE - Mostrar Tablero de Control](/herramientas-agile/matrices-clae/matriz-clae-CU06-Mostrar-Tablero-de-Control-06.md)
 
   - [Matriz CLAE - Enviar Notificaciones Automaticas](/herramientas-agile/matrices-clae/matriz-clae-CU07-Enviar-Notificaciones-Automaticas-07.md)
+
+  - [Matriz CLAE - Cambiar Estado de Etapa](/herramientas-agile/matrices-clae/matriz-clae-CU04-Cambiar-Estado-de-Etapa-04.md)
+
+  - [Matriz CLAE - Consultar Reportes Escenario](/herramientas-agile/matrices-clae/matriz-clae-CU05-Consultar-Reportes-Escenario-05.md)
+  
