@@ -13,13 +13,23 @@
 > - **Celdas:** Letras **C**, **L**, **A**, **E** según la operación que se realiza sobre la clase.  
 > - Si no aplica, dejar la celda vacía.  
 
-| Actividad / Clase | Proyecto | Etapa | Usuario | ArchivoMultimedia | Notificación | ... |
-|--------------------|:--------:|:-----:|:-------:|:-----------------:|:-------------:|-----:|
-| Registrar nuevo proyecto | C |   | L |   |   |  |
-| Agregar etapa inicial | L | C |   |   |   |  |
-| Asignar responsable | A | L | L |   |   |  |
-| Adjuntar archivos | L |   |   | C |   |  |
-| Notificar creación | L |   |   |   | C |  |
+| Actividad / Clase | Proyecto | Etapa | Usuario | Notificación | Comentario | Adjunto  | Servicio Notificaciones |
+|--------------------|:--------:|:-----:|:-------:|:-----------------:|:-------------:|:-----:|:-----:|
+| Verificar autenticación y permisos | | | **L** | | | | |
+| Mostrar filtros disponibles | **L** | **L** | | | | | |
+| Configurar y aplicar filtros | **L** | **L** | **A** | | | | |
+| Modificar filtros (iteración) | **L** | **L** | **A** | | | | |
+| Consultar datos según filtros | **L** | **L** | **L**  | | | |   |
+| Calcular/obtener métricas | **L** | **L** |  | | | |   |
+| Renderizar visualizaciones / mostrar resultados | **L** | **L** | **L** | | | |   |
+| Mostrar “Sin resultados” | **L** | **L** | **L** | | | | |
+| Decidir exportación (PDF/CSV) | **L** | **L** | **L** | | | | |
+| Solicitar exportación | **L** | **L** | **L** | | | **C** | |
+| Generar archivo y devolver enlace | **L** | **L** | | | | **C/A** | |
+| Proveer enlace / Descargar archivo | | | **L** | | | **L** | |
+| *Extend* Permisos insuficientes → mensaje | | | **L** | | | | |
+| *Extend* Filtros inválidos → ajustar | **L** | **L** | **L/A** | | | | |
+
 
 > **Leyenda:**  
 > **C**: Crear – **L**: Leer/Listar – **A**: Actualizar – **E**: Eliminar  
@@ -32,12 +42,14 @@
 > Cada método deberá existir en la clase correspondiente del **diagrama de clases**, y reflejarse en su **Tarjeta CRC** y en el **diagrama de secuencia** del caso de uso.
 
 | Clase | Método | Tipo (C/L/A/E) | Parámetros (nombre: tipo) | Retorno | Actividad asociada |
-|--------|---------|----------------|----------------------------|----------|--------------------|
-| Proyecto | `crearProyecto(nombre: string, fechaInicio: date)` | C | `nombre: string`, `fechaInicio: date` | `Proyecto` | Registrar nuevo proyecto |
-| Etapa | `crearEtapa(proyectoId: int, nombre: string)` | C | `proyectoId: int`, `nombre: string` | `Etapa` | Agregar etapa inicial |
-| Proyecto | `asignarResponsable(id: int, usuarioId: int)` | A | `id: int`, `usuarioId: int` | `bool` | Asignar responsable |
-| ArchivoMultimedia | `subirArchivo(proyectoId: int, archivo: File)` | C | `proyectoId: int`, `archivo: File` | `bool` | Adjuntar archivos |
-| Notificación | `enviarNotificacion(proyectoId: int, mensaje: string)` | C | `proyectoId: int`, `mensaje: string` | `bool` | Notificar creación |
+|:------|--------|:--------------:|:--------------------------|:-------:|:-------------------|
+| Proyecto | `listarPorFiltros(f: FiltrosReporte) (nuevo)` | L | `f: FiltrosReporte` | `Lista<Proyecto>` | Consultar datos |
+| Proyecto | `obtenerMetricasProyecto(f: FiltrosReporte) (nuevo)` | L | `f: FiltrosReporte` | `MetricasProyecto` | Calcular/obtener métricas |    
+| Etapa | `obtenerMetricasEtapas(f: FiltrosReporte) (nuevo` | L | `f: FiltrosReporte` | `MetricasEtapas` | Calcular/obtener métricas |
+| Usuario | `puedeVerReportes()` | L | — | `boolean` | Verificar permisos |
+| Usuario | `actualizarFiltros(filtros: FiltrosReporte) (nuevo)` | A | `filtros: FiltrosReporte` | `void` | Configurar / Modificar filtros | 
+| Adjunto | `crearDesdeReporte(formato: FormatoExport, datos: MetricasProyecto) (nuevo)` | C | `formato: FormatoExport, datos: MetricasProyecto` | `Adjunto` |Generar archivo (exportación) |
+| Adjunto | `descargar() (ya tenías algo similar como descargar())` | L | — | `Stream/byte[]/URL` | Descargar archivo |
 
 ---
 
@@ -48,12 +60,10 @@
 
 | Elemento | Artefacto vinculado | Archivo / Referencia URL | Descripción de la relación |
 |-----------|--------------------|-----------------------|-----------------------------|
-| `crearProyecto()` | Tarjeta CRC – Proyecto | [`herramientas-agile/tarjetas-crc/crc-proyecto.md`]() | Figura como responsabilidad “Registrar nuevo proyecto”. |
-| `crearProyecto()` | Diagrama de Secuencia – CU1 | [`diagramas/05-diagramas-secuencia/05-secuencia-crear-proyecto.puml`]() | Aparece como mensaje enviado desde el actor “Productor” al objeto `Proyecto`. |
-| `crearProyecto()` | Diagrama de Actividad – CU1 | [`diagramas/04-diagramas-actividades/04-actividad-crear-proyecto.puml`]() | Acción “Registrar nuevo proyecto” coincide con la operación **C**. |
-| `asignarResponsable()` | Tarjeta CRC – Proyecto | [`crc-proyecto.md`]() | Declarado como método dentro de las responsabilidades del proyecto. |
-| `subirArchivo()` | Diagrama de Secuencia – CU1 | [`05-secuencia-crear-proyecto.puml`]() | Se muestra como mensaje entre `Usuario` y `ArchivoMultimedia`. |
-| `enviarNotificacion()` | Diagrama de Actividad – CU1 | [`04-actividad-crear-proyecto.puml`] | Acción final del flujo que notifica al responsable. |
+| Flujo de permisos, filtros, consulta, “sin datos”, exportar | **Diagrama de Actividad – CU05** | [`diagramas/04-diagramas-actividades/04-actividad-consultar-reportes-metricas-05.puml`]() | Origen de las filas (pasos del flujo) |
+| Mensajes de consulta/cálculo/exportación | **Diagrama de Secuencia – CU05** | [`diagramas/05-diagramas-secuencia/05-secuencia-caso-uso-05-consultar-reportes-escenario-05.puml`]() | Valida que existan los métodos listados |
+| Adjunto.crearDesdeReporte(...) | **Tarjeta CRC – Adjunto** | [`herramientas-agile/tarjetas-crc/crc-adjunto.md`]() |	Nueva responsabilidad: representar archivo exportado |
+| Usuario.puedeVerReportes() | **Tarjeta CRC – Usuario** | [`herramientas-agile/tarjetas-crc/crc-usuario.md`]() | Autorización específica de reportes |
 
 ---
 
@@ -62,12 +72,13 @@
 > Registrar cualquier diferencia encontrada entre esta matriz y los artefactos relacionados.
 
 | URL | Descripción de la inconsistencia | Artefacto relacionado | Acción correctiva | Estado |
-|----|----------------------------------|------------------------|-------------------|:------:|
-| [#45](https://github.com/tu-org/tu-repo/issues/45) | `crearEtapa()` no figura en la CRC de Etapa | Tarjeta CRC – Etapa | Agregar responsabilidad y actualizar CRC | Pendiente |
-| [#46](https://github.com/tu-org/tu-repo/issues/46) | Acción “Notificar creación” no aparece en el diagrama de secuencia | Diagrama de Secuencia – CU1 | Incorporar mensaje a `Notificación` | Pendiente |
-| [#46](https://github.com/tu-org/tu-repo/issues/45)| Método `subirArchivo()` sin tipo de retorno en diagrama de clases | Diagrama de Clases | Agregar tipo `bool` en puml | Resuelto |
+|:----|:---------------------------------|:----------------------|:------------------|:------:|
+| [#135](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/135) | Crear Matriz CLAE del Caso de Uso 05 | `herramientas-agile/matrices-clae/matriz-clae-CU05-Consultar-Reportes-y-Metricas-05.md` | Cargar secciones 1–4 y abrir issues derivados | Abierto |
+| —	| Falta Usuario.puedeVerReportes() | CRC Usuario / Diagrama de clases |	Agregar método | Pendiente |
+| —	| Agregar `Proyecto.listarPorFiltros(...)`, `Proyecto.obtenerMetricasProyecto(...)` | Diagrama de clases / CRC Proyecto |	Incorporar métodos de lectura | Pendiente |
+| —	| Agregar `Etapa.obtenerMetricasEtapas(...)` | Diagrama de clases / CRC Etapa |	Incorporar método de lectura | Pendiente |
+| —	| Agregar `Adjunto.crearDesdeReporte(formato, datos)` | Diagrama de clases / CRC Adjunto |	Incorporar método de creación desde reporte	| Pendiente |
 
 **Estados posibles:** Abierto / Pendiente / Resuelto
 
 ---
-

@@ -76,9 +76,9 @@ diagramas\05-diagramas-secuencia\05-secuencia-caso-uso-04-cambiar-estado-etapa-e
 | URL | Descripción de la inconsistencia | Artefacto relacionado | Acción correctiva | Estado |
 |:----|:---------------------------------|:----------------------|:------------------|:------:|
 | [#134](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/134) | Crear Matriz CLAE para Caso de Uso 04 | [`herramientas-agile\matrices-clae\matriz-clae-caso-uso-cambiar-estado-etapa-04.md`]| Completar, cerrar Issues y PR | Abierto |
-| — | “Registrar historial” sin clase dedicada (Auditoría) | Modelo de dominio | (a crear) **Auditoria.registrarEvento(...)** o mantener workaround temporal en `Proyecto.registrarHistorial(...)`. | Pendiente |
+| — | “Registrar historial” sin clase dedicada (Auditoría) | Modelo de dominio | (a crear) *Auditoria.registrarEvento(...)* o mantener workaround temporal en `Proyecto.registrarHistorial(...)`. | Pendiente |
 | — | Firma de `ServicioNotificaciones.enviar()` sin parámetros en el boceto | Diagrama de Clases / Secuencia CU04 | Ajustar a `enviar(n: Notificacion): boolean` y reflejar en secuencia. | Pendiente |
-| — | “Registrar historial” sin clase dedicada (Auditoría) | Modelo de dominio | (a crear) **Auditoria.registrarEvento(...)** o mantener workaround temporal en `Proyecto.registrarHistorial(...)`. | Pendiente |
+| — | “Registrar historial” sin clase dedicada (Auditoría) | Modelo de dominio | (a crear) *Auditoria.registrarEvento(...)* o mantener workaround temporal en `Proyecto.registrarHistorial(...)`. | Pendiente |
 
 **Estados posibles:** Abierto / Pendiente / Resuelto
 
