@@ -28,7 +28,7 @@ Issues: [#132](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/is
    [#130](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/130)
    
 - [feature/esp-matriz-clae-6-7-add-matrices] Creación de las matriz clae para los casos de uso 6 y 7.
-PR: [#143](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/139) - @abartomioli (Especialista en Matrices CLAE - Casos de Uso 6, 7). 
+PR: [#143](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/143) - @abartomioli (Especialista en Matrices CLAE - Casos de Uso 6, 7). 
 Issues:
    [#138](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/138)
 
