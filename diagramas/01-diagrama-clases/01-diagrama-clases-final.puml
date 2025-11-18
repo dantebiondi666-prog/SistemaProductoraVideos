@@ -100,6 +100,15 @@ class ServicioNotificaciones {
   + validarLimiteEnvio() : boolean
 }
 
+class HistorialEtapa {
+  - id : UUID
+  - fechaHora : DateTime
+  - tipo : String
+  - actor : Usuario
+  + registrarAlta(idEtapa: UUID, actorId: UUID) : UUID
+  + registrarEdicion(idEtapa: UUID, cambios: EtapaPatch, actorId: UUID) : UUID
+  + registrarEliminacion(idEtapa: UUID, actorId: UUID) : UUID
+}
 
 class AuditoriaProyecto {
   - fechaHora : DateTime
@@ -147,6 +156,8 @@ Usuario ..> AuditoriaProyecto : «actor»
 Etapa "0..*" o-- "0..*" Comentario : registra
 Etapa "0..*" o-- "0..*" Adjunto : adjunta
 Etapa "1" --> "1" Usuario : responsable
+Etapa ..> HistorialEtapa : «registra cambio»
+Usuario ..> HistorialEtapa : «actor»
 Usuario --> ServicioNotificaciones : «usa»
 Notificacion --> Usuario : destino
 Notificacion --> Etapa : sobre

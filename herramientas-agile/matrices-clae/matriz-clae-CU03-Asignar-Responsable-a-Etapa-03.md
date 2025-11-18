@@ -18,7 +18,7 @@
 | Verificar autenticación y permisos        |    L    |  L   |          L           |                       |                    |                |             |
 | Verificar existencia de la etapa          |         | **L**|                      |                       |                    |                |             |
 | Identificar responsable saliente      |         |  L   |                      |         **L**         |                    |                |             |
-| Actualizar asignación de responsable      |         | **A**|          L           |          L            |        **L**       |     **C**      |    **C**    |
+| Actualizar asignación de responsable      |         | **A**|          L           |          L            |        **L**       |           |        |
 | Registrar historial de cambios            |         |  L   |          L           |          L            |         L          |     **C**      |             |
 | Notificar responsable asignado (nuevo)    |         |  L   |          L           |                       |         L          |                |    **C**    |
 | Notificar responsable saliente |   |  L   |        L          |         L            |                    |                |    **C**    |
