@@ -100,6 +100,16 @@ class ServicioNotificaciones {
   + validarLimiteEnvio() : boolean
 }
 
+
+class AuditoriaProyecto {
+  - fechaHora : DateTime
+  - accion : String
+  - datos : String
+  - actor : Usuario
+  + logCrear(dto: ProyectoDTO, actorId: UUID) : UUID
+  + logEditar(id: UUID, patch: ProyectoPatch, actorId: UUID) : UUID
+}
+
 ' =======================================================
 ' ENUMERACIONES / TIPOS AUXILIARES
 ' =======================================================
@@ -132,6 +142,8 @@ enum CanalNotificacion {
 ' RELACIONES ENTRE CLASES
 ' =======================================================
 Proyecto "1" *-- "1..*" Etapa : contiene
+Proyecto ..> AuditoriaProyecto : «registra log»
+Usuario ..> AuditoriaProyecto : «actor»
 Etapa "0..*" o-- "0..*" Comentario : registra
 Etapa "0..*" o-- "0..*" Adjunto : adjunta
 Etapa "1" --> "1" Usuario : responsable

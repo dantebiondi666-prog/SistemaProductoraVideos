@@ -5,7 +5,16 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+### Fixed
+
+- [release/actividad-obligatoria-4] Correcciones de matriz clae 1 y agregado de clase en diagrama final de clases. Agrego link de issue cerrada que registraba inconsistencia. 
+  PR: [#](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#149](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/149)
+  [#127](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/127)
+
 ## [Release Actividad Obligatoria N°4] - (11-11-2025)
+
+### Added
 
 - [feature/feature/esp-jad-add-analisis] - Análisis JAD: matriz de registro (10+) + adjunto PDF.  
   PR: [#147](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/147) - @leanlex (Especialista en Matrices CLAE - Casos de Uso 4 y 5 + Análisis JAD), 

@@ -46,11 +46,11 @@
 > Esta sección documenta la **trazabilidad** del caso de uso con los demás artefactos del modelo.  
 > Cada fila establece una correspondencia entre los elementos de la matriz CLAE y los artefactos donde aparecen.
 
-| Elemento                            | Artefacto vinculado                                    | Archivo / Referencia                                 | Descripción |
-|-------------------------------------|---------------------------------------------------------|-------------------------------------------------------|-------------|
-| `crearProyecto/editarProyecto`      | Diagrama de Actividad – CU01                            | `diagramas/04-diagramas-actividades/04-actividad-crear-editar-proyecto-01.puml` | Persistir proyecto / Confirmar flujo |
-| `logCrear/logEditar`                | Diagrama de Secuencia – CU01                            | `diagramas/05-diagramas-secuencia/diagsecuencia01.puml` | Mensajes de auditoría posteriores al guardado |
-| `enviarCreacion/enviarEdicion`      | Diagrama de Actividad – CU01                            | `diagramas/04-diagramas-actividades/04-actividad-crear-editar-proyecto-01.puml` | Paso de notificación al final del flujo |
+| Elemento                            | Artefacto vinculado                     | Archivo / Referencia                                                                                              | Descripción |
+|-------------------------------------|-----------------------------------------|--------------------------------------------------------------------------------------------------------------------|-------------|
+| `crearProyecto/editarProyecto`      | Diagrama de Actividad – CU01            | [04-actividad-crear-editar-proyecto-01.puml](../../diagramas/04-diagramas-actividades/04-actividad-crear-editar-proyecto-01.puml) | Persistir proyecto / Confirmar flujo |
+| `logCrear/logEditar`                | Diagrama de Secuencia – CU01            | [05-secuencia-caso-uso-01-editar-proyecto-escenario-01.puml](../../diagramas/05-diagramas-secuencia/05-secuencia-caso-uso-01-editar-proyecto-escenario-01.puml)                                 | Mensajes posteriores al guardado (auditoría) |
+| `enviarCreacion/enviarEdicion`      | Diagrama de Actividad – CU01            | [04-actividad-crear-editar-proyecto-01.puml](../../diagramas/04-diagramas-actividades/04-actividad-crear-editar-proyecto-01.puml) | Paso de notificación al final del flujo |
 
 ---
 
