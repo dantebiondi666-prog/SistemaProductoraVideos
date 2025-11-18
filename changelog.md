@@ -12,6 +12,11 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   Issue: [#149](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/149)
   [#127](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/127)
 
+- [release/actividad-obligatoria-4] Correcciones de matriz clae 3. Agrego link de issue cerrada que registraba inconsistencia. 
+  PR: [#](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#150](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/150)
+  [#130](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/130)
+
 ## [Release Actividad Obligatoria N°4] - (11-11-2025)
 
 ### Added
