@@ -7,6 +7,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Fixed
 
+- [release/actividad-obligatoria-4] Correcciones de matriz clae 6. 
+  PR: [#](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#151](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/151)
+
 - [release/actividad-obligatoria-4] Correcciones de matriz clae 1 y agregado de clase en diagrama final de clases. Agrego link de issue cerrada que registraba inconsistencia. 
   PR: [#](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#149](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/149)
