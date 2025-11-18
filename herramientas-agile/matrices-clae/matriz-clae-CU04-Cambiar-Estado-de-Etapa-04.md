@@ -13,21 +13,18 @@
 > - **Celdas:** Letras **C**, **L**, **A**, **E** según la operación que se realiza sobre la clase.  
 > - Si no aplica, dejar la celda vacía.  
 
-| Actividad / Clase | Proyecto | Etapa | Usuario | Notificación | Comentario | Adjunto  | Servicio Notificaciones |
-|--------------------|:--------:|:-----:|:-------:|:-----------------:|:-------------:|:-----:|:-----:|
-| Actualizar estado de la etapa |**L**| **A** |**L** | | | | **L** |
-| Registrar historial  |**L** |**C** | | | | |
-| Notificar interesados | | |**L** | **C**| | |**C** |
-| confirmar al actor | | **L** | **L** | **L** | |  | **L**  |
-| Validad reglas de negocio |**L** |**L** |**L** | | | | |
-| *Extend* Alerta retraso |**L** |**L** |**L** | **C**| | |**C** |
-| *Extend* Adjuntar link a material |**L** | |**A** |**L** | | **C/A** | **L** |
-| *Extend* Registrar observaciones / incidencias |**L** |**L** |**L** |**L** |**A** | |**L** |
-| *Extend* Mostrar errores de validación | | |**L** | | | | |
-| *Extend* Notificar al coordinador | | |**L** |**C** | | |**C** |
-| *Extend* Notificar al responsable | | |**L** |**C** | | |**C** |
-
-
+| Actividad / Clase                              | Proyecto | Etapa | Usuario(Coordinador) | Usuario(Responsable) | HistorialEtapa | Comentario | Adjunto | Notificacion |
+|-----------------------------------------------|:--------:|:-----:|:--------------------:|:--------------------:|:--------------:|:---------:|:------:|:-----------:|
+| Verificar autenticación y permisos            |          |       |          L           |          L           |                |           |        |             |
+| Verificar existencia de la etapa              |          |  **L**|                      |                      |                |           |        |             |
+| Mostrar estado actual y opciones              |   **L**  |  **L**|          L           |          L           |                |           |        |             |
+| Actualizar estado de la etapa                 |   **L**  |  **A**|          L           |          L           |      **C**     |           |        |    **C**    |
+| Registrar historial de cambio                 |   **L**  |   L   |          L           |          L           |      **C**     |           |        |             |
+| Notificar interesados (Coord./Responsable)    |   **L**  |   L   |          L           |          L           |                |           |        |    **C**    |
+| Confirmar cambio al actor                     |          |   L   |          L           |          L           |                |           |        |             |
+| *Ext* Registrar observaciones / incidencias   |   **L**  |   L   |          L           |          L           |      **C**     |   **C**   |        |             |
+| *Ext* Adjuntar link / material                |   **L**  |   L   |          L           |          L           |      **C**     |           |  **C** |             |
+| *Ext* Mostrar errores de validación           |          |   L   |          L           |          L           |                |           |        |             |
 
 > **Leyenda:**  
 > **C**: Crear – **L**: Leer/Listar – **A**: Actualizar – **E**: Eliminar  
@@ -37,49 +34,37 @@
 ## 2) Métodos identificados
 
 > Los métodos se derivan directamente de las operaciones (C/L/A/E) marcadas en la tabla.  
-> Cada método deberá existir en la clase correspondiente del **diagrama de clases**, y reflejarse en su **Tarjeta CRC** y en el **diagrama de secuencia** del caso de uso.
+> Deben existir (o agregarse) en el **diagrama de clases** y reflejarse en **CRC** y **diagramas de secuencia**.
 
-| Clase | Método | Tipo (C/L/A/E) | Parámetros (nombre: tipo) | Retorno | Actividad asociada |
-|:------|--------|:--------------:|:--------------------------|:-------:|:-------------------|
-| Proyecto | `obtenerEtapa(etapaId: UUID)` *(nuevo)* | **L** | `etapaID: UUID` | `ETAPA` | Busca y actualiza el estado de la etapa |
-| Proyecto | `asignarResponsable(id: int, usuarioId: int)` | A | `id: int`, `usuarioId: int` | `boolean` | Asignar responsable |
-| Etapa | `agregaComentario()` | **A** | - | `Void` | Agregar etapa inicial |
-| Etapa | `adjuntar()` | **A** | - | `Void`|**Ext.** Adjuntar link a material|
-| Etapa | `alertarRetraso(dias: int)` **(nuevo)** | **A** | `dias: int` | `Void`|**Ext.** Alerta retraso (marca/actualiza retraso)|
-| Usuario | `puedeGestionarEtapas()` | **C/A** | - | `boolean` | Validar reglas de permisos |
-| Notificacion | `programarEnvio()` | **C** | - | `void` | Notificar a interesados / roles |
-| ServicioNotificaciones | `enviar(n: Notificacion)` | C | `n: Notificacion` | `boolean` | Notificar interesados  |
+| Clase          | Método                                                                                      | Tipo | Parámetros                                             | Retorno   | Actividad asociada                          |
+|----------------|---------------------------------------------------------------------------------------------|:---:|--------------------------------------------------------|-----------|---------------------------------------------|
+| Usuario        | `puedeGestionarEtapas()`                                                                    |  L  | —                                                      | `boolean` | Verificar autenticación y permisos          |
+| Etapa          | `obtenerPorId(idEtapa: UUID)`                                                               |  L  | `idEtapa: UUID`                                        | `Etapa`   | Verificar existencia / Mostrar estado       |
+| Etapa          | `cambiarEstado(nuevoEstado: EstadoEtapa, actor: Usuario)`                                   |  A  | `nuevoEstado: EstadoEtapa`, `actor: Usuario`          | `void`    | Actualizar estado de la etapa               |
+| HistorialEtapa | `registrarCambioEstado(idEtapa: UUID, estadoAnterior: EstadoEtapa, estadoNuevo: EstadoEtapa, actorId: UUID)` |  C  | `idEtapa`, `estadoAnterior`, `estadoNuevo`, `actorId` | `UUID`    | Registrar historial de cambio               |
+| Comentario     | `publicarEn(etapaId: UUID, dto: NuevoComentario)`                                           |  C  | `etapaId: UUID`, `dto: NuevoComentario`               | `UUID`    | *Ext* Registrar observaciones / incidencias |
+| Adjunto        | `adjuntarA(etapaId: UUID, dto: NuevoAdjunto)`                                               |  C  | `etapaId: UUID`, `dto: NuevoAdjunto`                  | `UUID`    | *Ext* Adjuntar link / material              |
+| Notificacion   | `crearCambioEstado(destino: Usuario, etapa: Etapa, proyecto: Proyecto, nuevoEstado: EstadoEtapa)` |  C  | `destino`, `etapa`, `proyecto`, `nuevoEstado`         | `Notificacion` | Notificar interesados (Coord./Resp.)    |
+| ServicioNotificaciones | `enviar(n: Notificacion)`                                                           | L/A | `n: Notificacion`                                     | `boolean` | Envío efectivo vía canal (mail/WhatsApp)    |
 
-diagramas\05-diagramas-secuencia\05-secuencia-caso-uso-04-cambiar-estado-etapa-escenario-04.puml
+> Nota: `ServicioNotificaciones.enviar(...)` se modela en CU07 como parte del motor de notificaciones; aquí se lo referencia sólo para mantener la trazabilidad con el flujo de CU04.
+
 ---
 
-## 3) Relación con otros artefactos del diseño
+## 3) Trazabilidad
 
-> Esta sección documenta la **trazabilidad** del caso de uso con los demás artefactos del modelo.  
-> Cada fila establece una correspondencia entre los elementos de la matriz CLAE y los artefactos donde aparecen.
-
-| Elemento | Artefacto vinculado | Archivo / Referencia URL | Descripción de la relación |
-|----------|---------------------|--------------------------|----------------------------|
-| `etapa.cambiarEstado(nuevo)` | Diagrama de Secuencia - CU04 | [`diagramas\05-diagramas-secuencia\05-secuencia-caso-uso-04-cambiar-estado-etapa-escenario-04.png`]() | Del usuario directo al objeto `etapa` |
-| `Usuario.puedegestionarEtapa()` | Diagrama de Secuencia – CU04 | [`diagramas/05-diagramas-secuencia/05-secuencia-caso-uso-04-cambiar-estado-etapa-escenario-04.png`]() | Antes habiendo validado credenciales/permisos |
-| `Notificacion.programarEnvio()` | Diagrama de Secuencia – CU04 | [`diagramas/04-diagramas-actividades/04-actividad-cambiar-estado-etapa-04.png`]() | Acción “Notificar interesados”: alta del registro de notificación |
-| `ServicioNotificaciones.enviar(n)` | Diagrama de Secuencia – CU04 | [`diagramas/05-diagramas-secuencia/05-secuencia-caso-uso-04-cambiar-estado-etapa-escenario-04.png`]() | Envío de la notificación hacia el canal correspondiente. |
- |`Ext. Etapa.adjuntar(...)` | Diagrama de Secuencia – CU04 | [`diagramas/04-diagramas-actividades/04-actividad-cambiar-estado-etapa-04.pung`]() | Adjuntar link a material |
-| `Ext. Etapa.agregarComentario()` | Diagrama de Secuencia – CU04 | [`diagramas/04-diagramas-actividades/04-actividad-cambiar-estado-etapa-04.pung`]() | Registrar observaciones / incidencias |
+| Elemento / Método                              | Artefacto vinculado                          | Archivo / Referencia                                                                                                                                         | Descripción |
+|-----------------------------------------------|----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| `Etapa.cambiarEstado(...)`                    | Diagrama de Actividad – CU04                 | [04-actividad-cambiar-estado-etapa-04.puml](../../diagramas/04-diagramas-actividades/04-actividad-cambiar-estado-etapa-04.puml)                             | Paso central “Actualizar estado de la etapa”. |
+| `HistorialEtapa.registrarCambioEstado(...)`   | Diagrama de Secuencia – CU04                 | [05-secuencia-caso-uso-04-cambiar-estado-etapa-escenario-04.puml](../../diagramas/05-diagramas-secuencia/05-secuencia-caso-uso-04-cambiar-estado-etapa-escenario-04.puml)                                                                          | Mensajes de registro de historial tras el cambio. |
+| `Notificacion.crearCambioEstado(...)`         | Diagrama de Actividad – CU04                 | [04-actividad-cambiar-estado-etapa-04.puml](../../diagramas/04-diagramas-actividades/04-actividad-cambiar-estado-etapa-04.puml)                             | Origen de la notificación a Coordinador/Responsable. |
+| `Comentario.publicarEn(...)`, `Adjunto.adjuntarA(...)` | Diagrama de Actividad – CU04 (extensiones) | [04-actividad-cambiar-estado-etapa-04.puml](../../diagramas/04-diagramas-actividades/04-actividad-cambiar-estado-etapa-04.puml)                             | Flujos extendidos de observaciones e adjuntos. |
 
 ---
 
 ## 4) Issues e inconsistencias detectadas
 
-> Registrar cualquier diferencia encontrada entre esta matriz y los artefactos relacionados.
+| URL / referencia | Descripción de la inconsistencia                                                                                          | Artefacto relacionado          | Acción correctiva                                                                                                    | Estado    |
+|------------------|----------------------------------------------------------------------------------------------------------------------------|--------------------------------|-----------------------------------------------------------------------------------------------------------------------|:---------:|
+| [#134](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/134) | Matriz CU04 incluía clases técnicas (Servicio Notificaciones como columna) y CRUD incoherentes. | Matriz CLAE CU04               | Limitar columnas a clases de dominio (Proyecto, Etapa, Usuario, HistorialEtapa, Comentario, Adjunto, Notificacion). | Resuelto  |
 
-| URL | Descripción de la inconsistencia | Artefacto relacionado | Acción correctiva | Estado |
-|:----|:---------------------------------|:----------------------|:------------------|:------:|
-| [#134](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/134) | Crear Matriz CLAE para Caso de Uso 04 | [`herramientas-agile\matrices-clae\matriz-clae-caso-uso-cambiar-estado-etapa-04.md`]| Completar, cerrar Issues y PR | Abierto |
-| — | “Registrar historial” sin clase dedicada (Auditoría) | Modelo de dominio | (a crear) *Auditoria.registrarEvento(...)* o mantener workaround temporal en `Proyecto.registrarHistorial(...)`. | Pendiente |
-| — | Firma de `ServicioNotificaciones.enviar()` sin parámetros en el boceto | Diagrama de Clases / Secuencia CU04 | Ajustar a `enviar(n: Notificacion): boolean` y reflejar en secuencia. | Pendiente |
-| — | “Registrar historial” sin clase dedicada (Auditoría) | Modelo de dominio | (a crear) *Auditoria.registrarEvento(...)* o mantener workaround temporal en `Proyecto.registrarHistorial(...)`. | Pendiente |
-
-**Estados posibles:** Abierto / Pendiente / Resuelto
-
----
