@@ -5,7 +5,88 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
-## **Todos los cambios los voy a agregar en released en fixed luego de aprobación**
+### Fixed
+
+- [release/actividad-obligatoria-4] Correcciones de matriz clae 5.
+  PR: [#148](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/148) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#154](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/154)
+  [#135](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/135)
+
+- [release/actividad-obligatoria-4] Correcciones de matriz clae 4, agrego link issue reportando inconsistencia resuelta. 
+  PR: [#148](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/148) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#153](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/153)
+  [#134](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/134)
+
+- [release/actividad-obligatoria-4] Correcciones de matriz clae 2, agrego link issue reportando inconsistencia resuelta. 
+  PR: [#148](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/148) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#152](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/152)
+  [#129](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/129)
+
+- [release/actividad-obligatoria-4] Correcciones de matriz clae 6. 
+  PR: [#148](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/148) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#151](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/151)
+
+- [release/actividad-obligatoria-4] Correcciones de matriz clae 1 y agregado de clase en diagrama final de clases. Agrego link de issue cerrada que registraba inconsistencia. 
+  PR: [#148](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/148) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#149](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/149)
+  [#127](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/127)
+
+- [release/actividad-obligatoria-4] Correcciones de matriz clae 3. Agrego link de issue cerrada que registraba inconsistencia. Agrego clase historialetapa a diagrama final de clases. 
+  PR: [#148](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/148) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#150](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/150)
+  [#130](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/130)
+
+## [Release Actividad Obligatoria N°4] - (11-11-2025)
+
+### Added
+
+- [feature/feature/esp-jad-add-analisis] - Análisis JAD: matriz de registro (10+) + adjunto PDF.  
+  PR: [#147](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/147) - @leanlex (Especialista en Matrices CLAE - Casos de Uso 4 y 5 + Análisis JAD), 
+  Issue: [#135](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/135)
+  [#136](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/136)
+  [#137](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/137)
+
+
+- [feature/esp-matriz-clae-4-5-add-matrices] Creación de las matriz clae para los casos de uso 4 y 5. Creación de carpeta herramientas-agiles/matrices-clae, actualización de indice. 
+  PR: [#146](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/146) - @leanlex (Especialista en Matrices CLAE - Casos de Uso 4 y 5 + Análisis JAD), 
+  Issue: [#134](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/134)
+  [#135](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/135)
+  [#136](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/136)
+
+
+
+- [feature/doc-coord-repo-update-docs] Creación de estructura de carpetas e indices, corrección de requested changes, corrección de archivos (herramientas agile y changelog). 
+  PR: [#142](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/142) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#141](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/141)
+
+- [feature/esp-diagrama-clases-add-diagrama-refinado] Refinamiento completo del diagrama de clases final en PlantUML.  
+  Se incorporaron atributos, métodos CRUD, relaciones y herencias.  
+  Se verificó coherencia con tarjetas CRC, matrices CLAE y análisis JAD.  
+  Exportación de archivos `01-diagrama-clases-final.puml` y `.png`.
+PR: [#133](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/133) - @juanmartinbritos7-cmd (Especialista en Refinamiento del Diagrama de Clases)  
+Issues: [#132](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/132)
+
+
+
+- [feature/esp-matriz-clae-1-2-3-add-matrices] Creación de las matriz clae para los casos de uso 1,2 y 3. Creación de carpeta herramientas-agiles/matrices-clae
+  PR: [#131](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/131) - 
+  @abartomioli (Especialista en Matrices CLAE - Casos de Uso 1, 2 y 3). 
+  Issues:
+   [#127](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/127)
+   [#128](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/128)
+   [#129](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/129)
+   [#130](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/130)
+   
+- [feature/esp-matriz-clae-6-7-add-matrices] Creación de las matriz clae para los casos de uso 6 y 7.
+PR: [#145](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/145) - @abartomioli (Especialista en Matrices CLAE - Casos de Uso 6, 7). 
+Issues:
+   [#138](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/138)
+
+
+## [Release Actividad Obligatoria N°3] - (20-10-2025)
+
+### Added
+
 
 - [release/actividad-obligatoria-3] Correcciones de todos los diagramas de secuencia, quitando id's y corrección de índice de diagramas de secuencia. 
   PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
@@ -44,10 +125,6 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 - [release/actividad-obligatoria-3] Correcciones en diagrama de actividades 01. Agregado Servicio de Notificaciones como swimlane, nota aclaratoria en los datos validados, agregado de loop y corrección sobre actividades persistir y registrar. 
   PR: [#111](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/111) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#112](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/112)
-
-## [Release Actividad Obligatoria N°3] - (20-10-2025)
-
-### Added
 
 - [feature/esp-secuencia-add-diagrama-secuencia-1] Creación de diagramas de secuencia para los Casos de Uso 01–07 y actualización del índice `diagramas_de_secuencias.md` (PUML + PNG).
   PR: [#110](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/110) - @leanlex (Especialista en Diagramas de Secuencia – Casos de Uso 1 a 7)

@@ -1,0 +1,171 @@
+@startuml Diagrama_Clases_Final
+title Diagrama de Clases Refinado - Sistema Productora de Videos
+
+' =======================================================
+' CLASES PRINCIPALES
+' =======================================================
+
+class Proyecto {
+  - projectId : UUID
+  - nombre : String
+  - cliente : String
+  - fechaInicioEstimada : Date
+  - fechaFinEstimada : Date
+  - estado : EstadoProyecto
+  - observaciones : String
+  + agregarEtapa(etapa: Etapa) : void
+  + eliminarEtapa(idEtapa: UUID) : void
+  + obtenerDuracionPromedioEtapas() : Duration
+  + finalizarSiCorresponde() : void
+  + crearProyecto(nombre: String, cliente: String) : Proyecto
+  + listarProyectos() : List<Proyecto>
+  + actualizarProyecto(idProyecto: UUID, estado: EstadoProyecto) : boolean
+  + eliminarProyecto(idProyecto: UUID) : boolean
+}
+
+class Etapa {
+  - stageId : UUID
+  - nombre : String
+  - estado : EstadoEtapa
+  - fechaInicioEstimada : Date
+  - fechaFinEstimada : Date
+  - fechaFinReal : Date
+  - observaciones : String
+  - responsable : Usuario
+  + asignarResponsable(usuario: Usuario) : void
+  + cambiarEstado(nuevoEstado: EstadoEtapa) : void
+  + agregarComentario(comentario: Comentario) : void
+  + adjuntar(adjunto: Adjunto) : void
+  + crearEtapa(nombre: String) : Etapa
+  + listarEtapas() : List<Etapa>
+  + actualizarEtapa(idEtapa: UUID, estado: EstadoEtapa) : boolean
+  + eliminarEtapa(idEtapa: UUID) : boolean
+}
+
+class Usuario {
+  - userId : UUID
+  - nombre : String
+  - email : String
+  - rol : RolUsuario
+  - canalPreferido : CanalNotificacion
+  + puedeGestionarProyectos() : boolean
+  + puedeGestionarEtapas() : boolean
+  + notificar(notificacion: Notificacion) : void
+  + crearUsuario(nombre: String, email: String, rol: RolUsuario) : Usuario
+  + listarUsuarios() : List<Usuario>
+  + actualizarUsuario(idUsuario: UUID, email: String) : boolean
+  + eliminarUsuario(idUsuario: UUID) : boolean
+}
+
+class Comentario {
+  - commentId : UUID
+  - texto : String
+  - fechaHora : DateTime
+  - autor : Usuario
+  + editarTexto(nuevoTexto: String) : void
+  + eliminar() : boolean
+  + mencionar(usuario: Usuario) : void
+}
+
+class Adjunto {
+  - attachId : UUID
+  - titulo : String
+  - url : String
+  - tipo : String
+  - fechaAdjunto : DateTime
+  + generarPreview() : String
+  + descargar() : void
+  + eliminar() : boolean
+}
+
+class Notificacion {
+  - notificationId : UUID
+  - asunto : String
+  - mensaje : String
+  - canal : CanalNotificacion
+  - fechaHora : DateTime
+  - destino : Usuario
+  - resultado : String
+  + marcarLeida() : void
+  + programarEnvio(fechaHora: DateTime) : void
+  + pendiente() : boolean
+}
+
+class ServicioNotificaciones {
+  - servicioId : UUID
+  - proveedor : String
+  - limiteDiario : int
+  - tiempoUltimoEnvio : DateTime
+  + enviar(notificacion: Notificacion) : boolean
+  + validarLimiteEnvio() : boolean
+}
+
+class HistorialEtapa {
+  - id : UUID
+  - fechaHora : DateTime
+  - tipo : String
+  - actor : Usuario
+  + registrarAlta(idEtapa: UUID, actorId: UUID) : UUID
+  + registrarEdicion(idEtapa: UUID, cambios: EtapaPatch, actorId: UUID) : UUID
+  + registrarEliminacion(idEtapa: UUID, actorId: UUID) : UUID
+}
+
+class AuditoriaProyecto {
+  - fechaHora : DateTime
+  - accion : String
+  - datos : String
+  - actor : Usuario
+  + logCrear(dto: ProyectoDTO, actorId: UUID) : UUID
+  + logEditar(id: UUID, patch: ProyectoPatch, actorId: UUID) : UUID
+}
+
+' =======================================================
+' ENUMERACIONES / TIPOS AUXILIARES
+' =======================================================
+enum EstadoProyecto {
+  Planificado
+  EnEjecucion
+  Finalizado
+}
+
+enum EstadoEtapa {
+  Pendiente
+  EnProceso
+  Completada
+}
+
+enum RolUsuario {
+  Administrador
+  Productor
+  Editor
+  Cliente
+}
+
+enum CanalNotificacion {
+  Email
+  WhatsApp
+  Slack
+}
+
+' =======================================================
+' RELACIONES ENTRE CLASES
+' =======================================================
+Proyecto "1" *-- "1..*" Etapa : contiene
+Proyecto ..> AuditoriaProyecto : «registra log»
+Usuario ..> AuditoriaProyecto : «actor»
+Etapa "0..*" o-- "0..*" Comentario : registra
+Etapa "0..*" o-- "0..*" Adjunto : adjunta
+Etapa "1" --> "1" Usuario : responsable
+Etapa ..> HistorialEtapa : «registra cambio»
+Usuario ..> HistorialEtapa : «actor»
+Usuario --> ServicioNotificaciones : «usa»
+Notificacion --> Usuario : destino
+Notificacion --> Etapa : sobre
+
+' Herencias
+Usuario <|-- Administrador
+Usuario <|-- Productor
+Usuario <|-- Editor
+Usuario <|-- Cliente
+
+@enduml
