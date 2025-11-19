@@ -7,69 +7,53 @@
 
 ## 1) Tabla CLAE
 
+> CU06 es **sólo de lectura**: no crea ni actualiza entidades.  
+> Se consultan Proyectos, sus Etapas y el Usuario autenticado para construir el tablero.
 
-Columnas:
+**Columnas:**
+- **Pry** = Proyecto
+- **Etp** = Etapa
+- **Usr** = Usuario
 
-- **Pry** = Proyecto  
-- **Etp** = Etapa  
-- **Usr** = Usuario  
-- **SrvTab** = ServicioTablero / controlador  
-- **MotorTab** = MotorTablero / cálculo de métricas  
-- **Cache** = CacheTablero  
-- **SrvExp** = ServicioExportación  
-- **ArchExp** = ArchivoExportado (PDF/CSV)
-
-| Actividad / Clase                                         | Pry | Etp | Usr | SrvTab | MotorTab | Cache | SrvExp | ArchExp |
-|-----------------------------------------------------------|:---:|:---:|:---:|:-----:|:--------:|:-----:|:------:|:------:|
-| Abrir “Tablero” desde menú                                |     |     | L   | L     |          |       |        |        |
-| Verificar autenticación                                   |     |     | L   | L     |          |       |        |        |
-| Cargar resumen de proyectos y etapas                      | L   | L   |     | L     | L        | L/A*  |        |        |
-| Mostrar tarjetas (estado, avance, responsables)           | L   | L   | L   | L     |          |       |        |        |
-| Configurar y aplicar filtros                              | L   | L   |     | L     | L        | L/A   |        |        |
-| Ajustar filtros y refrescar resultados (iteración)        | L   | L   |     | L     | L        | L/A   |        |        |
-| Expandir proyecto y mostrar detalle de etapas             | L   | L   |     | L     |          |       |        |        |
-| Solicitar exportación del resumen visible                 | L   | L   |     | L     | L        |       | C      | C      |
-| Proveer enlace/descarga del archivo generado al usuario   |     |     |     | L     |          |       | L      | L      |
-
-\* CacheTablero internamente crea/actualiza entradas cacheadas (por eso L/A).
+| Actividad funcional                                       | Pry | Etp | Usr |
+|-----------------------------------------------------------|:---:|:---:|:---:|
+| Cargar resumen inicial del tablero                        |  L  |  L  |  L  |
+| Aplicar filtros (estado / cliente / fechas)               |  L  |  L  |  L  |
+| Expandir proyecto y ver detalle de etapas                 |  L  |  L  |     |
+| Ver totales y KPI provenientes de datos existentes        |  L  |  L  |     |
 
 **Leyenda:** **C** Crear – **L** Leer/Listar – **A** Actualizar – **E** Eliminar
 
 ---
 
-## 2) Métodos identificados
+## 2) Métodos identificados (sin introducir nuevas clases)
 
+> Se reutilizan consultas del **dominio** (o del repositorio si lo tenés separado). Ajustá nombres a tu diagrama final.
 
-| Clase             | Método                                                        | Tipo | Parámetros                                   | Retorno            | Actividad asociada                                      |
-|-------------------|---------------------------------------------------------------|:---:|----------------------------------------------|--------------------|---------------------------------------------------------|
-| ServicioTablero   | `cargarTablero(filtros: FiltroTablero)`                      | L   | `filtros: FiltroTablero`                     | `TableroDTO`       | Cargar resumen inicial, mostrar tarjetas                |
-| ServicioTablero   | `actualizarConFiltros(filtros: FiltroTablero)`               | L   | `filtros: FiltroTablero`                     | `TableroDTO`       | Ajustar filtros y refrescar resultados                  |
-| ServicioTablero   | `obtenerDetalleProyecto(idProyecto: UUID)`                   | L   | `idProyecto: UUID`                           | `DetalleProyectoDTO` | Expandir proyecto y ver etapas                        |
-| MotorTablero      | `obtenerResumen(filtros: FiltroTablero)`                     | L   | `filtros: FiltroTablero`                     | `ResumenDTO`       | Consultar datos y calcular métricas                     |
-| MotorTablero      | `calcularMetricas(dataset: Dataset)`                         | L   | `dataset: Dataset`                           | `MetricasDTO`      | Cálculo específico para widgets/tablas                  |
-| CacheTablero      | `obtenerTablero(filtros: FiltroTablero)`                     | L   | `filtros: FiltroTablero`                     | `TableroDTO?`      | Reutilizar tablero cacheado (si existe)                 |
-| CacheTablero      | `guardarTablero(filtros: FiltroTablero, t: TableroDTO)`      | C/A | `filtros`, `t`                               | `void`             | Crear/actualizar entrada de cache                      |
-| ServicioExportación | `exportarTablero(t: TableroDTO, formato: FormatoExportacion)` | C | `t`, `formato`                               | `ArchivoExportado` | Generar PDF/CSV del resumen                             |
-| ServicioTablero   | `obtenerEnlaceDescarga(archivo: ArchivoExportado)`           | L   | `archivo: ArchivoExportado`                  | `String`           | Proveer enlace/descarga al usuario                      |
+| Clase    | Método / Consulta sugerida                        | Tipo | Parámetros                              | Retorno          | Nota |
+|----------|----------------------------------------------------|:---:|------------------------------------------|------------------|------|
+| Proyecto | listarPorFiltros(estado?, cliente?, rangoFechas?) |  L  | filtros                                  | List\<Proyecto>  | Para armar el grid principal. |
+| Proyecto | obtenerPorId(idProyecto: UUID)                    |  L  | idProyecto                               | Proyecto         | Para expandir detalle. |
+| Etapa    | listarPorProyecto(idProyecto: UUID)               |  L  | idProyecto                               | List\<Etapa>     | Detalle de etapas. |
+| Usuario  | obtenerPorId(idUsuario: UUID)                     |  L  | idUsuario                                | Usuario          | Contexto de usuario/logueo. |
 
 ---
 
-## 3) Relación con otros artefactos del diseño
+## 3) Trazabilidad
 
-| Elemento                        | Artefacto vinculado                                             | Descripción de la relación                                     |
-|---------------------------------|-----------------------------------------------------------------|-----------------------------------------------------------------|
-| `cargarTablero()`              | 04-actividad-mostrar-tablero-control-06                         | Acciones de “cargar resumen” + “mostrar tarjetas”.             |
-| `actualizarConFiltros()`       | 04-actividad-mostrar-tablero-control-06                         | Bucle de ajuste de filtros.                                    |
-| `exportarTablero()`            | 04-actividad-mostrar-tablero-control-06                         | Bloque de exportación PDF/CSV.                                 |
-| `cargarTablero()` / `exportarTablero()` | diagsecuencia06                                           | Mensajes entre PantallaTablero, ServicioTablero y servicios.   |
-| `obtenerResumen()` / `obtenerDetalleProyecto()` | Diagrama de clases (Proyecto/Etapa)                  | Sólo lectura del dominio para armar el tablero.                |
+| Elemento / Paso                        | Artefacto vinculado                 | Archivo / Referencia                                                                                                                                               | Descripción                                  |
+|---------------------------------------|-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
+| Cargar resumen / aplicar filtros       | Diagrama de Actividad – CU06        | [04-actividad-mostrar-tablero-control-06.puml](../../diagramas/04-diagramas-actividades/04-actividad-mostrar-tablero-control-06.puml)                             | Pasos “cargar resumen” y “aplicar filtros”.  |
+| Expandir proyecto / ver etapas         | Diagrama de Secuencia – CU06        | [05-secuencia-caso-uso-06-mostrar-tablero-escenario-06.puml](../../diagramas/05-diagramas-secuencia/05-secuencia-caso-uso-06-mostrar-tablero-escenario-06.puml)                                                                                | Mensajes Pantalla ↔ dominio.                 |
+| Lectura de Proyecto/Etapa/Usuario      | Diagrama de Clases                  | [01-diagrama-clases-final.puml](../../diagramas/01-diagrama-clases/01-diagrama-clases-final.puml)                                                                                                   | Se leen entidades del dominio.               |
+
+> Si preferís, reemplazá las rutas por **URLs del repo** (GitHub/GitLab) para la corrección docente.
 
 ---
 
 ## 4) Issues e inconsistencias detectadas
 
-*(Completar si se detectan diferencias con diagramas/clases reales.)*
-
-| URL | Descripción de la inconsistencia | Artefacto relacionado | Acción correctiva | Estado |
-|----|----------------------------------|------------------------|-------------------|:------:|
-|    |                                  |                        |                   |        |
+| URL / referencia | Descripción                                                                                                          | Artefacto relacionado | Acción correctiva                                                                                       | Estado     |
+|------------------|----------------------------------------------------------------------------------------------------------------------|-----------------------|----------------------------------------------------------------------------------------------------------|-----------|
+| *Este archivo*   | Se habían referido clases no modeladas (ServicioTablero, MotorTablero, CacheTablero, ServicioExportación, Archivo…). | Matriz CLAE CU06      | **Eliminar** esas referencias y ceñirse a Proyecto/Etapa/Usuario.                                        | **Resuelto** |
+| `diagsecuencia06`| Si el diagrama aún invoca “servicios” no definidos en clases/CRCs.                                                   | Diagrama de Secuencia | Ajustar mensajes para que consulten **métodos/DAOs** del dominio (o agregar esas interfaces al UML).     | Pendiente  |
