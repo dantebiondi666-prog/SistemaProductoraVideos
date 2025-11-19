@@ -5,6 +5,15 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+## Added
+
+- [feature/coord-devops-update-docs] Creación de carpeta para patrones de diseño en anexos, creación de archivos de patrones de diseño creacional, de comportamiento y estructural, creación de índice y realización de todos los requested changes de actividad obligatoria N°4.
+  PR: [#162](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/162) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#161](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/161)
+  
+
+## [Release Actividad Obligatoria N°4] - (11-11-2025)
+
 ### Fixed
 
 - [release/actividad-obligatoria-4] Correcciones de diagrama final y analisis jad.
@@ -45,7 +54,6 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   Issue: [#150](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/150)
   [#130](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/130)
 
-## [Release Actividad Obligatoria N°4] - (11-11-2025)
 
 ### Added
 
