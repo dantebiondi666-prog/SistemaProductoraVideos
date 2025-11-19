@@ -2,13 +2,37 @@
 
 ## Patrones de Diseño Estructural y su relación con SOLID
 
-*Los patrones de diseño estructural...*
+*Los patrones estructurales permiten organizar la arquitectura interna de un sistema, reduciendo el acoplamiento entre clases, promoviendo la composición por sobre la herencia y permitiendo extender funcionalidades sin modificar código existente, alineándose fuertemente con OCP y DIP.
+
+El patrón Facade proporciona una interfaz simplificada para un conjunto de subsistemas complejos.
+Permite ocultar la complejidad interna y exponer un único punto de acceso para las operaciones principales del sistema.*
 
 ## Propósito y tipo del Patrón
 
 ### Propósito:
 
-...
+En el sistema de la Productora de Videos, la creación y gestión de un proyecto de video requiere interactuar con múltiples clases:
+
+. GestorVideos
+
+- GestorUsuarios
+
+- GestorProyectos
+
+- ServicioRender
+
+- ServicioPublicacion
+
+Esto generaba:
+
+- Fuertes dependencias entre capas.
+
+- Dificultad para mantener la UI y los casos de uso.
+
+- Duplicación de llamadas a servicios.
+
+El patrón Facade unifica estas operaciones en una única clase coordinadora:
+SistemaProductoraFacade.
 
 ### Tipo:
 

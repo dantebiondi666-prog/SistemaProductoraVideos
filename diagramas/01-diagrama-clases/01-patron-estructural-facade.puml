@@ -1,0 +1,38 @@
+@startuml
+
+title Patrón Estructural - Facade (Sistema Productora de Videos)
+
+class SistemaProductoraFacade {
+    +crearProyectoCompleto(usuarioId: int, datos: ProyectoDTO, videos: List<Video>)
+    +renderizarProyecto(proyectoId: int)
+    +publicarProyecto(proyectoId: int, plataforma: String)
+}
+
+class GestorUsuarios {
+    +obtenerUsuario(id: int): Usuario
+}
+
+class GestorProyectos {
+    +crearProyecto(usuario: Usuario, datos: ProyectoDTO): Proyecto
+    +obtenerProyecto(id: int): Proyecto
+}
+
+class GestorVideos {
+    +asociarVideos(proyecto: Proyecto, videos: List<Video>)
+}
+
+class ServicioRender {
+    +renderizar(proyecto: Proyecto)
+}
+
+class ServicioPublicacion {
+    +publicar(proyecto: Proyecto, plataforma: String)
+}
+
+SistemaProductoraFacade --> GestorUsuarios : usa
+SistemaProductoraFacade --> GestorProyectos : usa
+SistemaProductoraFacade --> GestorVideos : usa
+SistemaProductoraFacade --> ServicioRender : usa
+SistemaProductoraFacade --> ServicioPublicacion : usa
+
+@enduml
