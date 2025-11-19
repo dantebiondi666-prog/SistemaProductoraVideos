@@ -2,112 +2,131 @@
 title Diagrama de Clases Refinado - Sistema Productora de Videos
 
 ' =======================================================
-' CLASES PRINCIPALES
+' CLASES PRINCIPALES DE DOMINIO
 ' =======================================================
 
 class Proyecto {
-  - projectId : UUID
   - nombre : String
-  - cliente : String
+  - tipo : String
+  - estado : EstadoProyecto
   - fechaInicioEstimada : Date
   - fechaFinEstimada : Date
-  - estado : EstadoProyecto
   - observaciones : String
+  - cliente : Cliente
   + agregarEtapa(etapa: Etapa) : void
   + eliminarEtapa(idEtapa: UUID) : void
   + obtenerDuracionPromedioEtapas() : Duration
   + finalizarSiCorresponde() : void
-  + crearProyecto(nombre: String, cliente: String) : Proyecto
-  + listarProyectos() : List<Proyecto>
-  + actualizarProyecto(idProyecto: UUID, estado: EstadoProyecto) : boolean
-  + eliminarProyecto(idProyecto: UUID) : boolean
+  ' CU01
+  + crearProyecto(dto: ProyectoDTO) : Proyecto
+  + editarProyecto(id: UUID, patch: ProyectoPatch) : Proyecto
+  + obtenerProyecto(id: UUID) : Proyecto
+  ' CU05 / CU06
+  + listarPorFiltros(f: FiltrosReporte) : List<Proyecto>
+  + obtenerMetricasProyecto(f: FiltrosReporte) : MetricasProyecto
 }
 
 class Etapa {
-  - stageId : UUID
   - nombre : String
   - estado : EstadoEtapa
+  - prioridad : PrioridadEtapa
   - fechaInicioEstimada : Date
   - fechaFinEstimada : Date
   - fechaFinReal : Date
   - observaciones : String
   - responsable : Usuario
   + asignarResponsable(usuario: Usuario) : void
-  + cambiarEstado(nuevoEstado: EstadoEtapa) : void
+  + cambiarEstado(nuevoEstado: EstadoEtapa, actor: Usuario) : void
   + agregarComentario(comentario: Comentario) : void
   + adjuntar(adjunto: Adjunto) : void
-  + crearEtapa(nombre: String) : Etapa
-  + listarEtapas() : List<Etapa>
-  + actualizarEtapa(idEtapa: UUID, estado: EstadoEtapa) : boolean
+  ' CU02
+  + crearEtapa(dto: NuevaEtapa) : UUID
+  + actualizarEtapa(idEtapa: UUID, patch: EtapaPatch) : boolean
   + eliminarEtapa(idEtapa: UUID) : boolean
+  + listarPorProyecto(idProyecto: UUID) : List<Etapa>
+  ' CU03 / CU04 / CU05
+  + obtenerPorId(idEtapa: UUID) : Etapa
+  + obtenerMetricasEtapas(f: FiltrosReporte) : MetricasEtapas
 }
 
 class Usuario {
-  - userId : UUID
   - nombre : String
   - email : String
   - rol : RolUsuario
   - canalPreferido : CanalNotificacion
   + puedeGestionarProyectos() : boolean
   + puedeGestionarEtapas() : boolean
-  + notificar(notificacion: Notificacion) : void
-  + crearUsuario(nombre: String, email: String, rol: RolUsuario) : Usuario
-  + listarUsuarios() : List<Usuario>
-  + actualizarUsuario(idUsuario: UUID, email: String) : boolean
-  + eliminarUsuario(idUsuario: UUID) : boolean
+  + puedeVerReportes() : boolean
+  + actualizarFiltros(filtros: FiltrosReporte) : void
+  + obtenerCanalPreferido() : CanalNotificacion
+}
+
+class Cliente {
+  - nombre : String
+  - email : String
+  - telefono : String
+  + obtenerCliente(idCliente: UUID) : Cliente
 }
 
 class Comentario {
-  - commentId : UUID
   - texto : String
   - fechaHora : DateTime
+  - tipo : TipoComentario
   - autor : Usuario
   + editarTexto(nuevoTexto: String) : void
   + eliminar() : boolean
-  + mencionar(usuario: Usuario) : void
 }
 
 class Adjunto {
-  - attachId : UUID
   - titulo : String
   - url : String
   - tipo : String
+  - version : String
   - fechaAdjunto : DateTime
   + generarPreview() : String
-  + descargar() : void
+  + descargar() : Stream
   + eliminar() : boolean
+  ' CU02 / CU04
+  + adjuntarA(etapaId: UUID, dto: NuevoAdjunto) : UUID
+  ' CU05
+  + crearDesdeReporte(formato: FormatoExport, datos: MetricasProyecto) : Adjunto
 }
 
 class Notificacion {
-  - notificationId : UUID
   - asunto : String
   - mensaje : String
   - canal : CanalNotificacion
   - fechaHora : DateTime
   - destino : Usuario
-  - resultado : String
-  + marcarLeida() : void
-  + programarEnvio(fechaHora: DateTime) : void
-  + pendiente() : boolean
+  - proyecto : Proyecto
+  - etapa : Etapa
+  - resultado : ResultadoEnvio
+  - requiereRevision : boolean
+  ' CU07 (y reutilizado por CU01, CU02, CU03, CU04)
+  + crearDesdeEvento(tipo: TipoEvento, datos: DatosContexto) : Notificacion
+  + seleccionarCanal(canalPref: CanalNotificacion, canalDef: CanalNotificacion) : void
+  + registrarResultado(resultado: ResultadoEnvio) : void
+  + marcarParaRevision(motivo: String) : void
 }
 
 class ServicioNotificaciones {
-  - servicioId : UUID
   - proveedor : String
   - limiteDiario : int
   - tiempoUltimoEnvio : DateTime
-  + enviar(notificacion: Notificacion) : boolean
-  + validarLimiteEnvio() : boolean
+  + puedeEnviar() : boolean
+  + enviar(n: Notificacion) : ResultadoEnvio
 }
 
 class HistorialEtapa {
-  - id : UUID
   - fechaHora : DateTime
-  - tipo : String
+  - tipo : TipoHistorialEtapa
+  - detalle : String
   - actor : Usuario
   + registrarAlta(idEtapa: UUID, actorId: UUID) : UUID
   + registrarEdicion(idEtapa: UUID, cambios: EtapaPatch, actorId: UUID) : UUID
-  + registrarEliminacion(idEtapa: UUID, actorId: UUID) : UUID
+  + registrarBaja(idEtapa: UUID, actorId: UUID) : UUID
+  + registrarCambioEstado(idEtapa: UUID, estadoAnterior: EstadoEtapa, estadoNuevo: EstadoEtapa, actorId: UUID) : UUID
+  + registrarAsignacion(idEtapa: UUID, deId: UUID, aId: UUID, actorId: UUID) : UUID
 }
 
 class AuditoriaProyecto {
@@ -122,6 +141,7 @@ class AuditoriaProyecto {
 ' =======================================================
 ' ENUMERACIONES / TIPOS AUXILIARES
 ' =======================================================
+
 enum EstadoProyecto {
   Planificado
   EnEjecucion
@@ -147,25 +167,83 @@ enum CanalNotificacion {
   Slack
 }
 
+enum PrioridadEtapa {
+  Alta
+  Media
+  Baja
+}
+
+enum ResultadoEnvio {
+  Exitoso
+  Fallido
+  Pendiente
+}
+
+enum TipoEvento {
+  CreacionProyecto
+  EdicionProyecto
+  AltaEtapa
+  EdicionEtapa
+  BajaEtapa
+  CambioEstadoEtapa
+  AsignacionResponsable
+  AlertaRetraso
+}
+
+enum TipoComentario {
+  Comentario
+  Incidencia
+}
+
+enum TipoHistorialEtapa {
+  Alta
+  Edicion
+  Baja
+  CambioEstado
+  Asignacion
+}
+
+enum FormatoExport {
+  PDF
+  CSV
+}
+
+class ProyectoDTO
+class ProyectoPatch
+class NuevaEtapa
+class EtapaPatch
+class NuevoComentario
+class NuevoAdjunto
+class FiltrosReporte
+class MetricasProyecto
+class MetricasEtapas
+class DatosContexto
+
 ' =======================================================
 ' RELACIONES ENTRE CLASES
 ' =======================================================
+
 Proyecto "1" *-- "1..*" Etapa : contiene
+Proyecto "1" o-- "1" Cliente : cliente
+
+Etapa "1" o-- "0..*" Comentario : registra
+Etapa "1" o-- "0..*" Adjunto : adjunta
+Etapa "1" o-- "0..*" HistorialEtapa : historial
+Etapa "1" --> "0..1" Usuario : responsable
+
+Comentario "1" --> "1" Usuario : autor
+
 Proyecto ..> AuditoriaProyecto : «registra log»
 Usuario ..> AuditoriaProyecto : «actor»
-Etapa "0..*" o-- "0..*" Comentario : registra
-Etapa "0..*" o-- "0..*" Adjunto : adjunta
-Etapa "1" --> "1" Usuario : responsable
+
 Etapa ..> HistorialEtapa : «registra cambio»
 Usuario ..> HistorialEtapa : «actor»
-Usuario --> ServicioNotificaciones : «usa»
+
 Notificacion --> Usuario : destino
+Notificacion --> Proyecto : sobre
 Notificacion --> Etapa : sobre
 
-' Herencias
-Usuario <|-- Administrador
-Usuario <|-- Productor
-Usuario <|-- Editor
-Usuario <|-- Cliente
+Usuario --> ServicioNotificaciones : «usa»
+ServicioNotificaciones --> Notificacion : «envía»
 
 @enduml
