@@ -6,5 +6,6 @@ Los patrones de diseño son soluciones de arquitectura reutilizables a problemas
 
 - [Patrón de diseño Creacional - Nombre del patron](/anexos/patrones-diseno/patron-de-diseno-creacional.md)
 
-- [Patrón de diseño Estructural - Nombre del patron](/anexos/patrones-diseno/patron-de-diseno-estructural.md)
-- [Patrón de diseño de Comportamiento - Nombre del patron](/anexos/patrones-diseno/patron-de-diseno-de-comportamiento.md)
+- [Patrón de diseño Estructural - Facade](/anexos/patrones-diseno/patron-de-diseno-estructural.md)
+
+- [Patrón de diseño de Comportamiento - Strategy](/anexos/patrones-diseno/patron-de-diseno-de-comportamiento.md)
