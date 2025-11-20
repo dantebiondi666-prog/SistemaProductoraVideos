@@ -11,6 +11,12 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   PR: [#162](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/162) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#161](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/161)
   
+ - [feature/esp-patron-estructural-add-patron-facade] Implementación del patrón de diseño estructural Facade, creación del archivo de documentación en anexos, agregado del diagrama UML en formato .puml y su imagen .png, y vinculación del diagrama en el documento. Trabajo realizado según lo requerido en el Rol Nº2.
+PR: [#164](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/164) - @juanmartinbritos7-cmd (Especialista en Patrón de Diseño Estructural)
+  Issue: [#163](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/163)
+
+
+  
 
 ## [Release Actividad Obligatoria N°4] - (11-11-2025)
 

@@ -11,3 +11,4 @@
 
 
 - [Diagramas de Clases - Version Final](/diagramas/01-diagrama-clases/01-diagrama-clases-final.png)
+- [Diagramas de Clases - Patron Estructural - Facade](/diagramas/01-diagrama-clases/01-patron-estructural-facade.png)

@@ -1,33 +1,94 @@
-# Anexo - Aplicación de Patrón de Diseño Estructural - Nombrepatronelegido
+# Anexo - Aplicación de Patrón de Diseño Estructural - Facade
 
 ## Patrones de Diseño Estructural y su relación con SOLID
 
-*Los patrones de diseño estructural...*
+Los patrones de diseño estructural se enfocan en **cómo se organizan y relacionan las clases y objetos del sistema**, buscando **reducir el acoplamiento**, **simplificar la arquitectura** y **facilitar la extensibilidad**.
+
+Se relacionan directamente con los principios **SOLID**, especialmente:
+
+| Principio | Relación con Facade |
+|-----------|---------------------|
+| **SRP** (Responsabilidad Única) | Se encapsula la complejidad en una sola fachada. |
+| **OCP** (Abierto/Cerrado) | Permite agregar nuevas funcionalidades sin modificar las clases internas. |
+| **DIP** (Inversión de Dependencias) | El sistema depende de una interfaz simple, no de múltiples clases concretas. |
 
 ## Propósito y tipo del Patrón
 
-### Propósito:
+**Propósito:**  
+Reducir el acoplamiento entre los controladores / frontend y las clases internas del sistema (`Proyecto`, `Etapa`, `Notificacion`, `AuditoriaProyecto`, `ServicioNotificaciones`, etc.).  
+Actualmente, para realizar una sola acción se debe interactuar con múltiples clases, lo que genera **complejidad**, **duplicación de lógica** y dificulta la **escalabilidad**.
 
-...
-
-### Tipo:
-
-...
+**Tipo:**  
+El patrón seleccionado es **Facade**, porque ofrece **una interfaz unificada y simplificada** para operaciones complejas, ocultando la lógica interna del sistema sin modificar las clases existentes.
 
 ---
 
 ## Motivación
 
-*Aquí se detalla el problema en profundidad, explicando: ● Cómo funcionaba originalmente el sistema y las limitaciones detectadas. ● Qué clases estaban involucradas y cómo interactuaban. ● Por qué este diseño generaba problemas de mantenibilidad, escalabilidad o rigidez. ● Qué nuevas clases se incorporan con el uso del patrón seleccionado y cuál es su función. ● Cómo el patrón de diseño reorganiza la arquitectura para resolver el problema. (Agregar párrafos explicativos aquí.)*
+### Problema detectado
+
+Actualmente, al realizar una acción concreta (por ejemplo, *crear un proyecto con etapas y notificar al responsable*), se requiere llamar a distintas clases y coordinar varias tareas manualmente:
+
+- `Proyecto` gestiona lógica de negocio.  
+- `Etapa` tiene cambios de estado.  
+- `HistorialEtapa` y `AuditoriaProyecto` registran logs.  
+- `ServicioNotificaciones` envía mensajes.  
+- `Notificacion` debe generarse en base a eventos.  
+
+Esto genera **acoplamiento excesivo** y **dificultad para mantener o escalar el sistema**, ya que cualquier cambio obliga a modificar múltiples clases.
+
+### Solución propuesta con Facade
+
+Se incorpora la clase `SistemaProductoraFacade`, que actúa como **punto único de acceso**, centralizando la lógica compleja:
+
+✔ Simplifica el uso desde controladores y API REST.  
+✔ Reduce el acoplamiento entre componentes.  
+✔ Permite agregar nuevas funciones sin modificar clases internas.  
+✔ Organiza pasos complejos en un flujo claro y mantenible.
 
 ## Estructura de Clases
 
-*No es necesario incluir todas las clases del proyecto en el diagrama, sino únicamente aquellas que participan directamente en la implementación del patrón. Esto permite mantener un diagrama claro, conciso y centrado en la arquitectura relevante para la aplicación del patrón. A continuación se presenta el diagrama UML del diseño aplicado:*
-
-*IMG-DIAGRAMA*
-
-*Ver diagrama en tamaño completo.*
+![Diagrama Facade](/diagramas/01-diagrama-clases/01-patron-estructural-facade.png)
 
 ## Justificación Técnica de la Estructura de Clases
 
-*En esta sección se detalla la explicación técnica del diagrama UML presentado anteriormente. El objetivo es justificar las clases incluidas y su rol dentro de la solución implementada mediante el patrón creacional. (Completar con los siguientes puntos:) ● Descripción detallada de cada clase incluida en el diagrama , indicando: ○ Su responsabilidad dentro del patrón. ○ Su relación con otras clases. ○ Por qué es necesaria para aplicar correctamente el patrón. ● Explicación del flujo de creación de objetos: Describir cómo las clases colaboran entre sí para resolver el problema de creación. Mencionar qué clase inicia el flujo, cuál delega la responsabilidad y cuál instancia los objetos finales. (Agregar la explicación técnica correspondiente aquí.)*
+### ✔ Clases incluidas y su rol
+
+| Clase | Rol dentro del patrón |
+|------|------------------------|
+| **SistemaProductoraFacade** | Es la fachada. Centraliza la lógica compleja del sistema y ofrece un punto único de acceso para operaciones recurrentes. Reduce el acoplamiento y simplifica el uso del sistema desde controladores o APIs externas. |
+| **Proyecto** | Entidad principal del dominio. La fachada delega la creación, modificación y obtención de datos a esta clase. |
+| **Etapa** | Responsable de la gestión del estado y cambios de responsables. La fachada simplifica su uso y encapsula la lógica asociada a etapas. |
+| **AuditoriaProyecto** | Lleva registro de acciones sobre proyectos. La fachada lo utiliza para registrar logs sin que el controlador deba conocer su implementación interna. |
+| **HistorialEtapa** | Registra eventos o cambios sobre una etapa. Se invoca desde la fachada para mantener el registro histórico del proyecto. |
+| **Notificacion** | Se genera cuando ocurre un evento relevante. La fachada coordina su creación. |
+| **ServicioNotificaciones** | Es el servicio concreto que envía notificaciones (WhatsApp, Email, Slack, etc.). La fachada lo usa para enviar sin que el resto del sistema conozca su funcionamiento interno. |
+| **Adjunto** | Permite generar y adjuntar archivos (reportes PDF, CSV, etc.). La fachada unifica su creación desde una interfaz simple. |
+
+
+---
+
+### ✔ Flujo estructural: cómo resuelve el problema real del sistema
+
+1. **El controlador o frontend solo conoce a `SistemaProductoraFacade`** y nunca interactúa directamente con `Proyecto`, `Etapa`, `Notificacion`, etc.  
+2. La fachada recibe una solicitud (por ejemplo: crear proyecto con etapas).
+3. La fachada delega en `Proyecto` y `Etapa` para crear/modificar entidades.
+4. Luego, registra logs mediante `AuditoriaProyecto` y `HistorialEtapa`.
+5. Si corresponde, genera una `Notificacion` y la envía mediante `ServicioNotificaciones`.
+6. Finalmente, puede generar un reporte (`Adjunto`) y devolverlo al cliente.
+
+---
+
+### ✔ Beneficios logrados
+
+- **Disminución del acoplamiento** entre capas externas y lógica interna.
+- **Centralización de flujos complejos** → facilita el mantenimiento.
+- **Fácil extensión**: agregar pasos nuevos solo requiere modificar la fachada.
+- **Mayor limpieza en controladores** → se evita lógica duplicada.
+- **Escalabilidad**: si cambia una tecnología interna (notificaciones, auditorías, adjuntos), no se rompe el resto del sistema.
+
+---
+
+### 📌 Conclusión técnica
+
+El uso del patrón **Facade** **reorganiza la arquitectura**, otorgando una **interfaz única y simple**, que oculta la complejidad del dominio. De este modo, la fachada se convierte en una capa intermedia entre los controladores y las clases del dominio, promoviendo una arquitectura más **mantenible, extensible y alineada con SOLID**.
