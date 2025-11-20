@@ -1,0 +1,320 @@
+@startuml Diagrama_Clases_Final
+title Diagrama de Clases Refinado - Sistema Productora de Videos
+
+' =======================================================
+' CLASES PRINCIPALES
+' =======================================================
+
+class Proyecto {
+  - nombre : String
+  - tipo : String
+  - estado : EstadoProyecto
+  - fechaInicioEstimada : Date
+  - fechaFinEstimada : Date
+  - observaciones : String
+  - cliente : Cliente
+  + agregarEtapa(etapa: Etapa) : void
+  + eliminarEtapa(idEtapa: UUID) : void
+  + obtenerDuracionPromedioEtapas() : Duration
+  + finalizarSiCorresponde() : void
+  ' CU01
+  + crearProyecto(dto: ProyectoDTO) : Proyecto
+  + editarProyecto(id: UUID, patch: ProyectoPatch) : Proyecto
+  + obtenerProyecto(id: UUID) : Proyecto
+  ' CU05 / CU06
+  + listarPorFiltros(f: FiltrosReporte) : List<Proyecto>
+  + obtenerMetricasProyecto(f: FiltrosReporte) : MetricasProyecto
+}
+
+class Etapa {
+  - nombre : String
+  - estado : EstadoEtapa
+  - prioridad : PrioridadEtapa
+  - fechaInicioEstimada : Date
+  - fechaFinEstimada : Date
+  - fechaFinReal : Date
+  - metodoEstimacion : MetodoEstimacion
+  - estimador : IEstimadorDuracion
+  - observaciones : String
+  - responsable : Usuario
+  + asignarResponsable(usuario: Usuario) : void
+  + cambiarEstado(nuevoEstado: EstadoEtapa, actor: Usuario) : void
+  + agregarComentario(comentario: Comentario) : void
+  + adjuntar(adjunto: Adjunto) : void
+  ' CU02
+  + crearEtapa(dto: NuevaEtapa) : UUID
+  + actualizarEtapa(idEtapa: UUID, patch: EtapaPatch) : boolean
+  + eliminarEtapa(idEtapa: UUID) : boolean
+  + listarPorProyecto(idProyecto: UUID) : List<Etapa>
+  ' CU03 / CU04 / CU05
+  + obtenerPorId(idEtapa: UUID) : Etapa
+  + obtenerMetricasEtapas(f: FiltrosReporte) : MetricasEtapas
+  + configurarEstimador(e: IEstimadorDuracion): void
+  + recalcularFechaFin(): void
+}
+
+
+class Usuario {
+  - nombre : String
+  - email : String
+  - rol : RolUsuario
+  - canalPreferido : CanalNotificacion
+  + puedeGestionarProyectos() : boolean
+  + puedeGestionarEtapas() : boolean
+  + puedeVerReportes() : boolean
+  + actualizarFiltros(filtros: FiltrosReporte) : void
+  + obtenerCanalPreferido() : CanalNotificacion
+}
+
+class Cliente {
+  - nombre : String
+  - email : String
+  - telefono : String
+  + obtenerCliente(idCliente: UUID) : Cliente
+}
+
+class Comentario {
+  - texto : String
+  - fechaHora : DateTime
+  - tipo : TipoComentario
+  - autor : Usuario
+  + editarTexto(nuevoTexto: String) : void
+  + eliminar() : boolean
+}
+
+class Adjunto {
+  - titulo : String
+  - url : String
+  - tipo : String
+  - version : String
+  - fechaAdjunto : DateTime
+  + generarPreview() : String
+  + descargar() : Stream
+  + eliminar() : boolean
+  ' CU02 / CU04
+  + adjuntarA(etapaId: UUID, dto: NuevoAdjunto) : UUID
+  ' CU05
+  + crearDesdeReporte(formato: FormatoExport, datos: MetricasProyecto) : Adjunto
+}
+
+class Notificacion {
+  - asunto : String
+  - mensaje : String
+  - canal : CanalNotificacion
+  - fechaHora : DateTime
+  - destino : Usuario
+  - proyecto : Proyecto
+  - etapa : Etapa
+  - resultado : ResultadoEnvio
+  - requiereRevision : boolean
+  ' CU07 (y reutilizado por CU01, CU02, CU03, CU04)
+  + crearDesdeEvento(tipo: TipoEvento, datos: DatosContexto) : Notificacion
+  + seleccionarCanal(canalPref: CanalNotificacion, canalDef: CanalNotificacion) : void
+  + registrarResultado(resultado: ResultadoEnvio) : void
+  + marcarParaRevision(motivo: String) : void
+}
+
+class ServicioNotificaciones {
+  - proveedor : String
+  - limiteDiario : int
+  - tiempoUltimoEnvio : DateTime
+  + puedeEnviar() : boolean
+  + enviar(n: Notificacion) : ResultadoEnvio
+}
+
+class HistorialEtapa {
+  - fechaHora : DateTime
+  - tipo : TipoHistorialEtapa
+  - detalle : String
+  - actor : Usuario
+  + registrarAlta(idEtapa: UUID, actorId: UUID) : UUID
+  + registrarEdicion(idEtapa: UUID, cambios: EtapaPatch, actorId: UUID) : UUID
+  + registrarBaja(idEtapa: UUID, actorId: UUID) : UUID
+  + registrarCambioEstado(idEtapa: UUID, estadoAnterior: EstadoEtapa, estadoNuevo: EstadoEtapa, actorId: UUID) : UUID
+  + registrarAsignacion(idEtapa: UUID, deId: UUID, aId: UUID, actorId: UUID) : UUID
+}
+
+
+class AuditoriaProyecto {
+  - fechaHora : DateTime
+  - accion : String
+  - datos : String
+  - actor : Usuario
+  + logCrear(dto: ProyectoDTO, actorId: UUID) : UUID
+  + logEditar(id: UUID, patch: ProyectoPatch, actorId: UUID) : UUID
+}
+
+' ========= PAQUETE: PATRÓN STRATEGY =========
+package "Patrón Strategy" as STRAT {
+  interface IEstimadorDuracion <<Strategy>> {
+    + estimarDuracion(etapa: Etapa): Duration
+  }
+
+  enum MetodoEstimacion {
+    POR_TAREAS
+    POR_STORY_POINTS
+    POR_HISTORICOS
+    POR_CRITICIDAD
+  }
+
+  class EstimadorPorTareas <<ConcreteStrategy>> {
+    - tareasRepo: TareasRepository
+    + estimarDuracion(etapa: Etapa): Duration
+  }
+
+  class EstimadorPorStoryPoints <<ConcreteStrategy>> {
+    - velocidadEquipo: float
+    + estimarDuracion(etapa: Etapa): Duration
+  }
+
+  class EstimadorPorHistoricos <<ConcreteStrategy>> {
+    - histRepo: HistoricosRepository
+    + estimarDuracion(etapa: Etapa): Duration
+  }
+
+  class EstimadorPorCriticidad <<ConcreteStrategy>> {
+    - slaRepo: SlaRepository
+    + estimarDuracion(etapa: Etapa): Duration
+  }
+}
+
+' =========REPOSITORIO, SOPORTE DE ESTRATEGIAS=========
+package "Soporte de Estrategias" as INFRA {
+  class TareasRepository {
+    + obtenerHorasPendientes(etapaId: UUID): float
+  }
+
+  class HistoricosRepository {
+    + promedioHoras(tipoEtapa: String, complejidad: String): float
+  }
+
+  class SlaRepository {
+    + horasPorCriticidad(criticidad: String): float
+  }
+}
+
+' =======================================================
+' ENUMERACIONES / TIPOS AUXILIARES
+' =======================================================
+
+enum EstadoProyecto {
+  Planificado
+  EnEjecucion
+  Finalizado
+}
+
+enum EstadoEtapa {
+  Pendiente
+  EnProceso
+  Completada
+}
+
+enum RolUsuario {
+  Administrador
+  Productor
+  Editor
+  Cliente
+}
+
+enum CanalNotificacion {
+  Email
+  WhatsApp
+  Slack
+}
+
+enum PrioridadEtapa {
+  Alta
+  Media
+  Baja
+}
+
+enum ResultadoEnvio {
+  Exitoso
+  Fallido
+  Pendiente
+}
+
+enum TipoEvento {
+  CreacionProyecto
+  EdicionProyecto
+  AltaEtapa
+  EdicionEtapa
+  BajaEtapa
+  CambioEstadoEtapa
+  AsignacionResponsable
+  AlertaRetraso
+}
+
+enum TipoComentario {
+  Comentario
+  Incidencia
+}
+
+enum TipoHistorialEtapa {
+  Alta
+  Edicion
+  Baja
+  CambioEstado
+  Asignacion
+}
+
+enum FormatoExport {
+  PDF
+  CSV
+}
+
+class ProyectoDTO
+class ProyectoPatch
+class NuevaEtapa
+class EtapaPatch
+class NuevoComentario
+class NuevoAdjunto
+class FiltrosReporte
+class MetricasProyecto
+class MetricasEtapas
+class DatosContexto
+
+' =======================================================
+' RELACIONES ENTRE CLASES
+' =======================================================
+
+Proyecto "1" *-- "1..*" Etapa : contiene
+Proyecto "1" o-- "1" Cliente : cliente
+
+Etapa "1" o-- "0..*" Comentario : registra
+Etapa "1" o-- "0..*" Adjunto : adjunta
+Etapa "1" o-- "0..*" HistorialEtapa : historial
+Etapa "1" --> "0..1" Usuario : responsable
+
+Comentario "1" --> "1" Usuario : autor
+
+Proyecto ..> AuditoriaProyecto : «registra log»
+Usuario ..> AuditoriaProyecto : «actor»
+
+Etapa ..> HistorialEtapa : «registra cambio»
+Usuario ..> HistorialEtapa : «actor»
+
+Notificacion --> Usuario : destino
+Notificacion --> Proyecto : sobre
+Notificacion --> Etapa : sobre
+
+Usuario --> ServicioNotificaciones : «usa»
+ServicioNotificaciones --> Notificacion : «envía»
+
+' Strategy
+IEstimadorDuracion <|.. EstimadorPorTareas
+IEstimadorDuracion <|.. EstimadorPorStoryPoints
+IEstimadorDuracion <|.. EstimadorPorHistoricos
+IEstimadorDuracion <|.. EstimadorPorCriticidad
+
+' Etapa usa la estrategia
+Etapa "0..*" --> "1" IEstimadorDuracion : usa
+
+' Estrategias y sus repos
+EstimadorPorTareas        "0..*" --> "1" TareasRepository
+EstimadorPorHistoricos    "0..*" --> "1" HistoricosRepository
+EstimadorPorCriticidad    "0..*" --> "1" SlaRepository
+
+
+
+@enduml
