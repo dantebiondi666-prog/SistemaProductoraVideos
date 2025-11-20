@@ -7,6 +7,13 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## Added
 
+- [feature/esp-patron-creacional-add-patron-factory-method-notificaciones] Creación Documentación del patrón creacional Factory Method aplicado al módulo de Notificaciones (anexo y diagramas).
+  PR: [#171](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/171) - @leanlex (Especialista en Patrón de Diseño Creacional
+), 
+  Issue: [#169](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/169)
+  Issue: [#170](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/170)
+
+
 - [feature/coord-devops-update-docs] Creación de carpeta para patrones de diseño en anexos, creación de archivos de patrones de diseño creacional, de comportamiento y estructural, creación de índice y realización de todos los requested changes de actividad obligatoria N°4.
   PR: [#162](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/162) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#161](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/161)

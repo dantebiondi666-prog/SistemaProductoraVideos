@@ -1,33 +1,128 @@
-# Anexo - Aplicación de Patrón de Diseño Creacional - Nombrepatronelegido
+# Patrón de Diseño Creacional – Factory Method aplicado a Notificaciones
 
-## Patrones de Diseño Creacionales y su relación con SOLID
+## 1. Introducción a los patrones creacionales y su relación con SOLID
 
-Los patrones de diseño creacionales...
+Los patrones creacionales se enfocan en **cómo se crean los objetos** dentro de un sistema. Algunos ejemplos son: Singleton, Factory Method, Abstract Factory, Builder y Prototype.
 
-## Propósito y tipo del Patrón
+La idea principal es **separar la creación** de objetos de su uso, para que el código quede más ordenado y fácil de extender. Esto se relaciona con SOLID:
 
-### Propósito:
+- **SRP**: una clase no debería hacer “de todo”, por ejemplo usar una notificación y además crearla.
+- **OCP**: debería ser posible agregar nuevas variantes sin tocar el código que ya funciona.
+- **DIP**: las clases de alto nivel deberían depender de **interfaces/abstracciones**, no de clases concretas.
 
-...
-
-### Tipo:
-
-...
+En nuestro sistema de gestión de proyectos audiovisuales, esto aparece claro en el módulo de **Notificaciones**, donde tenemos distintos eventos y canales.
 
 ---
 
-## Motivación
+## 2. Propósito y tipo del patrón seleccionado
 
-Aquí se detalla el problema en profundidad, explicando: ● Cómo funcionaba originalmente el sistema y las limitaciones detectadas. ● Qué clases estaban involucradas y cómo interactuaban. ● Por qué este diseño generaba problemas de mantenibilidad, escalabilidad o rigidez. ● Qué nuevas clases se incorporan con el uso del patrón seleccionado y cuál es su función. ● Cómo el patrón de diseño reorganiza la arquitectura para resolver el problema. (Agregar párrafos explicativos aquí.)
+El patrón usado es **Factory Method**, que es un patrón **creacional**.
 
-## Estructura de Clases
+Su propósito es:
 
-No es necesario incluir todas las clases del proyecto en el diagrama, sino únicamente aquellas que participan directamente en la implementación del patrón. Esto permite mantener un diagrama claro, conciso y centrado en la arquitectura relevante para la aplicación del patrón. A continuación se presenta el diagrama UML del diseño aplicado:
+> Definir una interfaz para crear objetos, pero dejar la decisión de qué clase 
+> concreta instanciar en las subclases.
 
-IMG-DIAGRAMA
+En nuestro caso:
 
-Ver diagrama en tamaño completo.
+- El **Product** es `Notificacion`.
+- Los **Concrete Products** son:
+  - `NotificacionEmail`
+  - `NotificacionWhatsApp`
+  - `NotificacionSlack`
+- El **Creator** es `NotificacionFactory`, que ofrece el método `crearDesdeEvento(tipo: TipoEvento, datos: DatosContexto)`.
+- El **Concrete Creator** es `NotificacionEtapaFactory`, que implementa la lógica concreta para decidir qué tipo de notificación crear.
 
-## Justificación Técnica de la Estructura de Clases
+Así, las clases que necesitan enviar notificaciones no se preocupan por el tipo concreto, solo piden una `Notificacion` a la factory.
 
-En esta sección se detalla la explicación técnica del diagrama UML presentado anteriormente. El objetivo es justificar las clases incluidas y su rol dentro de la solución implementada mediante el patrón creacional. (Completar con los siguientes puntos:) ● Descripción detallada de cada clase incluida en el diagrama , indicando: ○ Su responsabilidad dentro del patrón. ○ Su relación con otras clases. ○ Por qué es necesaria para aplicar correctamente el patrón. ● Explicación del flujo de creación de objetos: Describir cómo las clases colaboran entre sí para resolver el problema de creación. Mencionar qué clase inicia el flujo, cuál delega la responsabilidad y cuál instancia los objetos finales. (Agregar la explicación técnica correspondiente aquí.)
+---
+
+## 3. Motivación detallada del problema y la solución
+
+### Problema
+
+En el sistema tenemos:
+
+- la clase `Notificacion`, que se relaciona con `Proyecto`, `Etapa` y un `Usuario`,
+- varios tipos de evento (`TipoEvento`: creación, edición, cambio de estado, etc.),
+- varios canales (`CanalNotificacion`: Email, WhatsApp, Slack).
+
+Sin un patrón, una clase como `Etapa` podría hacer algo así:
+
+- ver el `TipoEvento`,
+- ver el canal,
+- según eso crear `new NotificacionEmail(...)` o `new NotificacionWhatsApp(...)`,
+- armar el asunto y el mensaje.
+
+Esto genera:
+
+- mucho **if/switch** repartido por el código,
+- **acoplamiento** a clases concretas,
+- lógica repetida para armar mensajes,
+- dificultad para agregar nuevos canales.
+
+### Solución
+
+Con Factory Method:
+
+- Definimos una jerarquía de productos (`Notificacion` + subclases).
+- Creamos la abstracción `NotificacionFactory`, con el método `crearDesdeEvento(...)` y el Factory Method protegido `crearNotificacion(...)`.
+- Implementamos `NotificacionEtapaFactory`, que:
+  - recibe el `TipoEvento` y el `DatosContexto`,
+  - elige el `CanalNotificacion` adecuado,
+  - crea la notificación concreta (`NotificacionEmail`, `NotificacionWhatsApp`, etc.),
+  - completa asunto y mensaje.
+
+La clase `Etapa` solo arma el contexto y llama a la factory. No necesita saber qué subclase concreta se instancia.
+
+---
+
+## 4. Estructura de clases con diagrama UML
+
+La estructura del patrón en el sistema se ve en el siguiente diagrama UML:
+
+![Diagrama del patrón creacional – Factory Method aplicado a Notificaciones](../../diagramas/01-diagrama-clases/01-patron-creacional-factory-method-notificaciones.png)
+
+En el diagrama se observa:
+
+- `Notificacion` como clase abstracta con los datos comunes (asunto, mensaje, canal, destino, proyecto, etapa, resultado, etc.).
+- `NotificacionEmail`, `NotificacionWhatsApp` y `NotificacionSlack` como subclases de `Notificacion`.
+- `NotificacionFactory` como creator abstracto, con:
+  - `crearDesdeEvento(tipo: TipoEvento, datos: DatosContexto)`
+  - `crearNotificacion(canal: CanalNotificacion, datos: DatosContexto)`
+- `NotificacionEtapaFactory` como implementación concreta de la factory.
+- La relación con `Etapa` (que pide crear la notificación) y con
+  `ServicioNotificaciones` (que la envía).
+
+---
+
+## 5. Justificación técnica de la solución propuesta
+
+**Menor acoplamiento (DIP)**  
+`Etapa` y los casos de uso no dependen de `NotificacionEmail` ni de `NotificacionWhatsApp`, sino de `Notificacion` y `NotificacionFactory`
+(abstracciones). Esto aplica **DIP**.
+
+**Extensibilidad (OCP)**  
+Si mañana queremos agregar `NotificacionPush`:
+
+- creamos una nueva subclase de `Notificacion`,
+- ajustamos la factory.
+
+El código cliente no cambia, así que cumplimos **OCP**.
+
+**Responsabilidad única (SRP)**  
+- `Etapa` se ocupa del ciclo de vida de las etapas.
+- `Notificacion` y sus subclases se ocupan del contenido y comportamiento de las notificaciones.
+- `ServicioNotificaciones` se encarga del envío.
+- `NotificacionFactory` decide qué notificación concreta crear.
+
+Cada clase tiene una responsabilidad clara.
+
+**Consistencia y mantenimiento**  
+Como toda la lógica de creación está en la factory:
+
+- no repetimos código para armar mensajes, 
+- las reglas de negocio de notificaciones están concentradas en un solo lugar, 
+- es más fácil hacer cambios y encontrar errores.
+
+En resumen, el uso de **Factory Method** para las notificaciones hace que el diseño sea más flexible, fácil de mantener y alineado con los principios SOLID.
