@@ -1,109 +1,94 @@
-# Anexo - Aplicación de Patrón de Diseño Estructural - Nombrepatronelegido
+# Anexo - Aplicación de Patrón de Diseño Estructural - Facade
 
 ## Patrones de Diseño Estructural y su relación con SOLID
 
-Los patrones estructurales permiten organizar la arquitectura interna de un sistema, reduciendo el acoplamiento entre clases, promoviendo la composición por sobre la herencia y permitiendo extender funcionalidades sin modificar código existente, alineándose fuertemente con OCP y DIP.
+Los patrones de diseño estructural se enfocan en **cómo se organizan y relacionan las clases y objetos del sistema**, buscando **reducir el acoplamiento**, **simplificar la arquitectura** y **facilitar la extensibilidad**.
 
-El patrón Facade proporciona una interfaz simplificada para un conjunto de subsistemas complejos.
-Permite ocultar la complejidad interna y exponer un único punto de acceso para las operaciones principales del sistema.
+Se relacionan directamente con los principios **SOLID**, especialmente:
+
+| Principio | Relación con Facade |
+|-----------|---------------------|
+| **SRP** (Responsabilidad Única) | Se encapsula la complejidad en una sola fachada. |
+| **OCP** (Abierto/Cerrado) | Permite agregar nuevas funcionalidades sin modificar las clases internas. |
+| **DIP** (Inversión de Dependencias) | El sistema depende de una interfaz simple, no de múltiples clases concretas. |
 
 ## Propósito y tipo del Patrón
 
-### Propósito:
+**Propósito:**  
+Reducir el acoplamiento entre los controladores / frontend y las clases internas del sistema (`Proyecto`, `Etapa`, `Notificacion`, `AuditoriaProyecto`, `ServicioNotificaciones`, etc.).  
+Actualmente, para realizar una sola acción se debe interactuar con múltiples clases, lo que genera **complejidad**, **duplicación de lógica** y dificulta la **escalabilidad**.
 
-En el sistema de la Productora de Videos, la creación y gestión de un proyecto de video requiere interactuar con múltiples clases:
-
-. GestorVideos
-
-- GestorUsuarios
-
-- GestorProyectos
-
-- ServicioRender
-
-- ServicioPublicacion
-
-Esto generaba:
-
-- Fuertes dependencias entre capas.
-
-- Dificultad para mantener la UI y los casos de uso.
-
-- Duplicación de llamadas a servicios.
-
-El patrón Facade unifica estas operaciones en una única clase coordinadora:
-SistemaProductoraFacade.
-
-### Tipo:
-
-Patrón estructural → Facade
-
-✔ Reduce complejidad
-
-✔ Desacopla subsistemas
-
-✔ Simplifica la interacción del controlador con el modelo
+**Tipo:**  
+El patrón seleccionado es **Facade**, porque ofrece **una interfaz unificada y simplificada** para operaciones complejas, ocultando la lógica interna del sistema sin modificar las clases existentes.
 
 ---
 
 ## Motivación
 
-Originalmente, los casos de uso requerían que un controlador (por ejemplo, "Crear Proyecto") invocara múltiples clases del dominio. Un controlador podía terminar ejecutando código como:
+### Problema detectado
 
-- Validar usuario → GestorUsuarios
+Actualmente, al realizar una acción concreta (por ejemplo, *crear un proyecto con etapas y notificar al responsable*), se requiere llamar a distintas clases y coordinar varias tareas manualmente:
 
-- Crear proyecto → GestorProyectos
+- `Proyecto` gestiona lógica de negocio.  
+- `Etapa` tiene cambios de estado.  
+- `HistorialEtapa` y `AuditoriaProyecto` registran logs.  
+- `ServicioNotificaciones` envía mensajes.  
+- `Notificacion` debe generarse en base a eventos.  
 
-- Asociar videos → GestorVideos
+Esto genera **acoplamiento excesivo** y **dificultad para mantener o escalar el sistema**, ya que cualquier cambio obliga a modificar múltiples clases.
 
-- Procesar el render → ServicioRender
+### Solución propuesta con Facade
 
-Esto generaba:
+Se incorpora la clase `SistemaProductoraFacade`, que actúa como **punto único de acceso**, centralizando la lógica compleja:
 
-❌ Controladores gigantes
-
-❌ Alto acoplamiento a varias clases concretas
-
-❌ Dificultad para modificar el flujo sin romper todo
-
-❌ Violación de DIP y SRP
-
-# Nueva solución con Facade 
-
-Se crea la clase:
-
-✔ SistemaProductoraFacade
-
-- Que ofrece métodos simples como:
-
-- crearProyectoCompleto(usuarioId, datosProyecto, listaVideos)
-
-- renderizarProyecto(proyectoId)
-
-- publicarProyecto(proyectoId, plataforma)
-
-La fachada coordina internamente todas las llamadas y simplifica la vida a los controladores.
+✔ Simplifica el uso desde controladores y API REST.  
+✔ Reduce el acoplamiento entre componentes.  
+✔ Permite agregar nuevas funciones sin modificar clases internas.  
+✔ Organiza pasos complejos en un flujo claro y mantenible.
 
 ## Estructura de Clases
 
-![Diagrama Facade](../../diagramas/01-diagrama-clases/01-patron-estructural-facade.png)
-
-
+![Diagrama Facade](/diagramas/01-diagrama-clases/01-patron-estructural-facade.png)
 
 ## Justificación Técnica de la Estructura de Clases
 
-✔ SistemaProductoraFacade
+### ✔ Clases incluidas y su rol
 
-La fachada centraliza la funcionalidad del sistema.
-Responsabilidad: proporcionar métodos simples que ejecutan flujos completos.
-Beneficio: Desacoplamiento + SRP + DIP.
+| Clase | Rol dentro del patrón |
+|------|------------------------|
+| **SistemaProductoraFacade** | Es la fachada. Centraliza la lógica compleja del sistema y ofrece un punto único de acceso para operaciones recurrentes. Reduce el acoplamiento y simplifica el uso del sistema desde controladores o APIs externas. |
+| **Proyecto** | Entidad principal del dominio. La fachada delega la creación, modificación y obtención de datos a esta clase. |
+| **Etapa** | Responsable de la gestión del estado y cambios de responsables. La fachada simplifica su uso y encapsula la lógica asociada a etapas. |
+| **AuditoriaProyecto** | Lleva registro de acciones sobre proyectos. La fachada lo utiliza para registrar logs sin que el controlador deba conocer su implementación interna. |
+| **HistorialEtapa** | Registra eventos o cambios sobre una etapa. Se invoca desde la fachada para mantener el registro histórico del proyecto. |
+| **Notificacion** | Se genera cuando ocurre un evento relevante. La fachada coordina su creación. |
+| **ServicioNotificaciones** | Es el servicio concreto que envía notificaciones (WhatsApp, Email, Slack, etc.). La fachada lo usa para enviar sin que el resto del sistema conozca su funcionamiento interno. |
+| **Adjunto** | Permite generar y adjuntar archivos (reportes PDF, CSV, etc.). La fachada unifica su creación desde una interfaz simple. |
 
-✔ GestorUsuarios / GestorProyectos / GestorVideos
 
-Estas clases ya existían y mantienen su responsabilidad interna.
-La fachada las coordina sin alterarlas → OCP.
+---
 
-✔ ServicioRender / ServicioPublicacion
+### ✔ Flujo estructural: cómo resuelve el problema real del sistema
 
-Servicios complejos que la UI no debe conocer ni instanciar directamente.
-La fachada los abstrae → DIP.
+1. **El controlador o frontend solo conoce a `SistemaProductoraFacade`** y nunca interactúa directamente con `Proyecto`, `Etapa`, `Notificacion`, etc.  
+2. La fachada recibe una solicitud (por ejemplo: crear proyecto con etapas).
+3. La fachada delega en `Proyecto` y `Etapa` para crear/modificar entidades.
+4. Luego, registra logs mediante `AuditoriaProyecto` y `HistorialEtapa`.
+5. Si corresponde, genera una `Notificacion` y la envía mediante `ServicioNotificaciones`.
+6. Finalmente, puede generar un reporte (`Adjunto`) y devolverlo al cliente.
+
+---
+
+### ✔ Beneficios logrados
+
+- **Disminución del acoplamiento** entre capas externas y lógica interna.
+- **Centralización de flujos complejos** → facilita el mantenimiento.
+- **Fácil extensión**: agregar pasos nuevos solo requiere modificar la fachada.
+- **Mayor limpieza en controladores** → se evita lógica duplicada.
+- **Escalabilidad**: si cambia una tecnología interna (notificaciones, auditorías, adjuntos), no se rompe el resto del sistema.
+
+---
+
+### 📌 Conclusión técnica
+
+El uso del patrón **Facade** **reorganiza la arquitectura**, otorgando una **interfaz única y simple**, que oculta la complejidad del dominio. De este modo, la fachada se convierte en una capa intermedia entre los controladores y las clases del dominio, promoviendo una arquitectura más **mantenible, extensible y alineada con SOLID**.

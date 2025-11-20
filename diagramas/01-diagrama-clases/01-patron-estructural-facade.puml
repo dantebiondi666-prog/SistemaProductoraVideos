@@ -1,38 +1,39 @@
-@startuml
+@startuml Facade
+title Patrón Estructural - Facade aplicado al sistema real
 
-title Patrón Estructural - Facade (Sistema Productora de Videos)
-
+' ========== NUEVA FACHADA ==========
 class SistemaProductoraFacade {
-    +crearProyectoCompleto(usuarioId: int, datos: ProyectoDTO, videos: List<Video>)
-    +renderizarProyecto(proyectoId: int)
-    +publicarProyecto(proyectoId: int, plataforma: String)
+  +crearProyectoConEtapas(dto: ProyectoDTO, etapas: ListEtapas, actor: UUID) : Proyecto
+  +notificarCambioEstado(etapaId: UUID, evento: TipoEvento, actor: UUID) : void
+  +generarReporteProyecto(idProyecto: UUID, formato: FormatoExport) : Adjunto
 }
 
-class GestorUsuarios {
-    +obtenerUsuario(id: int): Usuario
-}
+' ========== CLASES EXISTENTES ==========
+class Proyecto
+class Etapa
+class Usuario
+class Cliente
+class Notificacion
+class ServicioNotificaciones
+class HistorialEtapa
+class AuditoriaProyecto
+class Adjunto
 
-class GestorProyectos {
-    +crearProyecto(usuario: Usuario, datos: ProyectoDTO): Proyecto
-    +obtenerProyecto(id: int): Proyecto
-}
+' ========== TIPOS/AUXILIARES NECESARIOS ==========
+class ProyectoDTO
+class ListEtapas
+class UUID
+class TipoEvento
+class FormatoExport
 
-class GestorVideos {
-    +asociarVideos(proyecto: Proyecto, videos: List<Video>)
-}
-
-class ServicioRender {
-    +renderizar(proyecto: Proyecto)
-}
-
-class ServicioPublicacion {
-    +publicar(proyecto: Proyecto, plataforma: String)
-}
-
-SistemaProductoraFacade --> GestorUsuarios : usa
-SistemaProductoraFacade --> GestorProyectos : usa
-SistemaProductoraFacade --> GestorVideos : usa
-SistemaProductoraFacade --> ServicioRender : usa
-SistemaProductoraFacade --> ServicioPublicacion : usa
+' ========== RELACIONES ==========
+SistemaProductoraFacade --> Proyecto : crea/modifica
+SistemaProductoraFacade --> Etapa : gestiona
+SistemaProductoraFacade --> Usuario : recibe actor
+SistemaProductoraFacade --> Notificacion : genera
+SistemaProductoraFacade --> ServicioNotificaciones : usa para enviar
+SistemaProductoraFacade --> AuditoriaProyecto : registra log
+SistemaProductoraFacade --> HistorialEtapa : registra historial
+SistemaProductoraFacade --> Adjunto : genera reportes
 
 @enduml
