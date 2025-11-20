@@ -5,7 +5,9 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
-## Added
+## [Release Parcial N°2] - (20-11-2025)
+
+### Added
 
 - [feature/esp-patron-creacional-add-patron-factory-method-notificaciones] Creación Documentación del patrón creacional Factory Method aplicado al módulo de Notificaciones (anexo y diagramas).
   PR: [#171](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/171) - @leanlex (Especialista en Patrón de Diseño Creacional
