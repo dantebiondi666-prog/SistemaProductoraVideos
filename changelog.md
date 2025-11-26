@@ -7,6 +7,12 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Release Parcial N°2] - (20-11-2025)
 
+### Fixed
+
+- [release/segundo-parcial] Corrección de diagrama 01-patron-creacional-factory-method-notificaciones.
+  PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#173](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/173)
+
 ### Added
 
 - [feature/esp-patron-creacional-add-patron-factory-method-notificaciones] Creación Documentación del patrón creacional Factory Method aplicado al módulo de Notificaciones (anexo y diagramas).
