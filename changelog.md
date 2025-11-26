@@ -9,6 +9,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Fixed
 
+- [release/segundo-parcial] Corrección de diagrama 01-patron-estructural-facade.
+  PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#174](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/174)
+
 - [release/segundo-parcial] Corrección de diagrama 01-patron-creacional-factory-method-notificaciones.
   PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#173](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/173)
