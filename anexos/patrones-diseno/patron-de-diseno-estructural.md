@@ -52,6 +52,25 @@ Se incorpora la clase `SistemaProductoraFacade`, que actúa como **punto único 
 
 ## Justificación Técnica de la Estructura de Clases
 
+### Detalle de la clase `SistemaProductoraFacade`
+
+La fachada se modela como una clase de aplicación que **coordina varios servicios internos**.  
+A nivel de diseño queda así:
+
+```text
+SistemaProductoraFacade {
+  - servicioProyectos      : ServicioProyectos
+  - servicioEtapas         : ServicioEtapas
+  - servicioNotificaciones : ServicioNotificaciones
+  - servicioAuditoria      : ServicioAuditoria
+  - servicioReportes       : ServicioReportes
+
+  + crearProyectoConEtapas(dto: ProyectoDTO, etapas: ListEtapas, actorId: UUID) : Proyecto
+  + notificarCambioEstado(etapaId: UUID, evento: TipoEvento, actorId: UUID) : void
+  + generarReporteProyecto(idProyecto: UUID, formato: FormatoExport) : Adjunto
+}
+```
+
 ### ✔ Clases incluidas y su rol
 
 | Clase | Rol dentro del patrón |

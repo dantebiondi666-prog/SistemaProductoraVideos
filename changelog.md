@@ -9,6 +9,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Fixed
 
+- [release/segundo-parcial] Corrección de .md de patron de diseño estructural facade.
+  PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#176](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/176)
+
 - [release/segundo-parcial] Corrección de diagrama 01-patron-comportamiento-strategy.
   PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
   Issue: [#175](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/175)
