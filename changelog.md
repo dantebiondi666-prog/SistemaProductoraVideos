@@ -5,7 +5,27 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
-## Added
+## [Release Parcial N°2] - (20-11-2025)
+
+### Fixed
+
+- [release/segundo-parcial] Corrección de .md de patron de diseño estructural facade.
+  PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#176](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/176)
+
+- [release/segundo-parcial] Corrección de diagrama 01-patron-comportamiento-strategy.
+  PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#175](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/175)
+
+- [release/segundo-parcial] Corrección de diagrama 01-patron-estructural-facade.
+  PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#174](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/174)
+
+- [release/segundo-parcial] Corrección de diagrama 01-patron-creacional-factory-method-notificaciones.
+  PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#173](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/173)
+
+### Added
 
 - [feature/esp-patron-creacional-add-patron-factory-method-notificaciones] Creación Documentación del patrón creacional Factory Method aplicado al módulo de Notificaciones (anexo y diagramas).
   PR: [#171](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/171) - @leanlex (Especialista en Patrón de Diseño Creacional

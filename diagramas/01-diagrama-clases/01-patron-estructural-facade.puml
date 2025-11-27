@@ -1,39 +1,74 @@
-@startuml Facade
+@startuml Patron_Estructural_Facade
 title Patrón Estructural - Facade aplicado al sistema real
 
-' ========== NUEVA FACHADA ==========
+' ========== FACHADA ==========
+
 class SistemaProductoraFacade {
-  +crearProyectoConEtapas(dto: ProyectoDTO, etapas: ListEtapas, actor: UUID) : Proyecto
-  +notificarCambioEstado(etapaId: UUID, evento: TipoEvento, actor: UUID) : void
-  +generarReporteProyecto(idProyecto: UUID, formato: FormatoExport) : Adjunto
+  - servicioProyectos       : ServicioProyectos
+  - servicioEtapas          : ServicioEtapas
+  - servicioNotificaciones  : ServicioNotificaciones
+  - servicioAuditoria       : ServicioAuditoria
+  - servicioReportes        : ServicioReportes
+
+  + crearProyectoConEtapas(dto: ProyectoDTO, etapas: List<Etapa>, actorId: UUID) : Proyecto
+  + finalizarProyecto(idProyecto: UUID, actorId: UUID) : void
+  + notificarCambioEstado(etapaId: UUID, evento: TipoEvento, actorId: UUID) : void
+  + generarReporteProyecto(idProyecto: UUID, formato: FormatoExport) : Adjunto
 }
 
-' ========== CLASES EXISTENTES ==========
+' ========== SERVICIOS QUE LA FACHADA ENCAPSULA ==========
+
+class ServicioProyectos {
+  + crearProyectoConEtapas(dto: ProyectoDTO, etapas: List<Etapa>, actor: Usuario) : Proyecto
+  + finalizarProyecto(idProyecto: UUID, actor: Usuario) : void
+}
+
+class ServicioEtapas {
+  + cambiarEstado(etapaId: UUID, evento: TipoEvento, actor: Usuario) : void
+}
+
+class ServicioReportes {
+  + generarReporteProyecto(idProyecto: UUID, formato: FormatoExport) : Adjunto
+}
+
+class ServicioAuditoria {
+  + registrarAccionProyecto(proyecto: Proyecto, accion: String, actor: Usuario) : void
+}
+
+class ServicioNotificaciones {
+  - proveedor        : String
+  - limiteDiario     : int
+  - tiempoUltimoEnvio: DateTime
+
+  + puedeEnviar() : boolean
+  + enviar(n: Notificacion) : ResultadoEnvio
+}
+
+' ========== CLASES DE DOMINIO REUSADAS ==========
+
 class Proyecto
 class Etapa
 class Usuario
-class Cliente
 class Notificacion
-class ServicioNotificaciones
 class HistorialEtapa
 class AuditoriaProyecto
 class Adjunto
 
-' ========== TIPOS/AUXILIARES NECESARIOS ==========
-class ProyectoDTO
-class ListEtapas
-class UUID
-class TipoEvento
-class FormatoExport
+' ========== DEPENDENCIAS DE LA FACHADA ==========
 
-' ========== RELACIONES ==========
-SistemaProductoraFacade --> Proyecto : crea/modifica
-SistemaProductoraFacade --> Etapa : gestiona
-SistemaProductoraFacade --> Usuario : recibe actor
-SistemaProductoraFacade --> Notificacion : genera
-SistemaProductoraFacade --> ServicioNotificaciones : usa para enviar
-SistemaProductoraFacade --> AuditoriaProyecto : registra log
-SistemaProductoraFacade --> HistorialEtapa : registra historial
-SistemaProductoraFacade --> Adjunto : genera reportes
+SistemaProductoraFacade ..> ServicioProyectos       : usa
+SistemaProductoraFacade ..> ServicioEtapas          : usa
+SistemaProductoraFacade ..> ServicioNotificaciones  : usa
+SistemaProductoraFacade ..> ServicioAuditoria       : usa
+SistemaProductoraFacade ..> ServicioReportes        : usa
+
+' ========== RELACIONES SERVICIOS ↔ DOMINIO (MÓDULOS ENCAPSULADOS) ==========
+
+ServicioProyectos      ..> Proyecto          : gestiona
+ServicioEtapas         ..> Etapa             : gestiona
+ServicioEtapas         ..> HistorialEtapa    : registra
+ServicioAuditoria      ..> AuditoriaProyecto : registra
+ServicioReportes       ..> Adjunto           : genera
+ServicioNotificaciones ..> Notificacion      : envía
 
 @enduml

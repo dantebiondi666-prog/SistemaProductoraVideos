@@ -52,6 +52,27 @@ Se incorpora la clase `SistemaProductoraFacade`, que actúa como **punto único 
 
 ## Justificación Técnica de la Estructura de Clases
 
+### Detalle de la clase SistemaProductoraFacade
+
+La fachada se modela como una **clase de aplicación** que coordina varios servicios internos del sistema. No representa una entidad de dominio, sino un **objeto de alto nivel** que orquesta colaboraciones entre otros objetos.
+
+**Atributos (dependencias internas)**
+
+SistemaProductoraFacade mantiene referencias privadas a servicios concretos:
+
+*   servicioProyectos : ServicioProyectosServicio de aplicación que encapsula la lógica para crear, editar y consultar objetos concretos Proyecto.
+    
+*   servicioEtapas : ServicioEtapasGestiona el ciclo de vida de las instancias Etapa (altas, bajas, cambios de estado, asignación de responsables).
+    
+*   servicioNotificaciones : ServicioNotificacionesImplementa el envío real de notificaciones (Email, WhatsApp, Slack) a partir de objetos Notificacion.
+    
+*   servicioAuditoria : ServicioAuditoriaUtiliza la clase de dominio AuditoriaProyecto para registrar eventos relevantes sobre proyectos (creación, edición, etc.).
+    
+*   servicioReportes : ServicioReportesCalcula métricas (MetricasProyecto, MetricasEtapas) y construye objetos Adjunto para la exportación de reportes (PDF/CSV).
+    
+
+Estas dependencias se **inyectan en el constructor** de la fachada (inyección de dependencias). De esta forma, SistemaProductoraFacade **depende de abstracciones** y no instancia directamente los servicios, respetando DIP.
+
 ### ✔ Clases incluidas y su rol
 
 | Clase | Rol dentro del patrón |
@@ -68,16 +89,16 @@ Se incorpora la clase `SistemaProductoraFacade`, que actúa como **punto único 
 
 ---
 
-### ✔ Flujo estructural: cómo resuelve el problema real del sistema
+✔ Flujo estructural: cómo resuelve el problema real del sistema
+---------------------------------------------------------------
 
-1. **El controlador o frontend solo conoce a `SistemaProductoraFacade`** y nunca interactúa directamente con `Proyecto`, `Etapa`, `Notificacion`, etc.  
-2. La fachada recibe una solicitud (por ejemplo: crear proyecto con etapas).
-3. La fachada delega en `Proyecto` y `Etapa` para crear/modificar entidades.
-4. Luego, registra logs mediante `AuditoriaProyecto` y `HistorialEtapa`.
-5. Si corresponde, genera una `Notificacion` y la envía mediante `ServicioNotificaciones`.
-6. Finalmente, puede generar un reporte (`Adjunto`) y devolverlo al cliente.
-
----
+1.  Un **controlador** o endpoint REST tiene una **dependencia directa** únicamente hacia SistemaProductoraFacade. La instancia de fachada se construye inyectando ServicioProyectos, ServicioEtapas, ServicioAuditoria, ServicioReportes y ServicioNotificaciones.
+    
+2.  Cada vez que el usuario dispara un caso de uso (crear proyecto, cambiar estado, generar reporte), el controlador **invoca un método público de la fachada** en lugar de llamar a varias clases por separado.
+    
+3.  Internamente, la fachada **instancia y coordina objetos concretos** (Proyecto, Etapa, Notificacion, Adjunto) a través de sus servicios. Así, las relaciones entre clases del dominio quedan encapsuladas dentro de la fachada y de los servicios.
+    
+4.  Si en el futuro cambia la implementación de alguno de esos servicios (por ejemplo, un nuevo proveedor de notificaciones o un motor distinto de reportes), solo se ajustan las clases internas. La interfaz de SistemaProductoraFacade y el código de los controladores permanecen sin cambios.
 
 ### ✔ Beneficios logrados
 

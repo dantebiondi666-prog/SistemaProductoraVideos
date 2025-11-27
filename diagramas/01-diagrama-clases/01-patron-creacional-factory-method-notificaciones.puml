@@ -13,7 +13,12 @@ class Usuario {
 
 class Proyecto
 
-class DatosContexto
+class DatosContexto {
+  - proyecto : Proyecto
+  - etapa : Etapa
+  - actor : Usuario
+  - detalle : String
+}
 
 enum TipoEvento {
   CreacionProyecto
@@ -60,10 +65,6 @@ class NotificacionEmail extends Notificacion
 class NotificacionWhatsApp extends Notificacion
 class NotificacionSlack extends Notificacion
 
-Notificacion <|-- NotificacionEmail
-Notificacion <|-- NotificacionWhatsApp
-Notificacion <|-- NotificacionSlack
-
 Notificacion --> Usuario : destino
 Notificacion --> Proyecto
 Notificacion --> Etapa
@@ -82,7 +83,6 @@ class NotificacionEtapaFactory extends NotificacionFactory {
   # crearNotificacion(canal: CanalNotificacion, datos: DatosContexto) : Notificacion
 }
 
-NotificacionFactory <|-- NotificacionEtapaFactory
 NotificacionFactory --> Notificacion : <<create>>
 
 ' ==== Servicio existente de envío ====
@@ -102,5 +102,9 @@ ServicioNotificaciones --> Notificacion : «envía»
 
 Etapa --> NotificacionFactory : «solicita crear\nnotificación»
 Etapa --> ServicioNotificaciones : «envía luego\nla notificación»
+
+DatosContexto --> Proyecto
+DatosContexto --> Etapa
+DatosContexto --> Usuario
 
 @enduml

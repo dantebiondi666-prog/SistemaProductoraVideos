@@ -308,7 +308,7 @@ IEstimadorDuracion <|.. EstimadorPorHistoricos
 IEstimadorDuracion <|.. EstimadorPorCriticidad
 
 ' Etapa usa la estrategia
-Etapa "0..*" --> "1" IEstimadorDuracion : usa
+Etapa "1" o-- "0..1" IEstimadorDuracion : estrategiaActual
 
 ' Estrategias y sus repos
 EstimadorPorTareas        "0..*" --> "1" TareasRepository
