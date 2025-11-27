@@ -1,0 +1,110 @@
+@startuml Patron_Creacional_Factory_Method_Notificaciones
+title Patrón Creacional - Factory Method para Notificaciones
+
+' ==== Clases de dominio reusadas ====
+
+class Etapa {
+  + cambiarEstado(nuevoEstado: EstadoEtapa, actor: Usuario) : void
+}
+
+class Usuario {
+  + obtenerCanalPreferido() : CanalNotificacion
+}
+
+class Proyecto
+
+class DatosContexto {
+  - proyecto : Proyecto
+  - etapa : Etapa
+  - actor : Usuario
+  - detalle : String
+}
+
+enum TipoEvento {
+  CreacionProyecto
+  EdicionProyecto
+  AltaEtapa
+  EdicionEtapa
+  BajaEtapa
+  CambioEstadoEtapa
+  AsignacionResponsable
+  AlertaRetraso
+}
+
+enum CanalNotificacion {
+  Email
+  WhatsApp
+  Slack
+}
+
+enum ResultadoEnvio {
+  Exitoso
+  Fallido
+  Pendiente
+}
+
+' ==== Producto abstracto y concretos (Factory Method) ====
+
+abstract class Notificacion {
+  - asunto : String
+  - mensaje : String
+  - canal : CanalNotificacion
+  - fechaHora : DateTime
+  - destino : Usuario
+  - proyecto : Proyecto
+  - etapa : Etapa
+  - resultado : ResultadoEnvio
+  - requiereRevision : boolean
+
+  + prepararContenido(datos: DatosContexto) : void
+  + enviar(servicio: ServicioNotificaciones) : ResultadoEnvio
+  + marcarParaRevision(motivo: String) : void
+}
+
+class NotificacionEmail extends Notificacion
+class NotificacionWhatsApp extends Notificacion
+class NotificacionSlack extends Notificacion
+
+Notificacion --> Usuario : destino
+Notificacion --> Proyecto
+Notificacion --> Etapa
+Notificacion --> CanalNotificacion
+Notificacion --> ResultadoEnvio
+
+' ==== Creator y Concrete Creator ====
+
+abstract class NotificacionFactory {
+  + crearDesdeEvento(tipo: TipoEvento, datos: DatosContexto) : Notificacion
+  # crearNotificacion(canal: CanalNotificacion, datos: DatosContexto) : Notificacion
+}
+
+class NotificacionEtapaFactory extends NotificacionFactory {
+  + crearDesdeEvento(tipo: TipoEvento, datos: DatosContexto) : Notificacion
+  # crearNotificacion(canal: CanalNotificacion, datos: DatosContexto) : Notificacion
+}
+
+NotificacionFactory --> Notificacion : <<create>>
+
+' ==== Servicio existente de envío ====
+
+class ServicioNotificaciones {
+  - proveedor : String
+  - limiteDiario : int
+  - tiempoUltimoEnvio : DateTime
+
+  + puedeEnviar() : boolean
+  + enviar(n: Notificacion) : ResultadoEnvio
+}
+
+ServicioNotificaciones --> Notificacion : «envía»
+
+' ==== Colaboraciones con el dominio ====
+
+Etapa --> NotificacionFactory : «solicita crear\nnotificación»
+Etapa --> ServicioNotificaciones : «envía luego\nla notificación»
+
+DatosContexto --> Proyecto
+DatosContexto --> Etapa
+DatosContexto --> Usuario
+
+@enduml

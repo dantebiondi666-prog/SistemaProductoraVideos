@@ -5,6 +5,55 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+## [Release Parcial N°2] - (20-11-2025)
+
+### Fixed
+
+- [release/segundo-parcial] Corrección de .md de patron de diseño estructural facade.
+  PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#176](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/176)
+
+- [release/segundo-parcial] Corrección de diagrama 01-patron-comportamiento-strategy.
+  PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#175](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/175)
+
+- [release/segundo-parcial] Corrección de diagrama 01-patron-estructural-facade.
+  PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#174](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/174)
+
+- [release/segundo-parcial] Corrección de diagrama 01-patron-creacional-factory-method-notificaciones.
+  PR: [#172](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/172) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#173](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/173)
+
+### Added
+
+- [feature/esp-patron-creacional-add-patron-factory-method-notificaciones] Creación Documentación del patrón creacional Factory Method aplicado al módulo de Notificaciones (anexo y diagramas).
+  PR: [#171](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/171) - @leanlex (Especialista en Patrón de Diseño Creacional
+), 
+  Issue: [#169](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/169)
+  Issue: [#170](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/170)
+
+
+- [feature/coord-devops-update-docs] Creación de carpeta para patrones de diseño en anexos, creación de archivos de patrones de diseño creacional, de comportamiento y estructural, creación de índice y realización de todos los requested changes de actividad obligatoria N°4.
+  PR: [#162](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/162) - @dantebiondi666-prog (Documentador y coordinador de repositorio), 
+  Issue: [#161](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/161)
+  
+- [feature/esp-patron-comportamiento-add-patron-strategy] Creación del archivo patron-de-diseno-de-comportamiento.mdm, diagrama de clase puml y png del patron elegido strategy.
+  PR: [#168](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/168) - @abartomioli (Especialista en Patrón de Diseño de Comportamiento), 
+  Issue: 
+      [#165](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/165)
+      [#166](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/166)
+      [#167](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/167)
+
+ - [feature/esp-patron-estructural-add-patron-facade] Implementación del patrón de diseño estructural Facade, creación del archivo de documentación en anexos, agregado del diagrama UML en formato .puml y su imagen .png, y vinculación del diagrama en el documento. Trabajo realizado según lo requerido en el Rol Nº2.
+PR: [#164](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/164) - @juanmartinbritos7-cmd (Especialista en Patrón de Diseño Estructural)
+  Issue: [#163](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/163)
+
+
+  
+
+## [Release Actividad Obligatoria N°4] - (11-11-2025)
+
 ### Fixed
 
 - [release/actividad-obligatoria-4] Correcciones de diagrama final y analisis jad.
@@ -45,7 +94,6 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   Issue: [#150](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/150)
   [#130](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/issues/130)
 
-## [Release Actividad Obligatoria N°4] - (11-11-2025)
 
 ### Added
 
