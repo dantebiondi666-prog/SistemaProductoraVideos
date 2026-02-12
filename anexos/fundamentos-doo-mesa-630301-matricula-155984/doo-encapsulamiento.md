@@ -37,12 +37,9 @@ su propio estado.
 
 ## Ejemplo en el proyecto
 
-En la clase Etapa, los atributos estado y responsable se definen con
-visibilidad privada (private) y no pueden ser accedidos directamente desde
-el exterior.
-
-La modificación de estos atributos se realiza únicamente a través de los
-métodos públicos cambiarEstado(...) y asignarResponsable(...).
+En la clase Etapa, los atributos como estado y responsable se encuentran encapsulados
+y no pueden ser modificados directamente desde el exterior.  
+El cambio de estos valores se realiza únicamente a través de métodos públicos que controlan la modificación del estado interno.
 
 ### Fragmento de diagrama UML
 
@@ -55,6 +52,7 @@ class Etapa {
   + asignarResponsable(usuario: Usuario)
 }
 @enduml
+```
 
 ## Ejemplo de código (pseudocódigo)
 
@@ -66,3 +64,16 @@ etapa.asignarResponsable(usuario)
 El encapsulamiento permite proteger el estado interno de los objetos, obligando a que
 las modificaciones se realicen mediante operaciones controladas, asegurando la
 consistencia y las reglas de negocio del dominio.
+```
+### Relación con principios SOLID y patrones
+```
+El encapsulamiento se relaciona directamente con el principio de responsabilidad única (SRP),
+ya que cada clase es responsable de mantener y proteger su propio estado interno.
+
+También se relaciona con el principio de abierto/cerrado (OCP), ya que al exponer únicamente
+operaciones públicas bien definidas se pueden extender comportamientos sin modificar
+el estado interno de las clases.
+
+En cuanto a los patrones de diseño, el encapsulamiento es fundamental en patrones como
+State y Strategy, donde el comportamiento y el estado quedan contenidos dentro de
+objetos bien definidos, evitando que el resto del sistema dependa de sus detalles internos.
