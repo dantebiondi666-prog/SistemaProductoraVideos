@@ -37,10 +37,12 @@ su propio estado.
 
 ## Ejemplo en el proyecto
 
-En la clase Etapa, los atributos como estado y responsable se encuentran encapsulados
-y no pueden ser modificados directamente desde el exterior.  
-El cambio de estos valores se realiza únicamente a través de métodos públicos que
-controlan la modificación del estado interno.
+En la clase Etapa, los atributos estado y responsable se definen con
+visibilidad privada (private) y no pueden ser accedidos directamente desde
+el exterior.
+
+La modificación de estos atributos se realiza únicamente a través de los
+métodos públicos cambiarEstado(...) y asignarResponsable(...).
 
 ### Fragmento de diagrama UML
 
@@ -58,8 +60,8 @@ class Etapa {
 
 etapa.cambiarEstado(EN_PROCESO, usuarioActual)
 etapa.asignarResponsable(usuario)
-
-Justificación técnica
+```
+### Justificación técnica
 
 El encapsulamiento permite proteger el estado interno de los objetos, obligando a que
 las modificaciones se realicen mediante operaciones controladas, asegurando la

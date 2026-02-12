@@ -29,19 +29,28 @@ Estas clases forman parte del diagrama definido en el archivo:
 ```plantuml
 @startuml
 
+class Proyecto {
+  - projectId : UUID
+  - nombre : String
+  + agregarEtapa(e: Etapa)
+}
+
+class Etapa {
+  - stageId : UUID
+  - nombre : String
+  + cambiarEstado(e: EstadoEtapa)
+}
+
 Proyecto "1" *-- "1..*" Etapa
-Proyecto "1" o-- "1" Cliente
-Etapa "1" --> "0..1" Usuario
 
 @enduml
 ```
 ```md
 ## Ejemplo de código (pseudocódigo)
 
+```text
 proyecto = nuevo Proyecto("Video institucional")
-
-etapa = nueva Etapa("Edicion")
-
+etapa = nueva Etapa("Edición")
 proyecto.agregarEtapa(etapa)
 ```
 ### Justificación técnica

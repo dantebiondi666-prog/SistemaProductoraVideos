@@ -15,7 +15,11 @@ comportamiento específico, reutilizando la estructura definida en la clase base
 ```plantuml
 @startuml
 
-abstract class EstadoEtapa
+abstract class EstadoEtapa {
+  + cambiarEstado(e: Etapa, nuevo: EstadoEtapa)
+  + agregarComentario(e: Etapa)
+}
+
 class Pendiente
 class EnCurso
 class Bloqueada
@@ -27,15 +31,16 @@ EstadoEtapa <|-- Bloqueada
 EstadoEtapa <|-- Finalizada
 
 @enduml
+```
 
-```md
 ## Ejemplo de código (pseudocódigo)
 
 ```text
-estado : EstadoEtapa
 estado = new Pendiente()
 estado.cambiarEstado(etapa, new EnCurso())
 ```
-## Justificación técnica
+```md
+### Justificación técnica
 
-La herencia se aplica mediante la jerarquía de la clase base EstadoEtapa y sus clases derivadas Pendiente, EnCurso, Bloqueada y Finalizada, que reutilizan la estructura común y especializan su comportamiento.
+En el proyecto se aplica herencia en el manejo de los estados de una etapa.  
+La clase abstracta `EstadoEtapa` define el comportamiento común de los estados, y las clases `Pendiente`, `EnCurso`, `Bloqueada` y `Finalizada` heredan de ella, especializando el comportamiento según el estado concreto.
