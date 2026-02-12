@@ -1,6 +1,9 @@
 # Abstracción
 
-## 1) Concepto
+## Ejemplo en el proyecto
+
+### 1) Concepto
+
 La **abstracción** consiste en representar una entidad o acción quedándonos con lo importante para el problema y dejando de lado los detalles que no aportan. En Diseño Orientado a Objetos, significa pensar primero en qué responsabilidad cumple una clase (**qué hace y para qué**) y no tanto en **cómo está implementado** internamente.
 
 El uso de **abstracciones** (interfaces o clases abstractas) permite trabajar con distintos **niveles** del sistema: por ejemplo, a alto nivel “enviar una notificación”, y a bajo nivel “enviar por email / WhatsApp / push”, sin que el resto del sistema dependa de los detalles.
@@ -14,9 +17,9 @@ En DOO, la abstracción se logra mediante:
 El objetivo es construir un modelo conceptual claro, **fácil de entender y mantener**, y que permita **cambiar o extender implementaciones** con el menor impacto posible en el resto del sistema.
 
 
-## Relación con SOLID y Patrones de Diseño
+### 2) Relación con SOLID y Patrones de Diseño
 
-### Principios SOLID (los más relacionados)
+#### Principios SOLID (los más relacionados)
 - **DIP (Dependency Inversion Principle):**
 
     Los módulos de alto nivel dependen de abstracciones, no de implementaciones concretas, invirtiendo la dirección tradicional de dependencias.
@@ -30,7 +33,7 @@ El objetivo es construir un modelo conceptual claro, **fácil de entender y mant
 
     La abstracción ayuda a repartir responsabilidades: las clases del dominio. Se enfocan en reglas del negocio, y los detalles técnicos (por ejemplo, cómo se envía), se dejan en servicios o clases especializadas.
 
-### Patrones de Diseño (relación directa con abstracción)
+#### Patrones de Diseño (relación directa con abstracción)
 - **Factory Method (Creacional):**  
   Utiliza abstracción para definir una interfaz de creación de objetos, delegando a las subclases la decisión de qué clase concreta instanciar.
 
@@ -40,25 +43,29 @@ El objetivo es construir un modelo conceptual claro, **fácil de entender y mant
 - **Template Method**  
   Usa una clase abstracta para definir el esqueleto de un algoritmo, dejando que las subclases implementen pasos específicos.
 
-### Aplicación en el proyecto
+### 3) Aplicación en el proyecto
 En el proyecto, clases como `ServicioNotificaciones` abstraen la operación “enviar notificación”, permitiendo que el dominio (`Usuario`, `Notificacion`) trabaje con el **qué** se hace sin acoplarse al **cómo** se implementa (proveedor, canal, límites, etc.).
 
 
-## Evidencia de Abstracción en el proyecto
-
-### 1) Diagrama UML (fragmento) + enlace al diagrama
+### 4) Diagrama UML (fragmento) + enlace al diagrama
 
 A continuación se presenta incrustado  **diagrama de clases** elaborado en el curso.
 La idea es mostrar cómo el dominio (por ejemplo `Usuario` y `Notificacion`) se apoya en un servicio (`ServicioNotificaciones`) para realizar el envío, sin depender de detalles técnicos del proveedor o canal.
 
-#### 1.1 Imagen incrustada
-![Boceto inicial de clases - Sistema Productora de Videos](../../diagramas/01-diagrama-clases/01-boceto-inicial.png)
+#### Imagen incrustada
+![Abstracción - Notificaciones](img/abstraccion-notificaciones.png)
 
-#### 1.2 Enlace al diagrama en detalle
+#### Enlace al diagrama en detalle
 
-[Ver diagrama en detalle](../../diagramas/01-diagrama-clases/01-boceto-inicial.png)
+- [Ver diagrama en detalle](img/abstraccion-notificaciones.png)
 
-#### 1.3 PlantUML del fragmento codigo
+- [Ver código PlantUML](img/abstraccion-notificaciones.puml)
+
+
+## Ejemplo de Código
+
+
+#### 1) Fragmento de código (Java)
 
 ```java
 // Concepto del dominio: "qué" es una notificación (datos relevantes del negocio)
@@ -92,10 +99,9 @@ public class Usuario {
 }
 
 ```
-**Justificación técnica:** 
+### 2) Justificación técnica
 
-La interfaz ServicioNotificaciones es la abstracción: 
-
+`ServicioNotificaciones` actúa como la abstracción del envío: concentra el “cómo” (proveedor/canal) y permite que el dominio use el “qué” (notificar) sin depender de detalles técnicos.
 - `Notificacion` modela el concepto del negocio “notificación” con sus datos relevantes (asunto, mensaje, destino, canal), sin incluir detalles de infraestructura.
 - `Usuario.notificar`(...) representa la intención de alto nivel (“notificar”) y no se ocupa de cómo se envía realmente.
 - `ServicioNotificaciones.enviar`(...) encapsula el “cómo” (proveedor/API/límites).

@@ -1,6 +1,8 @@
 # Polimorfismo
 
-## 1) Concepto
+## Ejemplo en el proyecto
+
+### 1) Concepto
 
 El **polimorfismo** es la capacidad de objetos de diferentes clases de responder al mismo mensaje (llamada a método) de distintas maneras. En Diseño Orientado a Objetos, significa que una misma interfaz puede tener múltiples implementaciones, permitiendo que el código trabaje con abstracciones sin conocer el tipo concreto del objeto.
 
@@ -20,9 +22,9 @@ El objetivo es escribir código **genérico y flexible** que pueda trabajar con 
 
 ---
 
-## 2) Relación con SOLID y Patrones
+### 2) Relación con SOLID y Patrones
 
-### Principios SOLID
+#### Principios SOLID
 
 - **LSP (Liskov Substitution Principle):**
 
@@ -36,9 +38,7 @@ El objetivo es escribir código **genérico y flexible** que pueda trabajar con 
 
     El polimorfismo permite que el código dependa de abstracciones (interfaces, clases abstractas) en lugar de clases concretas, facilitando el intercambio de implementaciones.
 
-
-
-### Patrones de Diseño
+#### Patrones de Diseño
 
 - **Strategy (Comportamiento):**  
   Define una familia de algoritmos intercambiables mediante polimorfismo. El contexto trabaja con una interfaz, y cada estrategia concreta implementa su versión del algoritmo.
@@ -51,7 +51,8 @@ El objetivo es escribir código **genérico y flexible** que pueda trabajar con 
 
 ---
 
-## 3) Aplicación en el proyecto
+### 3) Aplicación en el proyecto
+
 En **SistemaProductoraVideos**, una aplicación natural de polimorfismo es el envío de notificaciones por diferentes canales.
 
 El sistema puede manejar una colección de “notificaciones” o “servicios de envío” sin conocer el detalle del canal.  
@@ -59,15 +60,27 @@ Por ejemplo, puede invocar `enviar()` sobre un tipo general y que cada implement
 
 ---
 
-## 4) Ejemplo en el proyecto
+### 4) Diagrama UML (fragmento) + enlace al diagrama
 
-### 4.1 Imagen incrustada
+### Imagen incrustada
 ![Polimorfismo - Envío por canal](img/polimorfismo-notificaciones.png)
 
-### 4.2 Enlace al diagrama en detalle
-[Ver diagrama en detalle](img/polimorfismo-notificaciones.png)
+### Enlace al diagrama en detalle
 
-### 4.3 PlantUML del fragmento (código)
+- [Ver diagrama en detalle](img/polimorfismo-notificaciones.png)  
+
+- [Ver código PlantUML](img/polimorfismo-notificaciones.puml)
+
+### 5) ¿Cómo refleja polimorfismo el diagrama?
+
+- `ServicioNotificaciones` define la operación común `enviar(...)`.
+- Distintas clases concretas implementan esa operación con su propia lógica.
+- `Usuario` depende del tipo general y no necesita conocer qué implementación concreta está usando.
+
+## Ejemplo de Código
+
+### 1) Fragmento de código (Java)
+
 ```java
 public interface ServicioNotificaciones {
     boolean enviar(Notificacion n);
@@ -96,11 +109,11 @@ public class Usuario {
     }
 }
 ```
-**Justificación técnica:** 
+### 2) Justificación técnica
 
 Este fragmento demuestra polimorfismo porque:
 
-- Usuario trabaja con el tipo general ServicioNotificaciones, no con clases concretas.
+- `Usuario` trabaja con el tipo general `ServicioNotificaciones`, no con clases concretas.
 - El método enviar() existe en todas las implementaciones, pero cada clase lo resuelve a su manera (Email, WhatsApp, etc.).
 - Al ejecutar servicio.enviar(n), Java decide en tiempo de ejecución qué implementación llamar según el objeto real, sin necesidad de if/else.
 - Esto permite agregar nuevos canales creando nuevas clases que implementen la interfaz, sin modificar el código de Usuario (OCP) y manteniendo sustitución válida (LSP).

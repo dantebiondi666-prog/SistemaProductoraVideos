@@ -1,0 +1,21 @@
+@startuml
+title Abstracción - Usuario / Notificación / ServicioNotificaciones
+
+class Usuario {
+  + notificar(n: Notificacion, servicio: ServicioNotificaciones): void
+}
+
+class Notificacion {
+  - asunto: String
+  - mensaje: String
+  - canal: CanalNotificacion
+  - destino: Usuario
+}
+
+class ServicioNotificaciones {
+  + enviar(n: Notificacion): boolean
+}
+
+Usuario --> ServicioNotificaciones : delega envío
+Notificacion --> Usuario : destino
+@enduml

@@ -1,6 +1,8 @@
 # Herencia
 
-## 1) Concepto
+## Ejemplo en el proyecto
+
+### 1) Concepto
 
 La **herencia** es un mecanismo que permite crear nuevas clases a partir de clases existentes, reutilizando y extendiendo su comportamiento. La clase nueva (llamada **subclase**, **clase hija** o **clase derivada**) hereda atributos y métodos de la clase original (llamada **superclase**, **clase padre** o **clase base**).
 
@@ -18,7 +20,9 @@ La herencia se logra mediante:
 El objetivo es construir jerarquías de clases que **reflejen la realidad del dominio**, promoviendo la **reutilización** y facilitando la **extensibilidad** del sistema sin duplicar código.
 
 ---
-## Relación con SOLID y Patrones de Diseño
+### 2) Relación con SOLID y Patrones de Diseño
+
+#### Principios SOLID (los más relacionados)
 
 - **LSP (Liskov Substitution Principle):**
 
@@ -33,7 +37,7 @@ El objetivo es construir jerarquías de clases que **reflejen la realidad del do
     Cada clase en la jerarquía tiene una responsabilidad específica: la clase padre maneja lo común, y cada hija maneja su especialización particular. Por ejemplo, `Video` maneja atributos generales, mientras que `VideoPublicitario` maneja la lógica de publicidad.
 
 
-### Patrones de Diseño (relación directa con abstracción)
+#### Patrones de Diseño (relación con herencia)
 
 - **Template Method (Comportamiento):**  
   Define el esqueleto de un algoritmo en la clase padre usando métodos abstractos que las subclases deben implementar. La herencia es esencial para este patrón.
@@ -45,7 +49,7 @@ El objetivo es construir jerarquías de clases que **reflejen la realidad del do
   Aunque usa composición, puede combinarse con herencia cuando diferentes estrategias comparten comportamiento común en una clase base.
 
 
-### Aplicación en el proyecto
+### 3) Aplicación en el proyecto
 
 En el proyecto, la clase Notificacion hoy tiene canal: CanalNotificacion. La herencia se puede modelar así:
 
@@ -55,23 +59,27 @@ Subclases: NotificacionEmail, NotificacionWhatsApp, NotificacionPush
 
 Ventaja: cada subclase puede especializar validaciones o formato (subject obligatorio en email, límite de caracteres en WhatsApp, etc). Esto se alinea con los conceptos LSP y con OCP.
 
-## Ejemplo en el proyecto
 
-### 1) Diagrama UML (herencia) + enlace al diagrama
+### 4) Diagrama UML (fragmento) + enlace al diagrama
+
 
 A continuación se presenta un **fragmento de diagrama UML** que muestra una posible aplicación de herencia en el proyecto: distintos tipos de notificación según el canal.  
 La idea es que `Notificacion` concentre lo común y que las subclases especialicen lo particular de cada canal.
 
-#### 1.1 Imagen incrustada
+#### Imagen incrustada
 
-![Herencia - Tipos de Notificación](img\herencia-notificaciones.png)
+![Herencia - Tipos de Notificación](img/herencia-notificaciones.png)
+
+#### Enlace al diagrama en detalle
+
+- [Ver diagrama en detalle](img/herencia-notificaciones.png)
+
+- [Ver código PlantUML](img/herencia-notificaciones.puml)
 
 
-#### 1.2 Enlace al diagrama en detalle
-[Ver diagrama en detalle](img/herencia-notificaciones.png)
+## Ejemplo de Código
 
-#### 1.3 Ejemplo de Código
-
+#### 1) Fragmento de código (Java)
 ```java
 // Superclase: concentra lo común a cualquier notificación
 public class Notificacion {
@@ -120,11 +128,11 @@ public class NotificacionWhatsApp extends Notificacion {
 }
 
 ```
-**Justificación técnica:** 
+### 2) Justificación técnica
 
 Este fragmento demuestra el fundamento de herencia porque:
 
 - Reutilización de lo común: NotificacionEmail y NotificacionWhatsApp heredan (extends) de Notificacion, reutilizando atributos y comportamiento compartido (asunto, mensaje, destino, pendiente()).
 - Especialización: cada subclase agrega datos y reglas propias del canal (emailDestino, telefonoDestino, validaciones específicas), sin duplicar lo que ya está en la superclase.
 - Relación “es un”: una NotificacionEmail es una Notificacion y una NotificacionWhatsApp es una Notificacion, por lo que el modelo representa correctamente variantes del mismo concepto del dominio.
-- Base para polimorfismo: al heredar de Notificacion, el sistema podría manejar listas de Notificacion que contengan distintos tipos concretos, manteniendo una interfaz común para lo compartido.`
+- Base para polimorfismo: al heredar de Notificacion, el sistema podría manejar listas de Notificacion que contengan distintos tipos concretos, manteniendo una interfaz común para lo compartido.

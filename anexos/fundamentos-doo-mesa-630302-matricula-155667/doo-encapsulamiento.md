@@ -1,6 +1,8 @@
 # Encapsulamiento
 
-## 1) Concepto
+## Ejemplo en el proyecto
+
+### 1) Concepto
 
 El **encapsulamiento** es el mecanismo de ocultar los detalles internos de implementación de una clase y controlar el acceso a sus datos mediante una interfaz pública bien definida. En Diseño Orientado a Objetos, significa que los atributos de una clase se mantienen privados y solo se accede a ellos a través de métodos públicos  o mediante operaciones que respeten las reglas del negocio.
 
@@ -20,9 +22,9 @@ El objetivo es crear objetos **robustos** que garanticen su **integridad interna
 
 ---
 
-## 2) Relación con SOLID y Patrones
+### 2) Relación con SOLID y Patrones
 
-### Principios SOLID
+#### Principios SOLID
 
 - **SRP (Single Responsibility Principle):**
 
@@ -37,7 +39,7 @@ El objetivo es crear objetos **robustos** que garanticen su **integridad interna
     Cuando exponemos solo lo necesario, evitamos obligar a otros módulos a depender de operaciones que no usan.
     (Relacionado) Encapsular reduce acoplamiento, lo cual favorece OCP/DIP indirectamente.
 
-### Patrones de diseño
+#### Patrones de diseño
 
 - **Facade (Estructural):**  
   Encapsula la complejidad de un subsistema detrás de una interfaz simple. Oculta múltiples clases e interacciones complejas tras un punto de acceso unificado.
@@ -50,7 +52,7 @@ El objetivo es crear objetos **robustos** que garanticen su **integridad interna
 
 ---
 
-## 3) Aplicación en el proyecto
+### 3) Aplicación en el proyecto
 
 En **SistemaProductoraVideos**, el encapsulamiento se evidencia cuando las clases del dominio:
 - Mantienen sus atributos como privados (por ejemplo `Etapa.estado`, `Etapa.fechaFinReal`, `Notificacion.resultado`).
@@ -60,24 +62,28 @@ Esto evita que cualquier parte del sistema cambie “a mano” el estado de una 
 
 ---
 
-## 4) Ejemplo en el proyecto (UML + evidencia)
+### 4) Diagrama UML (fragmento) + enlace al diagrama
 
-### 4.1 Imagen incrustada
+#### Imagen incrustada
 
-![Encapsulamiento - Fragmento de clases](../../diagramas/01-diagrama-clases/01-boceto-inicial.png)
+![Encapsulamiento - Fragmento de clases](img/encapsulamiento-etapa-notificacion.png)
 
-### 4.2 Enlace al diagrama en detalle
-[Ver diagrama en detalle](../../diagramas/01-diagrama-clases/01-boceto-inicial.png)
+#### Enlace al diagrama en detalle
+- [Ver diagrama en detalle](img/encapsulamiento-etapa-notificacion.png)
 
-¿Cómo refleja encapsulamiento el diagrama?
+- [Ver código PlantUML](img/encapsulamiento-etapa-notificacion.puml)
+
+
+#### ¿Cómo refleja encapsulamiento el diagrama?
 En el diagrama se observa encapsulamiento porque:
 - Los atributos aparecen con `-` (privados), lo que indica que no se accede directamente desde afuera.
 - Las modificaciones relevantes del estado se hacen mediante métodos `+` (públicos) como `cambiarEstado()`, `agregarComentario()`, `marcarLeida()`, etc.
 - De esta forma, el objeto controla sus cambios y mantiene consistencia.
 
 ---
+## Ejemplo de Código
 
-## 5) Ejemplo de código + justificación
+### 1) Fragmento de código (Java)
 
 ```java
 public class Etapa {
@@ -103,7 +109,7 @@ public class Etapa {
 }
 
 ```
-**Justificación técnica:** 
+### 2) Justificación técnica 
 Las clases seleccionadas cumplen encapsulamiento porque:
 - Protegen sus datos internos.
 - Exponen una interfaz pública acotada para operar sobre ese estado.
