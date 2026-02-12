@@ -44,13 +44,14 @@ específicas como cambiarEstado y asignarResponsable.
 
 De esta forma, otras clases no acceden directamente a los atributos internos de Etapa.
 
-## Ejemplo de código (pseudocódigo)
+### Ejemplo de código (pseudocódigo)
 
 ```text
 etapa = obtenerEtapa(idEtapa)
 
 etapa.cambiarEstado(EN_PROCESO, usuarioActual)
 etapa.asignarResponsable(usuario)
+
 
 Justificación técnica
 

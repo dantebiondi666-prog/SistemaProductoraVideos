@@ -10,7 +10,7 @@ En relación con los patrones de diseño, la abstracción es un habilitador fund
 
 ---
 
-## Ejemplo en el proyecto
+### Ejemplo en el proyecto
 
 En el proyecto Sistema Productora de Videos, la abstracción se aplica al modelar los
 conceptos principales del dominio mediante las clases Proyecto y Etapa.
@@ -24,7 +24,7 @@ Estas clases forman parte del diagrama definido en el archivo:
 
 - `01-diagrama-clases-final.puml`
 
-## Fragmento de diagrama UML
+### Fragmento de diagrama UML
 
 ```plantuml
 class Proyecto {
@@ -39,7 +39,7 @@ class Etapa {
 
 Proyecto "1" *-- "1..*" Etapa
 
-Ejemplo de código (pseudocódigo)
+### Ejemplo de código (pseudocódigo)
 
 proyecto = nuevo Proyecto("Video institucional")
 
@@ -47,7 +47,7 @@ etapa = nueva Etapa("Edición")
 
 proyecto.agregarEtapa(etapa)
 
-Justificación técnica
+### Justificación técnica
 
 El fragmento de pseudocódigo utiliza únicamente las abstracciones Proyecto y Etapa, sin depender de estructuras internas ni detalles de almacenamiento.
 Esto demuestra el uso de abstracción, ya que el cliente del modelo interactúa con
