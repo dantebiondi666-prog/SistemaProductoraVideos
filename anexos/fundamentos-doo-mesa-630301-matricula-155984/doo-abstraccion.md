@@ -38,12 +38,14 @@ Etapa "1" --> "0..1" Usuario
 ```md
 ## Ejemplo de código (pseudocódigo)
 
-```text
 proyecto = nuevo Proyecto("Video institucional")
+
+etapa = nueva Etapa("Edicion")
+
+proyecto.agregarEtapa(etapa)
 ```
 ### Justificación técnica
 
 El fragmento de pseudocódigo utiliza únicamente las abstracciones Proyecto y Etapa, sin depender de estructuras internas ni detalles de almacenamiento.
-Esto demuestra el uso de abstracción, ya que el cliente del modelo interactúa con
-objetos que representan conceptos del dominio, delegando en dichas clases la gestión de su comportamiento interno.
+Esto demuestra el uso de abstracción, ya que el cliente del modelo interactúa con objetos que representan conceptos del dominio, delegando en dichas clases la gestión de su comportamiento interno.
 
