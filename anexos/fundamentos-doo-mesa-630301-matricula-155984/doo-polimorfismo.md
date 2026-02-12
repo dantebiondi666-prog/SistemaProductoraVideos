@@ -1,39 +1,24 @@
 # Polimorfismo
 
-El polimorfismo es un principio del Diseño Orientado a Objetos que permite que
-diferentes objetos puedan responder de manera distinta a un mismo mensaje,
+## Ejemplo en el proyecto
+
+En el modelo actual del Sistema Productora de Videos no se aplica polimorfismo, ya que el diseño
+no incorpora jerarquías de herencia ni interfaces que permitan tratar objetos de distintos tipos
 a través de una abstracción común.
 
-En el modelo actual del sistema de la productora de videos no se definen
-jerarquías ni interfaces que permitan aplicar polimorfismo de forma explícita.
+Todas las colaboraciones entre objetos se realizan mediante asociaciones directas entre clases
+concretas del dominio.
 
-Sin embargo, el diseño se encuentra preparado para su incorporación en futuras
-extensiones del sistema, ya que se basa en asociaciones y composición, evitando
-dependencias rígidas entre las clases.
+Por este motivo, en esta versión del proyecto no se observa la aplicación del principio de
+polimorfismo.
 
-Por ejemplo, entidades como Adjunto o HistorialEtapa podrían evolucionar a
-distintos tipos concretos sin necesidad de modificar las clases que los utilizan.
+## Ejemplo de código
 
-Este enfoque se alinea con los principios de Abierto/Cerrado (OCP) y de
-Sustitución de Liskov (LSP), facilitando la extensión del comportamiento sin
-afectar a los clientes existentes.
+No se incluyen ejemplos de polimorfismo en el proyecto, debido a que el diseño actual no incorpora
+herencia ni interfaces.
 
-```md
-### Ejemplo en el proyecto
 
-En el proyecto se aplica polimorfismo a partir de una relación de herencia presente
-en el modelo de clases del sistema.
-
-Las clases hijas heredan el comportamiento definido por una clase base y son
-utilizadas de forma transparente a través de la abstracción común.
-
-### Fragmento de diagrama UML
-
-```plantuml
-ClaseBase <|-- SubclaseA
-ClaseBase <|-- SubclaseB
-
-Ejemplo de código (pseudocódigo)
+### Ejemplo de código (pseudocódigo)
 
 objeto : ClaseBase
 

@@ -1,43 +1,16 @@
 # Herencia
 
-### Ejemplo en el proyecto
+## Ejemplo en el proyecto
 
-En el diagrama de clases final del sistema no se modelaron relaciones de herencia
-entre las clases del dominio.
+En el modelo actual del Sistema Productora de Videos no se utilizan relaciones de herencia entre clases.
+En el diagrama de clases final no se observan relaciones de generalización (flecha con triángulo vacío).
 
-Las entidades principales del sistema (Proyecto, Etapa, Usuario, Cliente, Comentario,
-Adjunto, Notificacion, HistorialEtapa y AuditoriaProyecto) representan conceptos
-diferentes y no existe entre ellas una relación de especialización de tipo “es un”.
+El diseño fue realizado utilizando asociaciones, agregación y composición entre las clases, priorizando
+la simplicidad del modelo y la claridad del dominio.
 
-### Fragmento de diagrama UML
+Por este motivo, en esta versión del proyecto no se aplica el principio de herencia.
 
-```plantuml
-class Proyecto
-class Etapa
-class Usuario
-class Adjunto
+## Ejemplo de código
 
-Proyecto "1" *-- "1..*" Etapa
-Etapa "1" o-- "0..*" Adjunto
-
-## Ejemplo de código (pseudocódigo)
-
-proyecto = obtenerProyecto(id)
-
-etapas = proyecto.listarEtapas()
-
-Justificación técnica
-
-En este diseño no se aplica herencia debido a que no se identificaron jerarquías
-conceptuales válidas dentro del dominio del problema.
-
-El principio de sustitución de Liskov (LSP) se cumple de forma vacía, ya que al no
-existir relaciones de herencia, no existen subclases que deban respetar contratos de
-una clase base.
-
-Esta decisión evita jerarquías artificiales y mantiene un bajo acoplamiento entre las
-clases.
-
-Respecto a los patrones de diseño, en el modelo actual no se introducen patrones
-basados en herencia, ya que el objetivo principal del trabajo fue modelar el dominio
-y los casos de uso, priorizando claridad y simplicidad en el diseño.
+No se presentan ejemplos de código con herencia en el proyecto, ya que no existen clases base ni
+clases derivadas en el diseño actual.
