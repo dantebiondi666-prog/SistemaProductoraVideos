@@ -1,39 +1,43 @@
 # Herencia
 
-La herencia es un mecanismo del Diseño Orientado a Objetos que permite definir
-relaciones de especialización entre clases, donde una clase hija hereda atributos
-y comportamientos de una clase padre.
+### Ejemplo en el proyecto
 
-En el modelo de clases del sistema de la productora de videos no se utilizan
-relaciones de herencia.
+En el diagrama de clases final del sistema no se modelaron relaciones de herencia
+entre las clases del dominio.
 
-Esta decisión de diseño es intencional, ya que las clases del dominio representan
-entidades conceptualmente diferentes (Proyecto, Etapa, Cliente, Usuario, Comentario,
-Adjunto, HistorialEtapa), y no existen relaciones reales de tipo “es un” entre ellas.
+Las entidades principales del sistema (Proyecto, Etapa, Usuario, Cliente, Comentario,
+Adjunto, Notificacion, HistorialEtapa y AuditoriaProyecto) representan conceptos
+diferentes y no existe entre ellas una relación de especialización de tipo “es un”.
 
-Se prioriza el uso de composición y asociaciones para modelar las relaciones del
-dominio, lo que permite un diseño más flexible y con menor acoplamiento.
+### Fragmento de diagrama UML
 
-Este enfoque evita jerarquías artificiales y se alinea con el principio de
-Sustitución de Liskov (LSP), ya que solo debería utilizarse herencia cuando exista
-una verdadera relación de especialización.
+```plantuml
+class Proyecto
+class Etapa
+class Usuario
+class Adjunto
 
-```md
-## Ejemplo en el proyecto
-
-En el modelo actual del sistema no se utiliza herencia entre las clases.
-
-Las entidades del dominio (Proyecto, Etapa, Cliente, Usuario, Comentario, Adjunto e
-HistorialEtapa) representan conceptos diferentes y no existe una relación de
-especialización real entre ellas.
+Proyecto "1" *-- "1..*" Etapa
+Etapa "1" o-- "0..*" Adjunto
 
 ## Ejemplo de código (pseudocódigo)
 
-```text
-// No existe ejemplo de herencia en el proyecto,
-// ya que el diseño no utiliza relaciones de tipo "es un".
+proyecto = obtenerProyecto(id)
+
+etapas = proyecto.listarEtapas()
 
 Justificación técnica
 
-La ausencia de herencia es una decisión de diseño. Aplicar herencia sin una verdadera relación de especialización generaría jerarquías artificiales.
-De esta forma se respeta el principio de Sustitución de Liskov, utilizando herencia únicamente cuando existe una relación válida de tipo "es un".
+En este diseño no se aplica herencia debido a que no se identificaron jerarquías
+conceptuales válidas dentro del dominio del problema.
+
+El principio de sustitución de Liskov (LSP) se cumple de forma vacía, ya que al no
+existir relaciones de herencia, no existen subclases que deban respetar contratos de
+una clase base.
+
+Esta decisión evita jerarquías artificiales y mantiene un bajo acoplamiento entre las
+clases.
+
+Respecto a los patrones de diseño, en el modelo actual no se introducen patrones
+basados en herencia, ya que el objetivo principal del trabajo fue modelar el dominio
+y los casos de uso, priorizando claridad y simplicidad en el diseño.

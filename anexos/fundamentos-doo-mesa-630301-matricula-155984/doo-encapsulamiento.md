@@ -36,24 +36,37 @@ Responsabilidad Única (SRP), ya que cada clase es responsable de proteger y adm
 su propio estado.
 
 ```md
-## Ejemplo en el proyecto
+### Ejemplo en el proyecto
 
-En el proyecto, el encapsulamiento se aplica principalmente en la clase Etapa, la cual
-controla la modificación de su estado y de sus relaciones mediante operaciones
-específicas como cambiarEstado y asignarResponsable.
+En el modelo de clases actual del sistema no se definieron jerarquías de herencia ni
+interfaces, por lo que no se aplica polimorfismo de manera explícita en el diseño.
 
-De esta forma, otras clases no acceden directamente a los atributos internos de Etapa.
+Las clases del dominio se relacionan mediante asociaciones, dependencias y
+composición, priorizando un diseño simple y centrado en las entidades principales
+del problema.
+
+### Fragmento de diagrama UML
+
+```plantuml
+class Proyecto
+class Etapa
+class Adjunto
+
+Proyecto "1" *-- "1..*" Etapa
+Etapa "1" o-- "0..*" Adjunto
+
 
 ### Ejemplo de código (pseudocódigo)
-
-```text
 etapa = obtenerEtapa(idEtapa)
 
-etapa.cambiarEstado(EN_PROCESO, usuarioActual)
-etapa.asignarResponsable(usuario)
-
+listaAdjuntos = etapa.obtenerAdjuntos()
 
 Justificación técnica
 
-El pseudocódigo demuestra que el estado de la etapa no se modifica de forma directa, sino a través de métodos públicos definidos por la propia clase.
-Esto cumple el principio de encapsulamiento, ya que la clase controla sus cambios internos y centraliza las reglas de negocio relacionadas con su estado.
+En el diseño actual no se utiliza polimorfismo basado en herencia, ya que no existen
+clases base ni subclases en el modelo.
+
+Esto implica que el principio de sustitución de Liskov (LSP) no se aplica de forma
+directa en esta versión del diseño, quedando el modelo preparado para una futura
+evolución donde puedan incorporarse jerarquías o interfaces sin modificar las
+relaciones principales existentes.

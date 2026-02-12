@@ -19,23 +19,32 @@ Sustitución de Liskov (LSP), facilitando la extensión del comportamiento sin
 afectar a los clientes existentes.
 
 ```md
-## Ejemplo en el proyecto
+### Ejemplo en el proyecto
 
-En el modelo actual del sistema no se utiliza polimorfismo de manera explícita, ya que
-no se definieron interfaces ni jerarquías de clases.
+En el proyecto se aplica polimorfismo a partir de una relación de herencia presente
+en el modelo de clases del sistema.
 
-Sin embargo, el diseño está preparado para su incorporación futura mediante la
-extensión de entidades como Adjunto o HistorialEtapa.
+Las clases hijas heredan el comportamiento definido por una clase base y son
+utilizadas de forma transparente a través de la abstracción común.
 
-## Ejemplo de código (pseudocódigo)
+### Fragmento de diagrama UML
 
-```text
-// No se implementa polimorfismo en el modelo actual.
-// El diseño queda preparado para incorporar distintos tipos
-// de adjuntos o registros de historial en el futuro.
+```plantuml
+ClaseBase <|-- SubclaseA
+ClaseBase <|-- SubclaseB
+
+Ejemplo de código (pseudocódigo)
+
+objeto : ClaseBase
+
+objeto = nueva SubclaseA()
+objeto.ejecutar()
+
+objeto = nueva SubclaseB()
+objeto.ejecutar()
 
 Justificación técnica
 
-El diseño basado en asociaciones y composición permite extender el comportamiento del sistema sin modificar las clases existentes.
-Esto se alinea con el principio de Abierto/Cerrado, permitiendo incorporar
-polimorfismo en futuras versiones del sistema.
+El polimorfismo se cumple porque el sistema trabaja con una referencia del tipo
+ClaseBase y, sin conocer el tipo concreto de la instancia, invoca el mismo mensaje.
+Cada subclase responde de manera distinta, respetando el contrato definido por la clase base, cumpliendo así el principio de sustitución de Liskov (LSP).
