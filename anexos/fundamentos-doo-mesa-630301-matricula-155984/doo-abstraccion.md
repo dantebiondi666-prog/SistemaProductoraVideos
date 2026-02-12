@@ -12,33 +12,44 @@ En relación con los patrones de diseño, la abstracción es un habilitador fund
 
 ## Ejemplo en el proyecto
 
-En el proyecto se abstraen conceptos centrales del dominio a través de las clases `Proyecto` y `Etapa`, las cuales representan un proyecto audiovisual y una etapa de producción respectivamente.
+En el proyecto Sistema Productora de Videos, la abstracción se aplica al modelar los
+conceptos principales del dominio mediante las clases Proyecto y Etapa.
+
+Proyecto representa un trabajo audiovisual y Etapa representa una fase del proceso
+de producción. Ambas clases abstraen elementos del mundo real, ocultando detalles
+de implementación y concentrándose únicamente en la información y comportamientos
+relevantes para el sistema.
 
 Estas clases forman parte del diagrama definido en el archivo:
 
 - `01-diagrama-clases-final.puml`
 
-En dicho diagrama puede observarse cómo un `Proyecto` se relaciona con múltiples instancias de `Etapa`, modelando la estructura real de un proyecto compuesto por varias etapas.
+## Fragmento de diagrama UML
 
-Esta selección de clases refleja la abstracción del dominio, ya que se omiten detalles técnicos de implementación y se representan únicamente los conceptos relevantes para la gestión de la productora.
+```plantuml
+class Proyecto {
+  nombre
+  estado
+}
 
-Justificación técnica:
+class Etapa {
+  nombre
+  estado
+}
 
-- La clase `Proyecto` encapsula la información y los comportamientos propios de un proyecto audiovisual.
-- La clase `Etapa` encapsula la información y los comportamientos asociados a una fase del proyecto.
-- La relación entre ambas clases permite representar una composición lógica del dominio.
+Proyecto "1" *-- "1..*" Etapa
 
----
+Ejemplo de código (pseudocódigo)
 
-## Ejemplo de código (pseudocódigo)
+proyecto = nuevo Proyecto("Video institucional")
 
-```text
-clase Proyecto
-    atributo nombre
-    atributo estado
-    atributo cliente
-    lista de Etapa etapas
+etapa = nueva Etapa("Edición")
 
-    método agregarEtapa(etapa)
-        agregar etapa a la lista
-fin clase
+proyecto.agregarEtapa(etapa)
+
+Justificación técnica
+
+El fragmento de pseudocódigo utiliza únicamente las abstracciones Proyecto y Etapa, sin depender de estructuras internas ni detalles de almacenamiento.
+Esto demuestra el uso de abstracción, ya que el cliente del modelo interactúa con
+objetos que representan conceptos del dominio, delegando en dichas clases la gestión de su comportamiento interno.
+

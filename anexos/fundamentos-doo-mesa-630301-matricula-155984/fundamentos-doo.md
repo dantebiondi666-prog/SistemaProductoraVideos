@@ -3,12 +3,13 @@
 En este anexo se describen los principales fundamentos del Diseño Orientado a
 Objetos aplicados al modelo de clases del sistema de la productora de videos.
 
-Los conceptos desarrollados son:
+```md
+## Los conceptos desarrollados son:
 
-- Abstracción
-- Encapsulamiento
-- Herencia
-- Polimorfismo
+- [Abstracción](doo-abstraccion.md)
+- [Encapsulamiento](doo-encapsulamiento.md)
+- [Herencia](doo-herencia.md)
+- [Polimorfismo](doo-polimorfismo.md)
 
 Cada uno de estos fundamentos se analiza a partir de las clases y relaciones
 presentes en el diagrama del sistema, utilizando como referencia las entidades
