@@ -1,0 +1,37 @@
+```plantuml
+@startuml
+title Polimorfismo - Envío de Notificaciones por Canal
+
+interface ServicioNotificaciones {
+  + enviar(n: Notificacion): boolean
+}
+
+class ServicioNotificacionesEmail {
+  + enviar(n: Notificacion): boolean
+}
+
+class ServicioNotificacionesWhatsApp {
+  + enviar(n: Notificacion): boolean
+}
+
+class ServicioNotificacionesPush {
+  + enviar(n: Notificacion): boolean
+}
+
+class Usuario {
+  + notificar(n: Notificacion, s: ServicioNotificaciones): void
+}
+
+class Notificacion {
+  - asunto: String
+  - mensaje: String
+  - destino: Usuario
+}
+
+ServicioNotificacionesEmail ..|> ServicioNotificaciones
+ServicioNotificacionesWhatsApp ..|> ServicioNotificaciones
+ServicioNotificacionesPush ..|> ServicioNotificaciones
+
+Usuario --> ServicioNotificaciones : usa (polimórfico)
+
+@enduml
