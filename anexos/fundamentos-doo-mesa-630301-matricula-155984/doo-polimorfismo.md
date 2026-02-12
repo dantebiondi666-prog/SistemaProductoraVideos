@@ -1,35 +1,46 @@
+```md
 # Polimorfismo
 
 ## Ejemplo en el proyecto
 
-En el modelo actual del Sistema Productora de Videos no se aplica polimorfismo, ya que el diseño
-no incorpora jerarquías de herencia ni interfaces que permitan tratar objetos de distintos tipos
-a través de una abstracción común.
+El polimorfismo se aplica cuando la etapa trabaja con el tipo abstracto `EstadoEtapa`,
+sin conocer la clase concreta que lo implementa.
 
-Todas las colaboraciones entre objetos se realizan mediante asociaciones directas entre clases
-concretas del dominio.
+Las instancias de `Pendiente`, `EnCurso`, `Bloqueada` o `Finalizada` se utilizan de forma
+intercambiable a través de la referencia común `EstadoEtapa`.
 
-Por este motivo, en esta versión del proyecto no se observa la aplicación del principio de
-polimorfismo.
+## Fragmento de diagrama UML
 
-## Ejemplo de código
+```plantuml
+@startuml
 
-No se incluyen ejemplos de polimorfismo en el proyecto, debido a que el diseño actual no incorpora
-herencia ni interfaces.
+abstract class EstadoEtapa
+class Pendiente
+class EnCurso
+class Bloqueada
+class Finalizada
 
+EstadoEtapa <|-- Pendiente
+EstadoEtapa <|-- EnCurso
+EstadoEtapa <|-- Bloqueada
+EstadoEtapa <|-- Finalizada
+
+@enduml
+```
 
 ## Ejemplo de código (pseudocódigo)
 
-objeto : ClaseBase
+estadoActual : EstadoEtapa
 
-objeto = nueva SubclaseA()
-objeto.ejecutar()
+estadoActual = new Pendiente()
+estadoActual.cambiarEstado(etapa, new EnCurso())
 
-objeto = nueva SubclaseB()
-objeto.ejecutar()
+estadoActual = new EnCurso()
+estadoActual.cambiarEstado(etapa, new Finalizada())
 
 Justificación técnica
 
-El polimorfismo se cumple porque el sistema trabaja con una referencia del tipo
-ClaseBase y, sin conocer el tipo concreto de la instancia, invoca el mismo mensaje.
-Cada subclase responde de manera distinta, respetando el contrato definido por la clase base, cumpliendo así el principio de sustitución de Liskov (LSP).
+La etapa opera sobre la abstracción EstadoEtapa, permitiendo que distintas
+implementaciones concreten el comportamiento sin que el código cliente deba modificarse.
+Esto cumple con el principio de sustitución (LSP) y permite extender el sistema incorporando
+nuevos estados sin afectar al resto del diseño.

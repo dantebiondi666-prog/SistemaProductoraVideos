@@ -55,15 +55,16 @@ class Etapa {
   + asignarResponsable(usuario: Usuario)
 }
 @enduml
- ```
-
-
+```md
 ## Ejemplo de código (pseudocódigo)
+
 ```java
 etapa.cambiarEstado(EN_PROCESO, usuarioActual);
 etapa.asignarResponsable(usuario);
 
-Justificación técnica
+```md
+```
+### Justificación técnica
 
 En el diseño actual no se utiliza polimorfismo basado en herencia, ya que no existen
 clases base ni subclases en el modelo.

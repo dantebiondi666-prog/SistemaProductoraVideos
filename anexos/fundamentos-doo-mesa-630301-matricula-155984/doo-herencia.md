@@ -2,15 +2,41 @@
 
 ## Ejemplo en el proyecto
 
-En el modelo actual del Sistema Productora de Videos no se utilizan relaciones de herencia entre clases.
-En el diagrama de clases final no se observan relaciones de generalización (flecha con triángulo vacío).
+En el proyecto se aplica herencia en el manejo de los estados de una etapa.  
+La clase abstracta `EstadoEtapa` define el comportamiento común de los estados, y las clases
+`Pendiente`, `EnCurso`, `Bloqueada` y `Finalizada` heredan de ella, especializando el
+comportamiento según el estado concreto.
 
-El diseño fue realizado utilizando asociaciones, agregación y composición entre las clases, priorizando
-la simplicidad del modelo y la claridad del dominio.
+Este diseño permite modelar los distintos estados de una etapa como objetos con un
+comportamiento específico, reutilizando la estructura definida en la clase base.
 
-Por este motivo, en esta versión del proyecto no se aplica el principio de herencia.
+## Fragmento de diagrama UML
 
-## Ejemplo de código
+```plantuml
+@startuml
 
-No se presentan ejemplos de código con herencia en el proyecto, ya que no existen clases base ni
-clases derivadas en el diseño actual.
+abstract class EstadoEtapa
+class Pendiente
+class EnCurso
+class Bloqueada
+class Finalizada
+
+EstadoEtapa <|-- Pendiente
+EstadoEtapa <|-- EnCurso
+EstadoEtapa <|-- Bloqueada
+EstadoEtapa <|-- Finalizada
+
+@enduml
+```
+
+## Ejemplo de código (pseudocódigo)
+estado : EstadoEtapa
+
+estado = new Pendiente()
+estado.cambiarEstado(etapa, new EnCurso())
+
+## Justificación técnica
+
+El uso de herencia permite definir una abstracción común para los distintos estados de una
+etapa, evitando duplicación de comportamiento y facilitando la extensión del sistema al
+incorporar nuevos estados sin modificar las clases existentes.

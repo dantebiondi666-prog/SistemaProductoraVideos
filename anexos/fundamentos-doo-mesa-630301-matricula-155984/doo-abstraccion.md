@@ -34,16 +34,16 @@ Proyecto "1" o-- "1" Cliente
 Etapa "1" --> "0..1" Usuario
 
 @enduml
-```
-
+```md
 ## Ejemplo de código (pseudocódigo)
+
 
 proyecto = nuevo Proyecto("Video institucional")
 
 etapa = nueva Etapa("Edición")
 
 proyecto.agregarEtapa(etapa)
-
+```
 ### Justificación técnica
 
 El fragmento de pseudocódigo utiliza únicamente las abstracciones Proyecto y Etapa, sin depender de estructuras internas ni detalles de almacenamiento.
