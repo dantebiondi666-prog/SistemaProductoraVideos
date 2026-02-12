@@ -10,7 +10,7 @@ En relación con los patrones de diseño, la abstracción es un habilitador fund
 
 ---
 
-### Ejemplo en el proyecto
+## Ejemplo en el proyecto
 
 En el proyecto Sistema Productora de Videos, la abstracción se aplica al modelar los
 conceptos principales del dominio mediante las clases Proyecto y Etapa.
@@ -27,19 +27,16 @@ Estas clases forman parte del diagrama definido en el archivo:
 ### Fragmento de diagrama UML
 
 ```plantuml
-class Proyecto {
-  nombre
-  estado
-}
-
-class Etapa {
-  nombre
-  estado
-}
+@startuml
 
 Proyecto "1" *-- "1..*" Etapa
+Proyecto "1" o-- "1" Cliente
+Etapa "1" --> "0..1" Usuario
 
-### Ejemplo de código (pseudocódigo)
+@enduml
+```
+
+## Ejemplo de código (pseudocódigo)
 
 proyecto = nuevo Proyecto("Video institucional")
 

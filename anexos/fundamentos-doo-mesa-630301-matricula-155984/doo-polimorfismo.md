@@ -18,7 +18,7 @@ No se incluyen ejemplos de polimorfismo en el proyecto, debido a que el diseño 
 herencia ni interfaces.
 
 
-### Ejemplo de código (pseudocódigo)
+## Ejemplo de código (pseudocódigo)
 
 objeto : ClaseBase
 

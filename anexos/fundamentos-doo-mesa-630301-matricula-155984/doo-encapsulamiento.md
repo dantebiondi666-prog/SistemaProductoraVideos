@@ -36,7 +36,7 @@ Responsabilidad Única (SRP), ya que cada clase es responsable de proteger y adm
 su propio estado.
 
 ```md
-### Ejemplo en el proyecto
+## Ejemplo en el proyecto
 
 En el modelo de clases actual del sistema no se definieron jerarquías de herencia ni
 interfaces, por lo que no se aplica polimorfismo de manera explícita en el diseño.
@@ -46,20 +46,22 @@ composición, priorizando un diseño simple y centrado en las entidades principa
 del problema.
 
 ### Fragmento de diagrama UML
-
 ```plantuml
-class Proyecto
-class Etapa
-class Adjunto
+@startuml
+class Etapa {
+  - estado : EstadoEtapa
+  - responsable : Usuario
+  + cambiarEstado(nuevoEstado: EstadoEtapa, actor: Usuario)
+  + asignarResponsable(usuario: Usuario)
+}
+@enduml
+ ```
 
-Proyecto "1" *-- "1..*" Etapa
-Etapa "1" o-- "0..*" Adjunto
 
-
-### Ejemplo de código (pseudocódigo)
-etapa = obtenerEtapa(idEtapa)
-
-listaAdjuntos = etapa.obtenerAdjuntos()
+## Ejemplo de código (pseudocódigo)
+```java
+etapa.cambiarEstado(EN_PROCESO, usuarioActual);
+etapa.asignarResponsable(usuario);
 
 Justificación técnica
 
