@@ -47,13 +47,15 @@ EstadoEtapa <|-- Finalizada
 @enduml
 ```
 
+```md
 ## Ejemplo de código (pseudocódigo)
 
 ```text
 estado : EstadoEtapa
+
 estado = new Pendiente()
 
-```
+estado.cambiarEstado(etapa, new EnCurso())
 ```md
 ### Justificación técnica
 

@@ -4,42 +4,40 @@ El encapsulamiento es un principio del Diseño Orientado a Objetos que consiste 
 proteger el estado interno de los objetos y permitir que dicho estado sea modificado
 únicamente a través de operaciones definidas por la propia clase.
 
-En el sistema de la productora de videos, este principio se observa principalmente
-en la clase Etapa.
+Su importancia radica en preservar la consistencia de los objetos, evitar dependencias
+innecesarias con la implementación interna y facilitar el mantenimiento del sistema.
 
-La clase Etapa posee atributos como estado, prioridad, fechas, observaciones y
-responsable, los cuales no se modifican de manera directa desde otras clases, sino
-mediante métodos específicos que controlan el cambio de su estado interno.
+### Relación con principios SOLID y patrones de diseño
 
-Entre las operaciones que reflejan este principio se encuentran:
+El encapsulamiento se relaciona directamente con el principio de responsabilidad única
+(SRP), ya que cada clase es responsable de mantener y proteger su propio estado interno.
 
-- cambiarEstado(nuevoEstado, actor)
-- asignarResponsable(usuario)
-- agregarComentario(comentario)
-- adjuntar(adjunto)
+También se relaciona con el principio de abierto/cerrado (OCP), ya que al exponer
+interfaces estables se pueden extender comportamientos sin modificar la estructura
+interna de las clases.
 
-De esta manera, la propia clase Etapa es la encargada de validar y centralizar
-las modificaciones sobre su información.
+En cuanto a los patrones de diseño, el encapsulamiento es fundamental en patrones como
+State y Strategy, donde el comportamiento y el estado quedan contenidos dentro de
+objetos bien definidos, evitando que el resto del sistema dependa de sus detalles
+internos.
 
-Esto permite:
-
-- evitar modificaciones inconsistentes del estado de una etapa,
-- centralizar las reglas de negocio,
-- mantener bajo acoplamiento entre las clases.
-
-El encapsulamiento también se aplica en la clase Proyecto, ya que la gestión de sus
-etapas se realiza a través de operaciones como agregarEtapa y eliminarEtapa, evitando
-el acceso directo a la estructura interna que las contiene.
-
-Este enfoque favorece la mantenibilidad del sistema y se alinea con el principio de
-Responsabilidad Única (SRP), ya que cada clase es responsable de proteger y administrar
-su propio estado.
+---
 
 ## Ejemplo en el proyecto
 
-En la clase Etapa, los atributos como estado y responsable se encuentran encapsulados
-y no pueden ser modificados directamente desde el exterior.  
-El cambio de estos valores se realiza únicamente a través de métodos públicos que controlan la modificación del estado interno.
+En el sistema de la productora de videos, este principio se observa principalmente en
+la clase Etapa.
+
+Los atributos estado y responsable se encuentran definidos con visibilidad privada,
+evitando su acceso directo desde otras clases.
+
+El cambio del estado de una etapa y la asignación de responsables se realiza únicamente
+a través de operaciones como cambiarEstado y asignarResponsable, garantizando la
+consistencia y las reglas de negocio del dominio.
+
+De la misma forma, la gestión de las etapas de un proyecto se realiza a través de
+operaciones como agregarEtapa y eliminarEtapa, evitando el acceso directo a la
+estructura interna que las contiene.
 
 ### Fragmento de diagrama UML
 
@@ -56,14 +54,12 @@ class Etapa {
 
 ## Ejemplo de código (pseudocódigo)
 
-etapa.cambiarEstado(EN_PROCESO, usuarioActual)
+etapa.cambiarEstado(nuevoEstado, usuarioActual)
 etapa.asignarResponsable(usuario)
 ```
 ### Justificación técnica
 
-El encapsulamiento permite proteger el estado interno de los objetos, obligando a que
-las modificaciones se realicen mediante operaciones controladas, asegurando la
-consistencia y las reglas de negocio del dominio.
+El encapsulamiento se aplica porque el estado interno de la clase Etapa no puede ser modificado directamente desde el exterior y solo es accesible mediante métodos públicos controlados por la propia clase.
 ```
 ### Relación con principios SOLID y patrones
 ```
