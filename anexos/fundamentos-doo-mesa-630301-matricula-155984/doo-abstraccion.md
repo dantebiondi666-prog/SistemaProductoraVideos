@@ -34,15 +34,12 @@ Proyecto "1" o-- "1" Cliente
 Etapa "1" --> "0..1" Usuario
 
 @enduml
+```
 ```md
 ## Ejemplo de código (pseudocódigo)
 
-
+```text
 proyecto = nuevo Proyecto("Video institucional")
-
-etapa = nueva Etapa("Edición")
-
-proyecto.agregarEtapa(etapa)
 ```
 ### Justificación técnica
 

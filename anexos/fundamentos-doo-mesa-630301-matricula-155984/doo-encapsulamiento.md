@@ -35,17 +35,15 @@ Este enfoque favorece la mantenibilidad del sistema y se alinea con el principio
 Responsabilidad Única (SRP), ya que cada clase es responsable de proteger y administrar
 su propio estado.
 
-```md
 ## Ejemplo en el proyecto
 
-En el modelo de clases actual del sistema no se definieron jerarquías de herencia ni
-interfaces, por lo que no se aplica polimorfismo de manera explícita en el diseño.
-
-Las clases del dominio se relacionan mediante asociaciones, dependencias y
-composición, priorizando un diseño simple y centrado en las entidades principales
-del problema.
+En la clase Etapa, los atributos como estado y responsable se encuentran encapsulados
+y no pueden ser modificados directamente desde el exterior.  
+El cambio de estos valores se realiza únicamente a través de métodos públicos que
+controlan la modificación del estado interno.
 
 ### Fragmento de diagrama UML
+
 ```plantuml
 @startuml
 class Etapa {
@@ -55,21 +53,14 @@ class Etapa {
   + asignarResponsable(usuario: Usuario)
 }
 @enduml
-```md
+
 ## Ejemplo de código (pseudocódigo)
 
-```java
-etapa.cambiarEstado(EN_PROCESO, usuarioActual);
-etapa.asignarResponsable(usuario);
+etapa.cambiarEstado(EN_PROCESO, usuarioActual)
+etapa.asignarResponsable(usuario)
 
-```md
-```
-### Justificación técnica
+Justificación técnica
 
-En el diseño actual no se utiliza polimorfismo basado en herencia, ya que no existen
-clases base ni subclases en el modelo.
-
-Esto implica que el principio de sustitución de Liskov (LSP) no se aplica de forma
-directa en esta versión del diseño, quedando el modelo preparado para una futura
-evolución donde puedan incorporarse jerarquías o interfaces sin modificar las
-relaciones principales existentes.
+El encapsulamiento permite proteger el estado interno de los objetos, obligando a que
+las modificaciones se realicen mediante operaciones controladas, asegurando la
+consistencia y las reglas de negocio del dominio.

@@ -27,16 +27,15 @@ EstadoEtapa <|-- Bloqueada
 EstadoEtapa <|-- Finalizada
 
 @enduml
-```
 
+```md
 ## Ejemplo de código (pseudocódigo)
-estado : EstadoEtapa
 
+```text
+estado : EstadoEtapa
 estado = new Pendiente()
 estado.cambiarEstado(etapa, new EnCurso())
-
+```
 ## Justificación técnica
 
-El uso de herencia permite definir una abstracción común para los distintos estados de una
-etapa, evitando duplicación de comportamiento y facilitando la extensión del sistema al
-incorporar nuevos estados sin modificar las clases existentes.
+La herencia se aplica mediante la jerarquía de la clase base EstadoEtapa y sus clases derivadas Pendiente, EnCurso, Bloqueada y Finalizada, que reutilizan la estructura común y especializan su comportamiento.

@@ -30,17 +30,14 @@ EstadoEtapa <|-- Finalizada
 
 ## Ejemplo de código (pseudocódigo)
 
+```text
 estadoActual : EstadoEtapa
-
-estadoActual = new Pendiente()
-estadoActual.cambiarEstado(etapa, new EnCurso())
-
 estadoActual = new EnCurso()
 estadoActual.cambiarEstado(etapa, new Finalizada())
+```
 
 Justificación técnica
 
-La etapa opera sobre la abstracción EstadoEtapa, permitiendo que distintas
-implementaciones concreten el comportamiento sin que el código cliente deba modificarse.
-Esto cumple con el principio de sustitución (LSP) y permite extender el sistema incorporando
-nuevos estados sin afectar al resto del diseño.
+El polimorfismo se aplica porque el sistema utiliza referencias del tipo EstadoEtapa
+que en tiempo de ejecución pueden ser instancias concretas como EnCurso o Finalizada,
+ejecutando el comportamiento correspondiente según el tipo real del objeto.
