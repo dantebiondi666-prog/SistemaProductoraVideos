@@ -1,0 +1,38 @@
+@startuml
+title Encapsulamiento - Etapa y Notificación
+
+class Etapa {
+  - stageId: UUID
+  - estado: EstadoEtapa
+  - fechaFinReal: Date
+  - observaciones: String
+  - responsable: Usuario
+  + cambiarEstado(nuevoEstado: EstadoEtapa): void
+  + registrarFechaFinReal(fecha: Date): void
+  + agregarComentario(texto: String): void
+  + getEstado(): EstadoEtapa
+}
+
+class Notificacion {
+  - notificationId: UUID
+  - asunto: String
+  - mensaje: String
+  - canal: CanalNotificacion
+  - fechaHora: DateTime
+  - destino: Usuario
+  - resultado: String
+  + marcarLeida(): void
+  + programarEnvio(): void
+  + pendiente(): boolean
+}
+
+class Usuario {
+  - userId: UUID
+  - nombre: String
+  - email: String
+  + notificar(n: Notificacion): void
+}
+
+Etapa --> Usuario : responsable
+Notificacion --> Usuario : destino
+@enduml

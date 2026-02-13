@@ -1,0 +1,32 @@
+@startuml
+title Herencia - Tipos de Notificación por Canal
+
+class Notificacion {
+  - notificationId: UUID
+  - asunto: String
+  - mensaje: String
+  - fechaHora: DateTime
+  - destino: Usuario
+  + marcarLeida(): void
+  + pendiente(): boolean
+}
+
+class NotificacionEmail {
+  - emailDestino: String
+  + validarFormato(): boolean
+}
+
+class NotificacionWhatsApp {
+  - telefonoDestino: String
+  + validarLongitudMensaje(): boolean
+}
+
+class NotificacionPush {
+  - tokenDispositivo: String
+  + armarPayload(): String
+}
+
+NotificacionEmail --|> Notificacion
+NotificacionWhatsApp --|> Notificacion
+NotificacionPush --|> Notificacion
+@enduml

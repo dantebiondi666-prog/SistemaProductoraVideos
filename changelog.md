@@ -5,6 +5,14 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+## [Examne Final MESA N°630302 - N°Matrícula 155667] - (13-02-2026)
+
+### Added
+
+- [feature/anexo-fundamentos-doo-mesa-630302-matricula-155667] Incorporación del anexo **Fundamentos DOO** (Abstracción, Encapsulamiento, Herencia y Polimorfismo), con índice y diagramas UML (PUML/PNG).
+  PR: [#179](https://github.com/dantebiondi666-prog/SistemaProductoraVideos/pull/179) - @leanlex (Examen Final)
+
+
 ## [Release Parcial N°2] - (20-11-2025)
 
 ### Fixed
