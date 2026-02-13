@@ -13,8 +13,8 @@ El encapsulamiento se relaciona directamente con el principio de responsabilidad
 (SRP), ya que cada clase es responsable de mantener y proteger su propio estado interno.
 
 También se relaciona con el principio de abierto/cerrado (OCP), ya que al exponer
-interfaces estables se pueden extender comportamientos sin modificar la estructura
-interna de las clases.
+operaciones públicas bien definidas se pueden extender comportamientos sin modificar
+la estructura interna de las clases.
 
 En cuanto a los patrones de diseño, el encapsulamiento es fundamental en patrones como
 State y Strategy, donde el comportamiento y el estado quedan contenidos dentro de
@@ -32,8 +32,8 @@ Los atributos estado y responsable se encuentran definidos con visibilidad priva
 evitando su acceso directo desde otras clases.
 
 El cambio del estado de una etapa y la asignación de responsables se realiza únicamente
-a través de operaciones como cambiarEstado y asignarResponsable, garantizando la
-consistencia y las reglas de negocio del dominio.
+a través de las operaciones cambiarEstado y asignarResponsable, garantizando la
+consistencia y el cumplimiento de las reglas de negocio del dominio.
 
 De la misma forma, la gestión de las etapas de un proyecto se realiza a través de
 operaciones como agregarEtapa y eliminarEtapa, evitando el acceso directo a la
@@ -52,17 +52,20 @@ class Etapa {
 @enduml
 ```
 
+```md
 ## Ejemplo de código (pseudocódigo)
 
+```text
 etapa.cambiarEstado(nuevoEstado, usuarioActual)
 etapa.asignarResponsable(usuario)
 ```
 ### Justificación técnica
 
 El encapsulamiento se aplica porque el estado interno de la clase Etapa no puede ser modificado directamente desde el exterior y solo es accesible mediante métodos públicos controlados por la propia clase.
+
 ```
 ### Relación con principios SOLID y patrones
-```
+
 El encapsulamiento se relaciona directamente con el principio de responsabilidad única (SRP),
 ya que cada clase es responsable de mantener y proteger su propio estado interno.
 
@@ -73,3 +76,4 @@ el estado interno de las clases.
 En cuanto a los patrones de diseño, el encapsulamiento es fundamental en patrones como
 State y Strategy, donde el comportamiento y el estado quedan contenidos dentro de
 objetos bien definidos, evitando que el resto del sistema dependa de sus detalles internos.
+```
